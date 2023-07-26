@@ -1,6 +1,7 @@
 package com.aetherteam.cumulus.client.event.listeners;
 
 import com.aetherteam.cumulus.Cumulus;
+import com.aetherteam.cumulus.api.MenuHelper;
 import com.aetherteam.cumulus.client.CumulusClient;
 import com.aetherteam.cumulus.client.event.hooks.MenuHooks;
 import net.minecraft.client.gui.components.Button;
@@ -14,6 +15,10 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = Cumulus.MODID, value = Dist.CLIENT)
 public class MenuListener {
+    /**
+     * @see MenuHooks#prepareCustomMenus(MenuHelper)
+     * @see MenuHooks#refreshBackgrounds(Screen, MenuHelper)
+     */
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onGuiOpenHighest(ScreenEvent.Opening event) {
         Screen newScreen = event.getNewScreen();
@@ -21,6 +26,10 @@ public class MenuListener {
         MenuHooks.refreshBackgrounds(newScreen, CumulusClient.MENU_HELPER);
     }
 
+    /**
+     * @see MenuHooks#setLastSplash(Screen, MenuHelper)
+     * @see MenuHooks#trackFallbacks(Screen)
+     */
     @SubscribeEvent(priority = EventPriority.LOW)
     public static void onGuiOpenLow(ScreenEvent.Opening event) {
         Screen screen = event.getScreen();
@@ -33,11 +42,17 @@ public class MenuListener {
         }
     }
 
+    /**
+     * @see MenuHooks#resetFade(MenuHelper)
+     */
     @SubscribeEvent
     public static void onGuiDraw(ScreenEvent.Render event) {
         MenuHooks.resetFade(CumulusClient.MENU_HELPER);
     }
 
+    /**
+     * @see MenuHooks#setupMenuScreenButton(Screen)
+     */
     @SubscribeEvent
     public static void onGuiInitialize(ScreenEvent.Init.Post event) {
         Screen screen = event.getScreen();

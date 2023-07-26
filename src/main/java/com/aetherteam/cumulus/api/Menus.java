@@ -29,10 +29,16 @@ public class Menus {
         return MENU_REGISTRY.get().getValue(new ResourceLocation(id));
     }
 
+    /**
+     * @return A {@link List} of all registered {@link Menu}s.
+     */
     public static List<Menu> getMenus() {
         return MENU_REGISTRY.get().getValues().stream().toList();
     }
 
+    /**
+     * @return A {@link List} of all {@link Menu}s' {@link Screen}s.
+     */
     public static List<Screen> getMenuScreens() {
         return getMenus().stream().map(Menu::getScreen).collect(Collectors.toList());
     }

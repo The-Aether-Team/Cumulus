@@ -19,6 +19,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.common.MinecraftForge;
 
+import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
@@ -31,6 +32,7 @@ public class MenuSelectionScreen extends Screen {
     private MenuSelectionList menuList;
     private Button launchButton;
     private final List<Menu> menus;
+    @Nullable
     private MenuSelectionList.MenuEntry selected = null;
 
     private static final int EXTERIOR_WIDTH_PADDING = 13;
@@ -103,6 +105,7 @@ public class MenuSelectionScreen extends Screen {
         this.menus.forEach((menu) -> menuListViewConsumer.accept(newEntry.apply(menu)));
     }
 
+    @Nullable
     public Minecraft getMinecraftInstance() {
         return this.minecraft;
     }
@@ -118,6 +121,8 @@ public class MenuSelectionScreen extends Screen {
 
     @Override
     public void onClose() {
-        this.minecraft.setScreen(this.parentScreen);
+        if (this.getMinecraftInstance() != null) {
+            this.getMinecraftInstance().setScreen(this.parentScreen);
+        }
     }
 }

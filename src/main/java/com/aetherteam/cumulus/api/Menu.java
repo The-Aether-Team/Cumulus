@@ -41,38 +41,66 @@ public class Menu {
         this.background = background;
     }
 
+    /**
+     * @return The {@link ResourceLocation} for the icon that this menu has in the {@link com.aetherteam.cumulus.client.gui.screen.MenuSelectionScreen selection screen}.
+     */
     public ResourceLocation getIcon() {
         return this.icon;
     }
 
+    /**
+     * @return The {@link Component} for the name that this menu has in the {@link com.aetherteam.cumulus.client.gui.screen.MenuSelectionScreen selection screen}.
+     */
     public Component getName() {
         return this.name;
     }
 
+    /**
+     * @return The {@link TitleScreen} to display for this menu.
+     */
     public TitleScreen getScreen() {
         return this.screen;
     }
 
+    /**
+     * @return The {@link BooleanSupplier} condition for when this menu should be able to display.
+     */
     public BooleanSupplier getCondition() {
         return this.condition;
     }
 
+    /**
+     * @return {@link Runnable} for a function to run when this menu is applied.
+     */
     public Runnable getApply() {
         return this.apply;
     }
 
+    //todo requires a mod to implement the music on their end; cumulus should have a system for this instead.
+    /**
+     * @return {@link Music} to run in the menu.
+     */
     public Music getMusic() {
         return this.music;
     }
 
+    /**
+     * @return A {@link Background} tied to this menu; this is used to replace dirt backgrounds.
+     */
     public Background getBackground() {
         return this.background;
     }
 
+    /**
+     * @return The {@link ResourceLocation} of the {@link Menu}'s full registry ID.
+     */
     public ResourceLocation getId() {
         return Menus.MENU_REGISTRY.get().getKey(this);
     }
 
+    /**
+     * @return The {@link String} of the {@link Menu}'s full registry ID, converted from a {@link ResourceLocation} from {@link Menu#getId()}.
+     */
     public String toString() {
         return this.getId().toString();
     }
@@ -82,16 +110,25 @@ public class Menu {
         private Music music = Musics.MENU;
         private Background background = Background.MINECRAFT;
 
+        /**
+         * @see Menu#getApply()
+         */
         public Properties apply(Runnable apply) {
             this.apply = apply;
             return this;
         }
 
+        /**
+         * @see Menu#getMusic()
+         */
         public Properties music(Music music) {
             this.music = music;
             return this;
         }
 
+        /**
+         * @see Menu#getBackground()
+         */
         public Properties background(Background background) {
             this.background = background;
             return this;
@@ -126,6 +163,10 @@ public class Menu {
                 .footerSeparator(DEFAULT_FOOTER_SEPARATOR)
                 .tabButton(DEFAULT_TAB_BUTTON);
 
+        /**
+         * Applies a background through mixin accessors.
+         * @param background The {@link Background} to apply.
+         */
         public static void apply(Background background) {
             GuiComponentAccessor.cumulus$setBackgroundLocation(background.getRegularBackground());
             RealmsPlayerScreenAccessor.cumulus$setOptionsBackground(background.getRegularBackground());
@@ -135,51 +176,84 @@ public class Menu {
             TabButtonAccessor.cumulus$setTextureLocation(background.getTabButton());
         }
 
+        /**
+         * Resets the background to the default {@link Background#MINECRAFT} one.
+         */
         public static void reset() {
             apply(MINECRAFT);
         }
 
+        /**
+         * @see Background#getRegularBackground()
+         */
         public Background regularBackground(ResourceLocation regularBackground) {
             this.regularBackground = regularBackground;
             return this;
         }
 
+        /**
+         * @see Background#getDarkBackground()
+         */
         public Background darkBackground(ResourceLocation darkBackground) {
             this.darkBackground = darkBackground;
             return this;
         }
 
+        /**
+         * @see Background#getHeaderSeparator()
+         */
         public Background headerSeparator(ResourceLocation headerSeparator) {
             this.headerSeparator = headerSeparator;
             return this;
         }
 
+        /**
+         * @see Background#getFooterSeparator()
+         */
         public Background footerSeparator(ResourceLocation footerSeparator) {
             this.footerSeparator = footerSeparator;
             return this;
         }
 
+        /**
+         * @see Background#getTabButton()
+         */
         public Background tabButton(ResourceLocation tabButton) {
             this.tabButton = tabButton;
             return this;
         }
 
+        /**
+         * @return The {@link ResourceLocation} for the regular dirt background texture to replace.
+         */
         public ResourceLocation getRegularBackground() {
             return this.regularBackground;
         }
 
+        /**
+         * @return The {@link ResourceLocation} for the lighter dirt background texture to replace.
+         */
         public ResourceLocation getDarkBackground() {
             return this.darkBackground;
         }
 
+        /**
+         * @return The {@link ResourceLocation} for the dirt header separator texture to replace.
+         */
         public ResourceLocation getHeaderSeparator() {
             return this.headerSeparator;
         }
 
+        /**
+         * @return The {@link ResourceLocation} for the dirt footer separator texture to replace.
+         */
         public ResourceLocation getFooterSeparator() {
             return this.footerSeparator;
         }
 
+        /**
+         * @return The {@link ResourceLocation} for the dirt tab button texture to replace.
+         */
         public ResourceLocation getTabButton() {
             return this.tabButton;
         }
