@@ -1,27 +1,27 @@
 modLoader="javafml"
 loaderVersion="[45,)"
-license="All rights reserved"
-issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/"
+license="Assets: All Rights Reserved; Code: LGPL-3.0"
+issueTrackerURL="https://github.com/The-Aether-Team/Cumulus/issues"
+
 [[mods]]
-modId="examplemod"
+modId="cumulus_menus"
 version="${file.jarVersion}"
-displayName="Example Mod"
-updateJSONURL="https://change.me.example.invalid/updates.json"
-displayURL="https://change.me.to.your.mods.homepage.example.invalid/"
-logoFile="examplemod.png"
-credits="Thanks for this example mod goes to Java"
-authors="Love, Cheese and small house plants"
-displayTest="MATCH_VERSION"
+displayName="Cumulus"
+updateJSONURL="https://github.com/The-Aether-Team/Cumulus/raw/1.19.4-develop/update.json"
+displayURL="https://modrinth.com/mod/cumulus"
+logoFile="cumulus.png"
+credits="kingbdogz, for the original Main Menu API that this is inspired by"
+authors="bconlon"
 description='''
-TBA...
-'''
-[[dependencies.examplemod]]
+    A library for custom menu registration.'''
+
+[[dependencies.cumulus_menus]]
     modId="forge"
     mandatory=true
-    versionRange="[45,)"
+    versionRange="[45.1.0,)"
     ordering="NONE"
     side="BOTH"
-[[dependencies.examplemod]]
+[[dependencies.cumulus_menus]]
     modId="minecraft"
     mandatory=true
     versionRange="[1.19.4,1.20)"
