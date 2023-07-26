@@ -2,6 +2,8 @@
 
 A library for custom menu registration, used by the Aether mods.
 
+The library adds a new menu selection screen which can be used to switch the game's main menu and dirt backgrounds. The button to access the selection screen can be found in the top right corner of the main menu.
+
 ## :heart: Support The Aether Team
 
 [![Patreon](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3DTheAetherTeam%26type%3Dpatrons&style=flat-square&logoColor=white)](https://patreon.com/TheAetherTeam)
