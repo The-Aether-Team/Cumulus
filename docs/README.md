@@ -1,6 +1,6 @@
 # Cumulus
 
-TBA...
+A library for custom menu registration, used by the Aether mods.
 
 ## :heart: Support The Aether Team
 
