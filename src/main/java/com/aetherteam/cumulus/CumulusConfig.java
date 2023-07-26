@@ -22,7 +22,7 @@ public class CumulusConfig {
             enable_menu_list_button = builder
                     .comment("Adds a button to the top right of the main menu screen to open a menu selection screen")
                     .translation("config.cumulus_menus.client.menu.enable_menu_list_button")
-                    .define("Enables menu selection button", false);
+                    .define("Enables menu selection button", true);
             builder.pop();
         }
     }
