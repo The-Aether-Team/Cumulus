@@ -6,7 +6,7 @@ orbs:
 parameters:
   artifact-name:
     type: string
-    default: cumulus_menus-1.19.4-0.0.3-forge.jar
+    default: cumulus_menus-1.19.4-0.0.4-forge.jar
 
 jobs:
   build:
