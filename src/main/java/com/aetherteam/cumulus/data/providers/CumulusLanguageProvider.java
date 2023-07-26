@@ -15,11 +15,15 @@ public abstract class CumulusLanguageProvider extends LanguageProvider {
         this.add("gui." + this.id + "." + key, name);
     }
 
-    public void addPackDescription(String packName, String description) {
-        this.add("pack." + this.id + "." + packName + ".description", description);
-    }
-
     public void addMenuTitle(String key, String name) {
         this.add(this.id + ".menu_title." + key, name);
+    }
+
+    public void addClientConfig(String prefix, String key, String name) {
+        this.add("config." + this.id + ".client." + prefix + "." + key, name);
+    }
+
+    public void addPackDescription(String packName, String description) {
+        this.add("pack." + this.id + "." + packName + ".description", description);
     }
 }
