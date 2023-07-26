@@ -10,7 +10,7 @@ displayName="Cumulus"
 updateJSONURL="https://github.com/The-Aether-Team/Cumulus/raw/1.19.4-develop/update.json"
 displayURL="https://modrinth.com/mod/cumulus"
 logoFile="cumulus.png"
-credits="kingbdogz, for the original Main Menu API that this is inspired by"
+credits="The Aether Team; kingbdogz, for the original Main Menu API that this is inspired by"
 authors="bconlon"
 description='''
     A library for custom menu registration.'''
