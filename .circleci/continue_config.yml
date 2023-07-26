@@ -3,11 +3,6 @@ version: 2.1
 orbs:
   gradle: circleci/gradle@3.0.0
 
-parameters:
-  artifact-name:
-    type: string
-    default: cumulus_menus-1.19.4-0.0.4-forge.jar
-
 jobs:
   build:
     machine:
