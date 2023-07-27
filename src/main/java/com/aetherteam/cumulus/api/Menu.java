@@ -76,7 +76,6 @@ public class Menu {
         return this.apply;
     }
 
-    //todo requires a mod to implement the music on their end; cumulus should have a system for this instead.
     /**
      * @return {@link Music} to run in the menu.
      */
