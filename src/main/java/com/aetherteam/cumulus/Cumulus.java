@@ -28,7 +28,7 @@ import java.util.Map;
 @Mod(Cumulus.MODID)
 public class Cumulus {
     public static final String MODID = "cumulus_menus";
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public static final ResourceKey<Registry<Menu>> MENU_REGISTRY_KEY = ResourceKey.createRegistryKey(new ResourceLocation(Cumulus.MODID, "menu"));
 

@@ -113,14 +113,14 @@ public class MenuHelper {
      * @return The active menu's {@link TitleScreen}.
      */
     public TitleScreen getActiveScreen() {
-        return this.getActiveMenu().getScreen();
+        return this.getActiveMenu() != null ? this.getActiveMenu().getScreen() : null;
     }
 
     /**
      * @return The active menu's {@link Music}.
      */
     public Music getActiveMusic() {
-        return this.getActiveMenu().getMusic();
+        return this.getActiveMenu() != null ? this.getActiveMenu().getMusic() : null;
     }
 
     /**
