@@ -58,7 +58,6 @@ public class MenuHelper {
      */
     public TitleScreen applyMenu(Menu menu) {
         if (CumulusConfig.CLIENT.enable_menu_api.get()) {
-            menu.getApply().run();
             TitleScreen screen = this.checkFallbackScreen(menu, menu.getScreen());
             if (this.shouldFade()) {
                 TitleScreenAccessor defaultMenuAccessor = (TitleScreenAccessor) screen;
@@ -70,6 +69,7 @@ public class MenuHelper {
             if (this.getLastSplash() != null) {
                 this.migrateSplash(this.getLastSplash(), screen);
             }
+            menu.getApply().run();
             return screen;
         }
         return this.getFallbackTitleScreen();
