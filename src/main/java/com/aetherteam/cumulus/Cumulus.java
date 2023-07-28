@@ -16,6 +16,7 @@ import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -33,18 +34,26 @@ public class Cumulus {
     public static final ResourceKey<Registry<Menu>> MENU_REGISTRY_KEY = ResourceKey.createRegistryKey(new ResourceLocation(Cumulus.MODID, "menu"));
 
     public Cumulus() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        modEventBus.addListener(this::dataSetup);
+        DistExecutor.unsafeRunForDist(() -> () -> {
+            IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+            modEventBus.addListener(this::dataSetup);
 
-        DeferredRegister<?>[] registers = {
-                Menus.MENUS
-        };
+            DeferredRegister<?>[] registers = {
+                    Menus.MENUS
+            };
 
-        for (DeferredRegister<?> register : registers) {
-            register.register(modEventBus);
-        }
+            for (DeferredRegister<?> register : registers) {
+                register.register(modEventBus);
+            }
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CumulusConfig.CLIENT_SPEC);
+            ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CumulusConfig.CLIENT_SPEC);
+
+            return true;
+        }, () -> () -> {
+            LOGGER.info("Disabling Cumulus as it is on server.");
+
+            return false;
+        });
     }
 
     public void dataSetup(GatherDataEvent event) {
