@@ -1,5 +1,6 @@
 package com.aetherteam.cumulus.api;
 
+import com.aetherteam.cumulus.Cumulus;
 import com.aetherteam.cumulus.mixin.mixins.client.accessor.CreateWorldScreenAccessor;
 import com.aetherteam.cumulus.mixin.mixins.client.accessor.GuiComponentAccessor;
 import com.aetherteam.cumulus.mixin.mixins.client.accessor.RealmsPlayerScreenAccessor;
@@ -94,7 +95,7 @@ public class Menu {
      * @return The {@link ResourceLocation} of the {@link Menu}'s full registry ID.
      */
     public ResourceLocation getId() {
-        return Menus.MENU_REGISTRY.get().getKey(this);
+        return Cumulus.MENU_REGISTRY.get().getKey(this);
     }
 
     /**

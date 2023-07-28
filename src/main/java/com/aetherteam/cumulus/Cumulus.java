@@ -22,9 +22,12 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.RegistryBuilder;
 import org.slf4j.Logger;
 
 import java.util.Map;
+import java.util.function.Supplier;
 
 @Mod(Cumulus.MODID)
 public class Cumulus {
@@ -32,6 +35,8 @@ public class Cumulus {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public static final ResourceKey<Registry<Menu>> MENU_REGISTRY_KEY = ResourceKey.createRegistryKey(new ResourceLocation(Cumulus.MODID, "menu"));
+    public static final DeferredRegister<Menu> DEFERRED_MENUS = DeferredRegister.create(Cumulus.MENU_REGISTRY_KEY, Cumulus.MENU_REGISTRY_KEY.location().getNamespace());
+    public static final Supplier<IForgeRegistry<Menu>> MENU_REGISTRY = DEFERRED_MENUS.makeRegistry(RegistryBuilder::new);
 
     public Cumulus() {
         DistExecutor.unsafeRunForDist(() -> () -> {
@@ -39,7 +44,8 @@ public class Cumulus {
             modEventBus.addListener(this::dataSetup);
 
             DeferredRegister<?>[] registers = {
-                    Menus.MENUS
+                    Menus.MENUS,
+                    Cumulus.DEFERRED_MENUS
             };
 
             for (DeferredRegister<?> register : registers) {
@@ -50,7 +56,7 @@ public class Cumulus {
 
             return true;
         }, () -> () -> {
-            LOGGER.info("Disabling Cumulus as it is on server.");
+            Cumulus.LOGGER.info("Disabling Cumulus as it is on server.");
 
             return false;
         });
