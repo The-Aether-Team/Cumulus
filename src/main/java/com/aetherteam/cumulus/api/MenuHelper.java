@@ -23,8 +23,6 @@ public class MenuHelper {
     private String lastSplash = null;
     private boolean shouldFade = true;
 
-    public MenuHelper() { }
-
     /**
      * @return The currently active and displaying {@link Menu}.
      */
@@ -37,7 +35,7 @@ public class MenuHelper {
      * Sets the active and displaying {@link Menu}.
      * @param activeMenu The {@link Menu}.
      */
-    public void setActiveMenu(Menu activeMenu) {
+    public void setActiveMenu(@Nullable Menu activeMenu) {
         this.activeMenu = activeMenu;
     }
 
@@ -56,6 +54,7 @@ public class MenuHelper {
      * @param menu The {@link Menu} to apply.
      * @return The {@link TitleScreen} corresponding to the applied menu.
      */
+    @Nullable
     public TitleScreen applyMenu(Menu menu) {
         if (CumulusConfig.CLIENT.enable_menu_api.get()) {
             TitleScreen screen = this.checkFallbackScreen(menu, menu.getScreen());
@@ -112,6 +111,7 @@ public class MenuHelper {
     /**
      * @return The active menu's {@link TitleScreen}.
      */
+    @Nullable
     public TitleScreen getActiveScreen() {
         return this.getActiveMenu() != null ? this.getActiveMenu().getScreen() : null;
     }
@@ -119,6 +119,7 @@ public class MenuHelper {
     /**
      * @return The active menu's {@link Music}.
      */
+    @Nullable
     public Music getActiveMusic() {
         return this.getActiveMenu() != null ? this.getActiveMenu().getMusic() : null;
     }
@@ -135,7 +136,7 @@ public class MenuHelper {
      * Sets the fallback {@link TitleScreen}.
      * @param fallbackTitleScreen The {@link TitleScreen}.
      */
-    public void setFallbackTitleScreen(TitleScreen fallbackTitleScreen) {
+    public void setFallbackTitleScreen(@Nullable TitleScreen fallbackTitleScreen) {
         this.fallbackTitleScreen = fallbackTitleScreen;
     }
 
@@ -151,7 +152,7 @@ public class MenuHelper {
      * Sets the fallback {@link Menu.Background}.
      * @param fallbackBackground The {@link Menu.Background}.
      */
-    public void setFallbackBackground(Menu.Background fallbackBackground) {
+    public void setFallbackBackground(@Nullable Menu.Background fallbackBackground) {
         this.fallbackBackground = fallbackBackground;
     }
 
@@ -167,7 +168,7 @@ public class MenuHelper {
      * Sets the last displayed splash.
      * @param lastSplash The splash {@link String}.
      */
-    public void setLastSplash(String lastSplash) {
+    public void setLastSplash(@Nullable String lastSplash) {
         this.lastSplash = lastSplash;
     }
 

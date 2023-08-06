@@ -18,7 +18,7 @@ public class MenuSelectionList extends ObjectSelectionList<MenuSelectionList.Men
     private static final int ENTRY_PADDING = 2;
 
     public MenuSelectionList(MenuSelectionScreen parent, int width, int height, int top, int bottom, int itemHeight) {
-        super(parent.getMinecraftInstance(), width, height, top, bottom, itemHeight);
+        super(parent.getMinecraft(), width, height, top, bottom, itemHeight);
         this.parent = parent;
         this.refreshList();
     }
@@ -27,7 +27,7 @@ public class MenuSelectionList extends ObjectSelectionList<MenuSelectionList.Men
     protected void renderSelection(PoseStack poseStack, int top, int width, int height, int outerColor, int innerColor) {
         int i = this.x0 + (this.width - width) / 2;
         int j = this.x0 + (this.width + width) / 2;
-        fill(poseStack, i + 1, top - 3, j - 7, top + height + 1, -1);
+        GuiComponent.fill(poseStack, i + 1, top - 3, j - 7, top + height + 1, -1);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class MenuSelectionList extends ObjectSelectionList<MenuSelectionList.Men
         @Override
         public void render(PoseStack poseStack, int index, int top, int left, int width, int height, int mouseX, int mouseY, boolean isMouseOver, float partialTicks) {
             poseStack.pushPose();
-            fillGradient(poseStack, left, top - ENTRY_PADDING, left + MenuSelectionList.this.getRowWidth() - (ENTRY_PADDING * 2) - 6, top + MenuSelectionList.this.itemHeight - (ENTRY_PADDING * 2), -10066330, -8750470);
+            GuiComponent.fillGradient(poseStack, left, top - ENTRY_PADDING, left + MenuSelectionList.this.getRowWidth() - (ENTRY_PADDING * 2) - 6, top + MenuSelectionList.this.itemHeight - (ENTRY_PADDING * 2), -10066330, -8750470);
             poseStack.popPose();
             RenderSystem.setShaderColor(1, 1, 1, 1);
             RenderSystem.setShaderTexture(0, this.menu.getIcon());

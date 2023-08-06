@@ -27,19 +27,19 @@ import java.util.function.Function;
 
 public class MenuSelectionScreen extends Screen {
     public static final ResourceLocation LIST_FRAME = new ResourceLocation(Cumulus.MODID, "textures/gui/menu_api/list.png");
-
-    private final Screen parentScreen;
-    private MenuSelectionList menuList;
-    private Button launchButton;
-    private final List<Menu> menus;
-    @Nullable
-    private MenuSelectionList.MenuEntry selected = null;
-
     private static final int EXTERIOR_WIDTH_PADDING = 13;
     private static final int EXTERIOR_TOP_PADDING = 28;
     private static final int EXTERIOR_BOTTOM_PADDING = 33;
+
     public final int frameWidth = 141;
     public final int frameHeight = 168;
+
+    private final List<Menu> menus;
+    private final Screen parentScreen;
+    private MenuSelectionList menuList;
+    private Button launchButton;
+    @Nullable
+    private MenuSelectionList.MenuEntry selected = null;
 
     private boolean setup = false;
 
@@ -90,24 +90,19 @@ public class MenuSelectionScreen extends Screen {
     public void renderDirtBackground(PoseStack poseStack) {
         RenderSystem.setShaderTexture(0, GuiComponent.LIGHT_DIRT_BACKGROUND);
         RenderSystem.setShaderColor(1.75F, 1.75F, 1.75F, 1.0F);
-        blit(poseStack, 0, 0, 0, 0.0F, 0.0F, this.width, this.height, 32, 32);
+        GuiComponent.blit(poseStack, 0, 0, 0, 0.0F, 0.0F, this.width, this.height, 32, 32);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         MinecraftForge.EVENT_BUS.post(new ScreenEvent.BackgroundRendered(this, poseStack));
     }
 
     private void renderListFrame(PoseStack poseStack) {
         RenderSystem.setShaderTexture(0, LIST_FRAME);
-        blit(poseStack, (this.width / 2) - (this.frameWidth / 2), this.height / 2 - (this.frameHeight / 2), 0.0F, 0.0F, 141, 168, 256, 256);
-        drawCenteredString(poseStack, this.getFontRenderer(), Component.translatable("gui.cumulus_menus.title.menu_selection"), this.width / 2, ((this.height / 2) - (this.frameHeight / 2)) + 11, 0xFFFFFF);
+        GuiComponent.blit(poseStack, (this.width / 2) - (this.frameWidth / 2), this.height / 2 - (this.frameHeight / 2), 0.0F, 0.0F, 141, 168, 256, 256);
+        GuiComponent.drawCenteredString(poseStack, this.getFontRenderer(), Component.translatable("gui.cumulus_menus.title.menu_selection"), this.width / 2, ((this.height / 2) - (this.frameHeight / 2)) + 11, 0xFFFFFF);
     }
 
     public <T extends ObjectSelectionList.Entry<T>> void buildMenuList(Consumer<T> menuListViewConsumer, Function<Menu, T> newEntry) {
         this.menus.forEach((menu) -> menuListViewConsumer.accept(newEntry.apply(menu)));
-    }
-
-    @Nullable
-    public Minecraft getMinecraftInstance() {
-        return this.minecraft;
     }
 
     public Font getFontRenderer() {
@@ -121,8 +116,6 @@ public class MenuSelectionScreen extends Screen {
 
     @Override
     public void onClose() {
-        if (this.getMinecraftInstance() != null) {
-            this.getMinecraftInstance().setScreen(this.parentScreen);
-        }
+        this.getMinecraft().setScreen(this.parentScreen);
     }
 }
