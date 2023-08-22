@@ -18,7 +18,7 @@ public class MusicManagerMixin {
      * @return The modified {@link Music} variable.
      */
     @Deprecated(forRemoval = true)
-    @ModifyVariable(method = "Lnet/minecraft/client/sounds/MusicManager;tick()V", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/client/Minecraft;getSituationalMusic()Lnet/minecraft/sounds/Music;"))
+    @ModifyVariable(method = "Lnet/minecraft/client/sounds/MusicManager;tick()V", at = @At(value = "STORE"))
     public Music injected(Music music) {
         if (music == Musics.MENU && CumulusClient.MENU_HELPER.getActiveMusic() != null) {
             return CumulusClient.MENU_HELPER.getActiveMusic();
