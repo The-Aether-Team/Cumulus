@@ -89,6 +89,7 @@ public class MenuSelectionScreen extends Screen {
 
     public void renderDirtBackground(PoseStack poseStack) {
         RenderSystem.setShaderTexture(0, GuiComponent.BACKGROUND_LOCATION);
+        RenderSystem.setShaderColor(0.5F, 0.5F, 0.5F, 1.0F);
         GuiComponent.blit(poseStack, 0, 0, 0, 0.0F, 0.0F, this.width, this.height, 32, 32);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         MinecraftForge.EVENT_BUS.post(new ScreenEvent.BackgroundRendered(this, poseStack));
