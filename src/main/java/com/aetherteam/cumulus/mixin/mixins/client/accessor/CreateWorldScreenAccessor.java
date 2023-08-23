@@ -19,5 +19,11 @@ public interface CreateWorldScreenAccessor {
     static void cumulus$setFooterSeparator(ResourceLocation location) {
         throw new AssertionError();
     }
+
+    @Mutable
+    @Accessor("LIGHT_DIRT_BACKGROUND")
+    static void cumulus$setLightDirtBackground(ResourceLocation location) {
+        throw new AssertionError();
+    }
 }
 

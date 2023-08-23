@@ -2,10 +2,10 @@ package com.aetherteam.cumulus.api;
 
 import com.aetherteam.cumulus.Cumulus;
 import com.aetherteam.cumulus.mixin.mixins.client.accessor.CreateWorldScreenAccessor;
-import com.aetherteam.cumulus.mixin.mixins.client.accessor.GuiComponentAccessor;
 import com.aetherteam.cumulus.mixin.mixins.client.accessor.RealmsPlayerScreenAccessor;
+import com.aetherteam.cumulus.mixin.mixins.client.accessor.ScreenAccessor;
 import com.aetherteam.cumulus.mixin.mixins.client.accessor.TabButtonAccessor;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
 import net.minecraft.network.chat.Component;
@@ -144,8 +144,8 @@ public class Menu {
     }
 
     public static class Background {
-        private static final ResourceLocation DEFAULT_REGULAR_BACKGROUND = GuiComponent.BACKGROUND_LOCATION;
-        private static final ResourceLocation DEFAULT_DARK_BACKGROUND = GuiComponent.LIGHT_DIRT_BACKGROUND;
+        private static final ResourceLocation DEFAULT_REGULAR_BACKGROUND = Screen.BACKGROUND_LOCATION;
+        private static final ResourceLocation DEFAULT_DARK_BACKGROUND = CreateWorldScreen.LIGHT_DIRT_BACKGROUND;
         private static final ResourceLocation DEFAULT_HEADER_SEPARATOR = CreateWorldScreen.HEADER_SEPERATOR;
         private static final ResourceLocation DEFAULT_FOOTER_SEPARATOR = CreateWorldScreen.FOOTER_SEPERATOR;
         private static final ResourceLocation DEFAULT_TAB_BUTTON = TabButtonAccessor.cumulus$getTextureLocation();
@@ -168,9 +168,9 @@ public class Menu {
          * @param background The {@link Background} to apply.
          */
         public static void apply(Background background) {
-            GuiComponentAccessor.cumulus$setBackgroundLocation(background.getRegularBackground());
+            ScreenAccessor.cumulus$setBackgroundLocation(background.getRegularBackground());
             RealmsPlayerScreenAccessor.cumulus$setOptionsBackground(background.getRegularBackground());
-            GuiComponentAccessor.cumulus$setLightDirtBackground(background.getDarkBackground());
+            CreateWorldScreenAccessor.cumulus$setLightDirtBackground(background.getDarkBackground());
             CreateWorldScreenAccessor.cumulus$setHeaderSeparator(background.getHeaderSeparator());
             CreateWorldScreenAccessor.cumulus$setFooterSeparator(background.getFooterSeparator());
             TabButtonAccessor.cumulus$setTextureLocation(background.getTabButton());

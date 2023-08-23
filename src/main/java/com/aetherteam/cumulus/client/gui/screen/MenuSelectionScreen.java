@@ -7,13 +7,13 @@ import com.aetherteam.cumulus.api.Menus;
 import com.aetherteam.cumulus.client.CumulusClient;
 import com.aetherteam.cumulus.client.gui.component.MenuSelectionList;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.event.ScreenEvent;
@@ -80,25 +80,23 @@ public class MenuSelectionScreen extends Screen {
     }
 
     @Override
-    public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
-        this.renderDirtBackground(poseStack);
-        this.renderListFrame(poseStack);
-        this.menuList.render(poseStack, mouseX, mouseY, partialTick);
-        super.render(poseStack, mouseX, mouseY, partialTick);
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        this.renderDirtBackground(guiGraphics);
+        this.renderListFrame(guiGraphics);
+        this.menuList.render(guiGraphics, mouseX, mouseY, partialTick);
+        super.render(guiGraphics, mouseX, mouseY, partialTick);
     }
 
-    public void renderDirtBackground(PoseStack poseStack) {
-        RenderSystem.setShaderTexture(0, GuiComponent.LIGHT_DIRT_BACKGROUND);
+    public void renderDirtBackground(GuiGraphics guiGraphics) {
         RenderSystem.setShaderColor(1.75F, 1.75F, 1.75F, 1.0F);
-        GuiComponent.blit(poseStack, 0, 0, 0, 0.0F, 0.0F, this.width, this.height, 32, 32);
+        guiGraphics.blit(CreateWorldScreen.LIGHT_DIRT_BACKGROUND, 0, 0, 0, 0.0F, 0.0F, this.width, this.height, 32, 32);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        MinecraftForge.EVENT_BUS.post(new ScreenEvent.BackgroundRendered(this, poseStack));
+        MinecraftForge.EVENT_BUS.post(new ScreenEvent.BackgroundRendered(this, guiGraphics));
     }
 
-    private void renderListFrame(PoseStack poseStack) {
-        RenderSystem.setShaderTexture(0, LIST_FRAME);
-        GuiComponent.blit(poseStack, (this.width / 2) - (this.frameWidth / 2), this.height / 2 - (this.frameHeight / 2), 0.0F, 0.0F, 141, 168, 256, 256);
-        GuiComponent.drawCenteredString(poseStack, this.getFontRenderer(), Component.translatable("gui.cumulus_menus.title.menu_selection"), this.width / 2, ((this.height / 2) - (this.frameHeight / 2)) + 11, 0xFFFFFF);
+    private void renderListFrame(GuiGraphics guiGraphics) {
+        guiGraphics.blit(LIST_FRAME, (this.width / 2) - (this.frameWidth / 2), this.height / 2 - (this.frameHeight / 2), 0.0F, 0.0F, 141, 168, 256, 256);
+        guiGraphics.drawCenteredString(this.getFontRenderer(), Component.translatable("gui.cumulus_menus.title.menu_selection"), this.width / 2, ((this.height / 2) - (this.frameHeight / 2)) + 11, 0xFFFFFF);
     }
 
     public <T extends ObjectSelectionList.Entry<T>> void buildMenuList(Consumer<T> menuListViewConsumer, Function<Menu, T> newEntry) {

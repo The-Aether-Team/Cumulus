@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[45,)"
+loaderVersion="[47,)"
 license="LGPL-3.0"
 issueTrackerURL="https://github.com/The-Aether-Team/Cumulus/issues"
 
@@ -7,7 +7,7 @@ issueTrackerURL="https://github.com/The-Aether-Team/Cumulus/issues"
 modId="cumulus_menus"
 version="${file.jarVersion}"
 displayName="Cumulus"
-updateJSONURL="https://github.com/The-Aether-Team/Cumulus/raw/1.19.4-develop/update.json"
+updateJSONURL="https://github.com/The-Aether-Team/Cumulus/raw/1.20.1-develop/update.json"
 displayURL="https://modrinth.com/mod/cumulus"
 logoFile="cumulus.png"
 credits="The Aether Team; kingbdogz, for the original Main Menu API that this is inspired by"
@@ -18,12 +18,12 @@ description='''
 [[dependencies.cumulus_menus]]
     modId="forge"
     mandatory=true
-    versionRange="[45.1.0,)"
+    versionRange="[47.1.70,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.cumulus_menus]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19.4,1.20)"
+    versionRange="[1.20.1,1.20.2)"
     ordering="NONE"
     side="BOTH"

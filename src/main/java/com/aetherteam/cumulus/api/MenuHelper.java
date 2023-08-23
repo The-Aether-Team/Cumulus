@@ -1,6 +1,7 @@
 package com.aetherteam.cumulus.api;
 
 import com.aetherteam.cumulus.CumulusConfig;
+import com.aetherteam.cumulus.mixin.mixins.client.accessor.SplashRendererAccessor;
 import com.aetherteam.cumulus.mixin.mixins.client.accessor.TitleScreenAccessor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
@@ -179,7 +180,8 @@ public class MenuHelper {
      */
     public void migrateSplash(String originalSplash, TitleScreen newScreen) {
         TitleScreenAccessor newScreenAccessor = (TitleScreenAccessor) newScreen;
-        newScreenAccessor.cumulus$setSplash(originalSplash);
+        SplashRendererAccessor splashRendererAccessor = (SplashRendererAccessor) newScreenAccessor.cumulus$getSplash();
+        splashRendererAccessor.cumulus$setSplash(originalSplash);
     }
 
     /**
@@ -190,10 +192,11 @@ public class MenuHelper {
      */
     public void setCustomSplash(TitleScreen screen, Predicate<Calendar> condition, String splash) {
         TitleScreenAccessor screenAccessor = (TitleScreenAccessor) screen;
+        SplashRendererAccessor splashRendererAccessor = (SplashRendererAccessor) screenAccessor.cumulus$getSplash();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         if (condition.test(calendar)) {
-            screenAccessor.cumulus$setSplash(splash);
+            splashRendererAccessor.cumulus$setSplash(splash);
         }
     }
 

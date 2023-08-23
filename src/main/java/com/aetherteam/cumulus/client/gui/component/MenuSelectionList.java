@@ -5,7 +5,7 @@ import com.aetherteam.cumulus.client.gui.screen.MenuSelectionScreen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
@@ -24,10 +24,10 @@ public class MenuSelectionList extends ObjectSelectionList<MenuSelectionList.Men
     }
 
     @Override
-    protected void renderSelection(PoseStack poseStack, int top, int width, int height, int outerColor, int innerColor) {
+    protected void renderSelection(GuiGraphics guiGraphics, int top, int width, int height, int outerColor, int innerColor) {
         int i = this.x0 + (this.width - width) / 2;
         int j = this.x0 + (this.width + width) / 2;
-        GuiComponent.fill(poseStack, i + 1, top - 3, j - 7, top + height + 1, -1);
+        guiGraphics.fill(i + 1, top - 3, j - 7, top + height + 1, -1);
     }
 
     @Override
@@ -60,14 +60,14 @@ public class MenuSelectionList extends ObjectSelectionList<MenuSelectionList.Men
         }
 
         @Override
-        public void render(PoseStack poseStack, int index, int top, int left, int width, int height, int mouseX, int mouseY, boolean isMouseOver, float partialTicks) {
+        public void render(GuiGraphics guiGraphics, int index, int top, int left, int width, int height, int mouseX, int mouseY, boolean isMouseOver, float partialTicks) {
+            PoseStack poseStack = guiGraphics.pose();
             poseStack.pushPose();
-            GuiComponent.fillGradient(poseStack, left, top - ENTRY_PADDING, left + MenuSelectionList.this.getRowWidth() - (ENTRY_PADDING * 2) - 6, top + MenuSelectionList.this.itemHeight - (ENTRY_PADDING * 2), -10066330, -8750470);
+            guiGraphics.fillGradient(left, top - ENTRY_PADDING, left + MenuSelectionList.this.getRowWidth() - (ENTRY_PADDING * 2) - 6, top + MenuSelectionList.this.itemHeight - (ENTRY_PADDING * 2), -10066330, -8750470);
             poseStack.popPose();
             RenderSystem.setShaderColor(1, 1, 1, 1);
-            RenderSystem.setShaderTexture(0, this.menu.getIcon());
             poseStack.pushPose();
-            GuiComponent.blit(poseStack, left + ENTRY_PADDING + 1, top + 1, 0, 0, 16, 16, 16, 16);
+            guiGraphics.blit(this.menu.getIcon(), left + ENTRY_PADDING + 1, top + 1, 0, 0, 16, 16, 16, 16);
             poseStack.popPose();
 
             Font font = this.parent.getFontRenderer();
@@ -78,7 +78,7 @@ public class MenuSelectionList extends ObjectSelectionList<MenuSelectionList.Men
             int length = 1;
             for (FormattedCharSequence line : lines) {
                 int y = top + (length * 10) - ((lines.size() * 10) / 2);
-                font.draw(poseStack, line, left + ENTRY_PADDING + 21, y, 0xFFFFFF);
+                guiGraphics.drawString(font, line, left + ENTRY_PADDING + 21, y, 0xFFFFFF);
                 length++;
             }
         }

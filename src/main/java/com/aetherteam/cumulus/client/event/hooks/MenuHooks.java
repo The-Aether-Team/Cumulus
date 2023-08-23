@@ -6,10 +6,10 @@ import com.aetherteam.cumulus.api.MenuHelper;
 import com.aetherteam.cumulus.api.Menus;
 import com.aetherteam.cumulus.client.CumulusClient;
 import com.aetherteam.cumulus.client.gui.screen.MenuSelectionScreen;
+import com.aetherteam.cumulus.mixin.mixins.client.accessor.SplashRendererAccessor;
 import com.aetherteam.cumulus.mixin.mixins.client.accessor.TabButtonAccessor;
 import com.aetherteam.cumulus.mixin.mixins.client.accessor.TitleScreenAccessor;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
@@ -26,7 +26,11 @@ public class MenuHooks {
      */
     public static void setLastSplash(Screen screen, MenuHelper menuHelper) {
         if (screen instanceof TitleScreen titleScreen) {
-            menuHelper.setLastSplash(((TitleScreenAccessor) titleScreen).cumulus$getSplash());
+            TitleScreenAccessor screenAccessor = (TitleScreenAccessor) titleScreen;
+            SplashRendererAccessor splashRendererAccessor = (SplashRendererAccessor) screenAccessor.cumulus$getSplash();
+            if (splashRendererAccessor != null) {
+                menuHelper.setLastSplash(splashRendererAccessor.cumulus$getSplash());
+            }
         }
     }
 
@@ -58,7 +62,7 @@ public class MenuHooks {
             if (CumulusConfig.CLIENT.enable_menu_api.get()) {
                 if (!CumulusClient.MENU_HELPER.doesScreenMatchMenu(titleScreen) || screen.getClass() == TitleScreen.class) {
                     CumulusClient.MENU_HELPER.setFallbackTitleScreen(titleScreen);
-                    CumulusClient.MENU_HELPER.setFallbackBackground(new Menu.Background().regularBackground(GuiComponent.BACKGROUND_LOCATION).darkBackground(GuiComponent.LIGHT_DIRT_BACKGROUND).headerSeparator(CreateWorldScreen.HEADER_SEPERATOR).footerSeparator(CreateWorldScreen.FOOTER_SEPERATOR).tabButton(TabButtonAccessor.cumulus$getTextureLocation()));
+                    CumulusClient.MENU_HELPER.setFallbackBackground(new Menu.Background().regularBackground(Screen.BACKGROUND_LOCATION).darkBackground(CreateWorldScreen.LIGHT_DIRT_BACKGROUND).headerSeparator(CreateWorldScreen.HEADER_SEPERATOR).footerSeparator(CreateWorldScreen.FOOTER_SEPERATOR).tabButton(TabButtonAccessor.cumulus$getTextureLocation()));
                 }
             } else if (screen.getClass() == TitleScreen.class) {
                 CumulusClient.MENU_HELPER.setFallbackTitleScreen(titleScreen);
