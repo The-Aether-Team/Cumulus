@@ -10,10 +10,8 @@
   },
   "client": [
     "client.MusicManagerMixin",
-    "client.accessor.CreateWorldScreenAccessor",
     "client.accessor.GuiComponentAccessor",
     "client.accessor.RealmsPlayerScreenAccessor",
-    "client.accessor.TabButtonAccessor",
     "client.accessor.TitleScreenAccessor"
   ]
 }

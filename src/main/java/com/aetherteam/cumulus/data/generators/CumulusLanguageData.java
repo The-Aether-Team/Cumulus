@@ -2,10 +2,10 @@ package com.aetherteam.cumulus.data.generators;
 
 import com.aetherteam.cumulus.Cumulus;
 import com.aetherteam.cumulus.data.providers.CumulusLanguageProvider;
-import net.minecraft.data.PackOutput;
+import net.minecraft.data.DataGenerator;
 
 public class CumulusLanguageData extends CumulusLanguageProvider {
-    public CumulusLanguageData(PackOutput output) {
+    public CumulusLanguageData(DataGenerator output) {
         super(output, Cumulus.MODID);
     }
 

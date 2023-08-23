@@ -62,7 +62,7 @@ public class MenuSelectionList extends ObjectSelectionList<MenuSelectionList.Men
         @Override
         public void render(PoseStack poseStack, int index, int top, int left, int width, int height, int mouseX, int mouseY, boolean isMouseOver, float partialTicks) {
             poseStack.pushPose();
-            GuiComponent.fillGradient(poseStack, left, top - ENTRY_PADDING, left + MenuSelectionList.this.getRowWidth() - (ENTRY_PADDING * 2) - 6, top + MenuSelectionList.this.itemHeight - (ENTRY_PADDING * 2), -10066330, -8750470);
+            MenuSelectionList.this.fillGradient(poseStack, left, top - ENTRY_PADDING, left + MenuSelectionList.this.getRowWidth() - (ENTRY_PADDING * 2) - 6, top + MenuSelectionList.this.itemHeight - (ENTRY_PADDING * 2), -10066330, -8750470);
             poseStack.popPose();
             RenderSystem.setShaderColor(1, 1, 1, 1);
             RenderSystem.setShaderTexture(0, this.menu.getIcon());

@@ -57,7 +57,7 @@ public class MenuSelectionScreen extends Screen {
         this.menuList.setLeftPos((this.width / 2) - (this.frameWidth / 2) + EXTERIOR_WIDTH_PADDING);
         this.addRenderableWidget(this.menuList);
 
-        this.launchButton = Button.builder(Component.translatable("gui.cumulus_menus.button.menu_launch"), press -> {
+        this.launchButton = new Button((this.width / 2) - (this.frameWidth / 2) + 34, (this.height / 2) + (this.frameHeight / 2) - 27, 72, 20, Component.translatable("gui.cumulus_menus.button.menu_launch"), press -> {
             if (this.selected != null) {
                 CumulusConfig.CLIENT.active_menu.set(this.selected.getMenu().toString());
                 CumulusConfig.CLIENT.active_menu.save();
@@ -65,7 +65,7 @@ public class MenuSelectionScreen extends Screen {
                 Minecraft.getInstance().setScreen(CumulusClient.MENU_HELPER.applyMenu(CumulusClient.MENU_HELPER.getActiveMenu()));
                 Minecraft.getInstance().getMusicManager().stopPlaying();
             }
-        }).bounds((this.width / 2) - (this.frameWidth / 2) + 34, (this.height / 2) + (this.frameHeight / 2) - 27, 72, 20).build();
+        });
         this.addRenderableWidget(this.launchButton);
         this.launchButton.active = false;
     }
@@ -88,8 +88,7 @@ public class MenuSelectionScreen extends Screen {
     }
 
     public void renderDirtBackground(PoseStack poseStack) {
-        RenderSystem.setShaderTexture(0, GuiComponent.LIGHT_DIRT_BACKGROUND);
-        RenderSystem.setShaderColor(1.75F, 1.75F, 1.75F, 1.0F);
+        RenderSystem.setShaderTexture(0, GuiComponent.BACKGROUND_LOCATION);
         GuiComponent.blit(poseStack, 0, 0, 0, 0.0F, 0.0F, this.width, this.height, 32, 32);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         MinecraftForge.EVENT_BUS.post(new ScreenEvent.BackgroundRendered(this, poseStack));

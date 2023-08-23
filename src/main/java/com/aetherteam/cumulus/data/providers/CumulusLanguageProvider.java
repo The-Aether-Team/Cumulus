@@ -1,12 +1,12 @@
 package com.aetherteam.cumulus.data.providers;
 
-import net.minecraft.data.PackOutput;
+import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.LanguageProvider;
 
 public abstract class CumulusLanguageProvider extends LanguageProvider {
     protected final String id;
 
-    public CumulusLanguageProvider(PackOutput output, String id) {
+    public CumulusLanguageProvider(DataGenerator output, String id) {
         super(output, id, "en_us");
         this.id = id;
     }

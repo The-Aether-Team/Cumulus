@@ -13,10 +13,4 @@ public interface GuiComponentAccessor {
     static void cumulus$setBackgroundLocation(ResourceLocation location) {
         throw new AssertionError();
     }
-
-    @Mutable
-    @Accessor("LIGHT_DIRT_BACKGROUND")
-    static void cumulus$setLightDirtBackground(ResourceLocation location) {
-        throw new AssertionError();
-    }
 }

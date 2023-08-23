@@ -1,13 +1,10 @@
 package com.aetherteam.cumulus.api;
 
 import com.aetherteam.cumulus.Cumulus;
-import com.aetherteam.cumulus.mixin.mixins.client.accessor.CreateWorldScreenAccessor;
 import com.aetherteam.cumulus.mixin.mixins.client.accessor.GuiComponentAccessor;
 import com.aetherteam.cumulus.mixin.mixins.client.accessor.RealmsPlayerScreenAccessor;
-import com.aetherteam.cumulus.mixin.mixins.client.accessor.TabButtonAccessor;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.TitleScreen;
-import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.Music;
@@ -145,23 +142,11 @@ public class Menu {
 
     public static class Background {
         private static final ResourceLocation DEFAULT_REGULAR_BACKGROUND = GuiComponent.BACKGROUND_LOCATION;
-        private static final ResourceLocation DEFAULT_DARK_BACKGROUND = GuiComponent.LIGHT_DIRT_BACKGROUND;
-        private static final ResourceLocation DEFAULT_HEADER_SEPARATOR = CreateWorldScreen.HEADER_SEPERATOR;
-        private static final ResourceLocation DEFAULT_FOOTER_SEPARATOR = CreateWorldScreen.FOOTER_SEPERATOR;
-        private static final ResourceLocation DEFAULT_TAB_BUTTON = TabButtonAccessor.cumulus$getTextureLocation();
 
         private ResourceLocation regularBackground = DEFAULT_REGULAR_BACKGROUND;
-        private ResourceLocation darkBackground = DEFAULT_DARK_BACKGROUND;
-        private ResourceLocation headerSeparator = DEFAULT_HEADER_SEPARATOR;
-        private ResourceLocation footerSeparator = DEFAULT_FOOTER_SEPARATOR;
-        private ResourceLocation tabButton = DEFAULT_TAB_BUTTON;
 
         public static final Background MINECRAFT = new Background()
-                .regularBackground(DEFAULT_REGULAR_BACKGROUND)
-                .darkBackground(DEFAULT_DARK_BACKGROUND)
-                .headerSeparator(DEFAULT_HEADER_SEPARATOR)
-                .footerSeparator(DEFAULT_FOOTER_SEPARATOR)
-                .tabButton(DEFAULT_TAB_BUTTON);
+                .regularBackground(DEFAULT_REGULAR_BACKGROUND);
 
         /**
          * Applies a background through mixin accessors.
@@ -170,10 +155,6 @@ public class Menu {
         public static void apply(Background background) {
             GuiComponentAccessor.cumulus$setBackgroundLocation(background.getRegularBackground());
             RealmsPlayerScreenAccessor.cumulus$setOptionsBackground(background.getRegularBackground());
-            GuiComponentAccessor.cumulus$setLightDirtBackground(background.getDarkBackground());
-            CreateWorldScreenAccessor.cumulus$setHeaderSeparator(background.getHeaderSeparator());
-            CreateWorldScreenAccessor.cumulus$setFooterSeparator(background.getFooterSeparator());
-            TabButtonAccessor.cumulus$setTextureLocation(background.getTabButton());
         }
 
         /**
@@ -192,70 +173,10 @@ public class Menu {
         }
 
         /**
-         * @see Background#getDarkBackground()
-         */
-        public Background darkBackground(ResourceLocation darkBackground) {
-            this.darkBackground = darkBackground;
-            return this;
-        }
-
-        /**
-         * @see Background#getHeaderSeparator()
-         */
-        public Background headerSeparator(ResourceLocation headerSeparator) {
-            this.headerSeparator = headerSeparator;
-            return this;
-        }
-
-        /**
-         * @see Background#getFooterSeparator()
-         */
-        public Background footerSeparator(ResourceLocation footerSeparator) {
-            this.footerSeparator = footerSeparator;
-            return this;
-        }
-
-        /**
-         * @see Background#getTabButton()
-         */
-        public Background tabButton(ResourceLocation tabButton) {
-            this.tabButton = tabButton;
-            return this;
-        }
-
-        /**
          * @return The {@link ResourceLocation} for the regular dirt background texture to replace.
          */
         public ResourceLocation getRegularBackground() {
             return this.regularBackground;
-        }
-
-        /**
-         * @return The {@link ResourceLocation} for the lighter dirt background texture to replace.
-         */
-        public ResourceLocation getDarkBackground() {
-            return this.darkBackground;
-        }
-
-        /**
-         * @return The {@link ResourceLocation} for the dirt header separator texture to replace.
-         */
-        public ResourceLocation getHeaderSeparator() {
-            return this.headerSeparator;
-        }
-
-        /**
-         * @return The {@link ResourceLocation} for the dirt footer separator texture to replace.
-         */
-        public ResourceLocation getFooterSeparator() {
-            return this.footerSeparator;
-        }
-
-        /**
-         * @return The {@link ResourceLocation} for the dirt tab button texture to replace.
-         */
-        public ResourceLocation getTabButton() {
-            return this.tabButton;
         }
     }
 }
