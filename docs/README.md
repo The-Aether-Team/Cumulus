@@ -29,7 +29,7 @@ If you're interested in sponsoring Cumulus or The Aether Team, please [contact O
 [![Modrinth Version](https://img.shields.io/modrinth/game-versions/cumulus?color=00AF5C&label=latest&logo=modrinth&last=true)](https://modrinth.com/mod/cumulus)
 [![CurseForge Downloads](http://cf.way2muchnoise.eu/cumulus.svg)](https://www.curseforge.com/minecraft/mc-mods/cumulus)
 [![CurseForge Version](http://cf.way2muchnoise.eu/versions/cumulus_latest.svg)](https://www.curseforge.com/minecraft/mc-mods/cumulus)
-[![CircleCI](https://circleci.com/gh/The-Aether-Team/Cumulus/tree/1.19.4-develop.svg?style=shield)](https://app.circleci.com/pipelines/github/The-Aether-Team/Cumulus?branch=1.19.4-develop)
+[![CircleCI](https://circleci.com/gh/The-Aether-Team/Cumulus/tree/1.19.2-develop.svg?style=shield)](https://app.circleci.com/pipelines/github/The-Aether-Team/Cumulus?branch=1.19.2-develop)
 ### Release builds
 Cumulus has no stable builds available.
 
