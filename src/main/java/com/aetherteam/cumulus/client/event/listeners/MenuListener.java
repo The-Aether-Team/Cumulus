@@ -46,7 +46,7 @@ public class MenuListener {
      * @see MenuHooks#resetFade(MenuHelper)
      */
     @SubscribeEvent
-    public static void onGuiDraw(ScreenEvent.Render event) {
+    public static void onGuiDraw(ScreenEvent.Render.Post event) {
         MenuHooks.resetFade(CumulusClient.MENU_HELPER);
     }
 
