@@ -3,6 +3,7 @@ package com.aetherteam.cumulus.api;
 import com.aetherteam.cumulus.CumulusConfig;
 import com.aetherteam.cumulus.mixin.mixins.client.accessor.SplashRendererAccessor;
 import com.aetherteam.cumulus.mixin.mixins.client.accessor.TitleScreenAccessor;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.sounds.Music;
@@ -56,7 +57,7 @@ public class MenuHelper {
      * @return The {@link TitleScreen} corresponding to the applied menu.
      */
     @Nullable
-    public TitleScreen applyMenu(TitleScreen oldScreen, Menu menu) {
+    public TitleScreen applyMenu(Menu menu) {
         if (CumulusConfig.CLIENT.enable_menu_api.get()) {
             TitleScreen screen = this.checkFallbackScreen(menu, menu.getScreen());
             if (this.shouldFade()) {
@@ -67,7 +68,7 @@ public class MenuHelper {
             Menu.Background background = this.checkFallbackBackground(menu, screen, menu.getBackground());
             this.applyBackgrounds(background);
             if (this.getLastSplash() != null) {
-                this.migrateSplash(this.getLastSplash(), oldScreen, screen);
+                this.migrateSplash(this.getLastSplash(), screen);
             }
             menu.getApply().run();
             return screen;
@@ -178,11 +179,10 @@ public class MenuHelper {
      * @param originalSplash The original splash {@link String} to transfer to a new screen.
      * @param newScreen The new {@link TitleScreen} to get the splash.
      */
-    public void migrateSplash(String originalSplash, TitleScreen oldScreen, TitleScreen newScreen) {
-        TitleScreenAccessor oldScreenAccessor = (TitleScreenAccessor) oldScreen;
+    public void migrateSplash(String originalSplash, TitleScreen newScreen) {
         TitleScreenAccessor newScreenAccessor = (TitleScreenAccessor) newScreen;
         if (newScreenAccessor.cumulus$getSplash() == null) {
-            newScreenAccessor.setSplash(oldScreenAccessor.cumulus$getSplash());
+            newScreenAccessor.setSplash(Minecraft.getInstance().getSplashManager().getSplash());
         }
         SplashRendererAccessor splashRendererAccessor = (SplashRendererAccessor) newScreenAccessor.cumulus$getSplash();
         splashRendererAccessor.cumulus$setSplash(originalSplash);

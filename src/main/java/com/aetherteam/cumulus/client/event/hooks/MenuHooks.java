@@ -78,8 +78,8 @@ public class MenuHooks {
      */
     @Nullable
     public static Screen setupCustomMenu(Screen screen, MenuHelper menuHelper) {
-        if (CumulusConfig.CLIENT.enable_menu_api.get() && screen instanceof TitleScreen titleScreen) {
-            return menuHelper.applyMenu(titleScreen, menuHelper.getActiveMenu());
+        if (CumulusConfig.CLIENT.enable_menu_api.get() && screen instanceof TitleScreen) {
+            return menuHelper.applyMenu(menuHelper.getActiveMenu());
         }
         return screen;
     }
