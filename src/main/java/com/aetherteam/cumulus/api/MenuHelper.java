@@ -56,7 +56,7 @@ public class MenuHelper {
      * @return The {@link TitleScreen} corresponding to the applied menu.
      */
     @Nullable
-    public TitleScreen applyMenu(Menu menu) {
+    public TitleScreen applyMenu(TitleScreen oldScreen, Menu menu) {
         if (CumulusConfig.CLIENT.enable_menu_api.get()) {
             TitleScreen screen = this.checkFallbackScreen(menu, menu.getScreen());
             if (this.shouldFade()) {
@@ -67,7 +67,7 @@ public class MenuHelper {
             Menu.Background background = this.checkFallbackBackground(menu, screen, menu.getBackground());
             this.applyBackgrounds(background);
             if (this.getLastSplash() != null) {
-                this.migrateSplash(this.getLastSplash(), screen);
+                this.migrateSplash(this.getLastSplash(), oldScreen, screen);
             }
             menu.getApply().run();
             return screen;
@@ -178,8 +178,12 @@ public class MenuHelper {
      * @param originalSplash The original splash {@link String} to transfer to a new screen.
      * @param newScreen The new {@link TitleScreen} to get the splash.
      */
-    public void migrateSplash(String originalSplash, TitleScreen newScreen) {
+    public void migrateSplash(String originalSplash, TitleScreen oldScreen, TitleScreen newScreen) {
+        TitleScreenAccessor oldScreenAccessor = (TitleScreenAccessor) oldScreen;
         TitleScreenAccessor newScreenAccessor = (TitleScreenAccessor) newScreen;
+        if (newScreenAccessor.cumulus$getSplash() == null) {
+            newScreenAccessor.setSplash(oldScreenAccessor.cumulus$getSplash());
+        }
         SplashRendererAccessor splashRendererAccessor = (SplashRendererAccessor) newScreenAccessor.cumulus$getSplash();
         splashRendererAccessor.cumulus$setSplash(originalSplash);
     }

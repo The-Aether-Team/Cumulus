@@ -11,6 +11,9 @@ public interface TitleScreenAccessor {
     @Accessor("splash")
     SplashRenderer cumulus$getSplash();
 
+    @Accessor("splash")
+    void setSplash(SplashRenderer splash);
+
     @Mutable
     @Accessor("fading")
     void cumulus$setFading(boolean fading);
