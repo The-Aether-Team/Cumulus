@@ -18,7 +18,7 @@ description='''
 [[dependencies.cumulus_menus]]
     modId="forge"
     mandatory=true
-    versionRange="[47.1.70,)"
+    versionRange="[47.1.0,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.cumulus_menus]]
