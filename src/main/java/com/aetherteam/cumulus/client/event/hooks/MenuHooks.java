@@ -81,7 +81,7 @@ public class MenuHooks {
         if (CumulusConfig.CLIENT.enable_menu_api.get() && screen instanceof TitleScreen) {
             return menuHelper.applyMenu(menuHelper.getActiveMenu());
         }
-        return screen;
+        return null;
     }
 
     /**
