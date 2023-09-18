@@ -1,3 +1,5 @@
+<p align="center"><img width="250" height="250" src="assets/logo.webp"></p>
+
 # Cumulus
 
 A library for custom menu registration, used by the Aether mods.
