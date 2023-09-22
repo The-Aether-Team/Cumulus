@@ -110,7 +110,7 @@ If you have a reason that you wish to use our brand or any unlicensed material, 
 
 ## :star2: Special mentions
 ### :speech_balloon: Translations
-[![Crowdin translations](https://img.shields.io/badge/crowdin-cumulus-blue?color=55BC5C&label=crowdin&logo=crowdin&style=flat-square)](https://crowdin.com/project/cumulus)
+[![Crowdin translations](https://img.shields.io/badge/crowdin-cumulus-blue?color=55BC5C&label=crowdin&logo=crowdin&style=flat-square)](https://translate.cumulus.devaether.com/)
 
 Cumulus is available in these languages thanks to the following contributors:
 
@@ -118,7 +118,7 @@ Cumulus is available in these languages thanks to the following contributors:
 |-----------------------------|---------|------------------------------------------------------------------------------------------------------------|
 |                       |  |                                                                                                   |
 
-If you are interested in contributing translations to Cumulus, check out our [Crowdin](https://crowdin.com/project/cumulus) and our [Discord](https://discord.gg/aethermod)! If you have contributed translations in the past and your name is missing from the above list, please contact us.
+If you are interested in contributing translations to Cumulus, check out our [Crowdin](https://translate.cumulus.devaether.com/) and our [Discord](https://discord.gg/aethermod)! If you have contributed translations in the past and your name is missing from the above list, please contact us.
 
 ### :hammer: Contributions
 All of our code contribution credits can be found [here](https://github.com/The-Aether-Team/Cumulus/blob/1.19.4-develop/docs/CREDITS.txt). If you contributed to the project and do not see your name, please contact us.
