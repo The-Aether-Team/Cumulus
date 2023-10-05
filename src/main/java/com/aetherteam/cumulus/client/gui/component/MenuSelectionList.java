@@ -4,6 +4,7 @@ import com.aetherteam.cumulus.api.Menu;
 import com.aetherteam.cumulus.client.gui.screen.MenuSelectionScreen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ObjectSelectionList;
@@ -18,7 +19,7 @@ public class MenuSelectionList extends ObjectSelectionList<MenuSelectionList.Men
     private static final int ENTRY_PADDING = 2;
 
     public MenuSelectionList(MenuSelectionScreen parent, int width, int height, int top, int bottom, int itemHeight) {
-        super(parent.getMinecraft(), width, height, top, bottom, itemHeight);
+        super(Minecraft.getInstance(), width, height, top, bottom, itemHeight);
         this.parent = parent;
         this.refreshList();
     }

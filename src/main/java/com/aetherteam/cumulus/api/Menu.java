@@ -95,7 +95,7 @@ public class Menu {
      * @return The {@link ResourceLocation} of the {@link Menu}'s full registry ID.
      */
     public ResourceLocation getId() {
-        return Cumulus.MENU_REGISTRY.get().getKey(this);
+        return Cumulus.MENU_REGISTRY.getKey(this);
     }
 
     /**

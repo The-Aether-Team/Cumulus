@@ -10,6 +10,8 @@
     "defaultRequire": 1
   },
   "client": [
+    "client.MinecraftMixinHighest",
+    "client.MinecraftMixinLow",
     "client.MusicManagerMixin",
     "client.accessor.CreateWorldScreenAccessor",
     "client.accessor.RealmsPlayerScreenAccessor",

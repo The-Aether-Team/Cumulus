@@ -16,10 +16,8 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.client.event.ScreenEvent;
-import net.minecraftforge.common.MinecraftForge;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
@@ -91,7 +89,6 @@ public class MenuSelectionScreen extends Screen {
         RenderSystem.setShaderColor(1.75F, 1.75F, 1.75F, 1.0F);
         guiGraphics.blit(CreateWorldScreen.LIGHT_DIRT_BACKGROUND, 0, 0, 0, 0.0F, 0.0F, this.width, this.height, 32, 32);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        MinecraftForge.EVENT_BUS.post(new ScreenEvent.BackgroundRendered(this, guiGraphics));
     }
 
     private void renderListFrame(GuiGraphics guiGraphics) {
@@ -114,6 +111,6 @@ public class MenuSelectionScreen extends Screen {
 
     @Override
     public void onClose() {
-        this.getMinecraft().setScreen(this.parentScreen);
+        this.minecraft.setScreen(this.parentScreen);
     }
 }

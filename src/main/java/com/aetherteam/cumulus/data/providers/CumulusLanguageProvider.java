@@ -1,7 +1,7 @@
 package com.aetherteam.cumulus.data.providers;
 
+import io.github.fabricators_of_create.porting_lib.data.LanguageProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.common.data.LanguageProvider;
 
 public abstract class CumulusLanguageProvider extends LanguageProvider {
     protected final String id;
