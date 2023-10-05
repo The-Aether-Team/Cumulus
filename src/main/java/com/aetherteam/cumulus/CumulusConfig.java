@@ -1,15 +1,15 @@
 package com.aetherteam.cumulus;
 
-import net.minecraftforge.common.ForgeConfigSpec;
+import io.github.fabricators_of_create.porting_lib.config.ModConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class CumulusConfig {
     public static class Client {
-        public final ForgeConfigSpec.ConfigValue<Boolean> enable_menu_api;
-        public final ForgeConfigSpec.ConfigValue<String> active_menu;
-        public final ForgeConfigSpec.ConfigValue<Boolean> enable_menu_list_button;
+        public final ModConfigSpec.ConfigValue<Boolean> enable_menu_api;
+        public final ModConfigSpec.ConfigValue<String> active_menu;
+        public final ModConfigSpec.ConfigValue<Boolean> enable_menu_list_button;
 
-        public Client(ForgeConfigSpec.Builder builder) {
+        public Client(ModConfigSpec.Builder builder) {
             builder.push("Menu");
             enable_menu_api = builder
                     .comment("Determines whether the Menu API is enabled or not")
@@ -27,11 +27,11 @@ public class CumulusConfig {
         }
     }
 
-    public static final ForgeConfigSpec CLIENT_SPEC;
+    public static final ModConfigSpec CLIENT_SPEC;
     public static final Client CLIENT;
 
     static {
-        final Pair<Client, ForgeConfigSpec> clientSpecPair = new ForgeConfigSpec.Builder().configure(Client::new);
+        final Pair<Client, ModConfigSpec> clientSpecPair = new ModConfigSpec.Builder().configure(Client::new);
         CLIENT_SPEC = clientSpecPair.getRight();
         CLIENT = clientSpecPair.getLeft();
     }
