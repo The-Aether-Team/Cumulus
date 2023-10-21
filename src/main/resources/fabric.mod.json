@@ -5,6 +5,7 @@
   "name": "Cumulus",
   "description": "A library for custom menu registration. Credits go to: The Aether Team; kingbdogz, for the original Main Menu API that this is inspired by.",
   "authors": [
+    "The Aether Team",
     "bconlon"
   ],
   "contact": {
