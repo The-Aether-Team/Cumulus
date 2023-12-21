@@ -1,8 +1,4 @@
-# Cumulus - Forge - 1.19.4-1.0.0
+# Cumulus - Forge - 1.19.2-1.0.0
 
-Additions
-
-Changes
-
-Fixes
+- Full Release
 
