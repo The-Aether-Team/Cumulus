@@ -1,11 +1,8 @@
 plugins {
     id 'eclipse'
     id 'maven-publish'
-    id 'net.neoforged.gradle' version '[6.0.13, 6.2)'
+    id 'net.neoforged.gradle.userdev' version '7.0.+'
     id 'org.spongepowered.mixin' version '[0.7,0.8)'
-    id 'org.parchmentmc.librarian.forgegradle' version '[1,2)'
-    id 'org.moddingx.modgradle.mapping' version '[4,5)'
-    id 'org.moddingx.modgradle.sourcejar' version '[4,5)' apply false
     id 'io.github.0ffz.github-packages' version '[1,2)'
     id 'com.matthewprenger.cursegradle' version '[1.4,1.5)'
     id 'com.modrinth.minotaur' version '[2,3)'
@@ -20,45 +17,37 @@ base {
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
-apply plugin: 'org.moddingx.modgradle.sourcejar'
+minecraft.accessTransformers.file rootProject.file('src/main/resources/META-INF/accesstransformer.cfg')
 
-minecraft {
-    mappings channel: 'sugarcane', version: project.mappings
+runs {
+    configureEach {
+        systemProperty  'forge.logging.console.level', 'info'
 
-    copyIdeResources = true
-    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+        modSource project.sourceSets.main
+    }
 
-    runs {
-        configureEach {
-            workingDirectory project.file('run')
+    client {
+        systemProperty 'forge.enabledGameTestNamespaces', mod_id
+    }
 
-            property "${mod_id}.iside", 'true'
-            property 'forge.logging.console.level', 'info'
+    server {
+        systemProperty 'forge.enabledGameTestNamespaces', mod_id
+        programArgument '--nogui'
+    }
 
-            mods {
-                "${mod_id}" {
-                    source sourceSets.main
-                }
-            }
-        }
+    gameTestServer {
+        systemProperty 'neoforge.enabledGameTestNamespaces', mod_id
+    }
 
-        client {
-            property 'forge.enabledGameTestNamespaces', mod_id
-        }
+    data {
+        programArguments.addAll '--mod', mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/'), '--existing', file('src/generated/resources/').getAbsolutePath()
+    }
+}
 
-        server {
-            property 'forge.enabledGameTestNamespaces', mod_id
-            args '--nogui'
-        }
-
-        gameTestServer {
-            property 'forge.enabledGameTestNamespaces', mod_id
-        }
-
-        data {
-            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/'), '--existing', file('src/generated/resources/')
-            environment 'target', 'fmluserdevdata'
-        }
+subsystems {
+    parchment {
+        minecraftVersion = project.mc_version
+        mappingsVersion = project.mappings
     }
 }
 
@@ -67,7 +56,7 @@ sourceSets.main.resources {
 }
 
 dependencies {
-    minecraft "net.neoforged:forge:${project.mc_version}-${project.neoforge_version}"
+    implementation "net.neoforged:neoforge:${project.neoforge_version}"
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
@@ -103,8 +92,8 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             artifactId project.archivesBaseName
-            artifact jar
-            artifact sourceJar
+            artifact project.jar
+            artifact project.sourceJar
         }
     }
     repositories {
@@ -127,6 +116,7 @@ curseforge {
         changelog = file("$rootDir/docs/CHANGELOG.md")
         changelogType = "markdown"
         addGameVersion("${project.mc_version}")
+        addGameVersion("NeoForge")
         mainArtifact(tasks.jar) {
             displayName = "${project.mod_name} - ${version}"
         }
@@ -143,6 +133,12 @@ modrinth {
     uploadFile = tasks.jar
     gameVersions = ["${project.mc_version}"]
     loaders = ["neoforge"]
+}
+
+tasks.register('sourceJar', Jar) {
+    dependsOn 'classes'
+    from sourceSets.main.allSource
+    archiveClassifier = 'sources'
 }
 
 mixin {

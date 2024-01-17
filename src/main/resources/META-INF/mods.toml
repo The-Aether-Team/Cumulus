@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[47,)"
+loaderVersion="[20,)"
 license="LGPL-3.0"
 issueTrackerURL="https://github.com/The-Aether-Team/Cumulus/issues"
 
@@ -16,9 +16,9 @@ description='''
     A library for custom menu registration.'''
 
 [[dependencies.cumulus_menus]]
-    modId="forge"
+    modId="neoforge"
     mandatory=true
-    versionRange="[47.1.0,)"
+    versionRange="[20.2.0,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.cumulus_menus]]
