@@ -21,6 +21,8 @@ minecraft.accessTransformers.file rootProject.file('src/main/resources/META-INF/
 
 runs {
     configureEach {
+        workingDirectory project.file('run')
+        systemProperty "${mod_id}.iside", 'true'
         systemProperty  'forge.logging.console.level', 'info'
 
         modSource project.sourceSets.main

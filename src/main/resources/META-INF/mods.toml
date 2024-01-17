@@ -7,7 +7,7 @@ issueTrackerURL="https://github.com/The-Aether-Team/Cumulus/issues"
 modId="cumulus_menus"
 version="${file.jarVersion}"
 displayName="Cumulus"
-updateJSONURL="https://github.com/The-Aether-Team/Cumulus/raw/1.20.1-develop/update.json"
+updateJSONURL="https://github.com/The-Aether-Team/Cumulus/raw/1.20.2-develop/update.json"
 displayURL="https://modrinth.com/mod/cumulus"
 logoFile="cumulus.png"
 credits="The Aether Team; kingbdogz, for the original Main Menu API that this is inspired by"
@@ -24,6 +24,6 @@ description='''
 [[dependencies.cumulus_menus]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.20.1,1.20.2)"
+    versionRange="[1.20.2,1.20.3)"
     ordering="NONE"
     side="BOTH"
