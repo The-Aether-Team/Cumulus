@@ -16,8 +16,8 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.client.event.ScreenEvent;
-import net.minecraftforge.common.MinecraftForge;
+import net.neoforged.neoforge.client.event.ScreenEvent;
+import net.neoforged.neoforge.common.NeoForge;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -52,8 +52,7 @@ public class MenuSelectionScreen extends Screen {
     @Override
     public void init() {
         this.menuList = new MenuSelectionList(this, this.frameWidth - (EXTERIOR_WIDTH_PADDING * 2), this.frameHeight, (this.height / 2) - (this.frameHeight / 2) + EXTERIOR_TOP_PADDING, (this.height / 2) + (this.frameHeight / 2) - EXTERIOR_BOTTOM_PADDING, 24);
-        this.menuList.setRenderBackground(false);
-        this.menuList.setRenderTopAndBottom(false);
+//        this.menuList.setRenderBackground(false); //todo fix
         this.menuList.setLeftPos((this.width / 2) - (this.frameWidth / 2) + EXTERIOR_WIDTH_PADDING);
         this.addRenderableWidget(this.menuList);
 
@@ -91,7 +90,7 @@ public class MenuSelectionScreen extends Screen {
         RenderSystem.setShaderColor(1.75F, 1.75F, 1.75F, 1.0F);
         guiGraphics.blit(CreateWorldScreen.LIGHT_DIRT_BACKGROUND, 0, 0, 0, 0.0F, 0.0F, this.width, this.height, 32, 32);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        MinecraftForge.EVENT_BUS.post(new ScreenEvent.BackgroundRendered(this, guiGraphics));
+        NeoForge.EVENT_BUS.post(new ScreenEvent.BackgroundRendered(this, guiGraphics));
     }
 
     private void renderListFrame(GuiGraphics guiGraphics) {

@@ -62,7 +62,7 @@ public class MenuHooks {
             if (CumulusConfig.CLIENT.enable_menu_api.get()) {
                 if (!CumulusClient.MENU_HELPER.doesScreenMatchMenu(titleScreen) || screen.getClass() == TitleScreen.class) {
                     CumulusClient.MENU_HELPER.setFallbackTitleScreen(titleScreen);
-                    CumulusClient.MENU_HELPER.setFallbackBackground(new Menu.Background().regularBackground(Screen.BACKGROUND_LOCATION).darkBackground(CreateWorldScreen.LIGHT_DIRT_BACKGROUND).headerSeparator(CreateWorldScreen.HEADER_SEPERATOR).footerSeparator(CreateWorldScreen.FOOTER_SEPERATOR).tabButton(TabButtonAccessor.cumulus$getTextureLocation()));
+                    CumulusClient.MENU_HELPER.setFallbackBackground(new Menu.Background().regularBackground(Screen.BACKGROUND_LOCATION).darkBackground(CreateWorldScreen.LIGHT_DIRT_BACKGROUND).headerSeparator(CreateWorldScreen.HEADER_SEPERATOR).footerSeparator(CreateWorldScreen.FOOTER_SEPERATOR).tabButton(TabButtonAccessor.cumulus$getSprites()));
                 }
             } else if (screen.getClass() == TitleScreen.class) {
                 CumulusClient.MENU_HELPER.setFallbackTitleScreen(titleScreen);

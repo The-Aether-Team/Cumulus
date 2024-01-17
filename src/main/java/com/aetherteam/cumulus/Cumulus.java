@@ -14,20 +14,20 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.RegistryBuilder;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.NewRegistryEvent;
+import net.neoforged.neoforge.registries.RegistryBuilder;
 import org.slf4j.Logger;
 
 import java.util.Map;
-import java.util.function.Supplier;
 
 @Mod(Cumulus.MODID)
 public class Cumulus {
@@ -35,17 +35,17 @@ public class Cumulus {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public static final ResourceKey<Registry<Menu>> MENU_REGISTRY_KEY = ResourceKey.createRegistryKey(new ResourceLocation(Cumulus.MODID, "menu"));
-    public static final DeferredRegister<Menu> DEFERRED_MENUS = DeferredRegister.create(Cumulus.MENU_REGISTRY_KEY, Cumulus.MENU_REGISTRY_KEY.location().getNamespace());
-    public static final Supplier<IForgeRegistry<Menu>> MENU_REGISTRY = DEFERRED_MENUS.makeRegistry(RegistryBuilder::new);
+    public static final Registry<Menu> MENU_REGISTRY = new RegistryBuilder<>(MENU_REGISTRY_KEY).sync(true).create();
 
     public Cumulus() {
-        DistExecutor.unsafeRunForDist(() -> () -> {
+        if (FMLEnvironment.dist == Dist.CLIENT) {
             IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+            modEventBus.addListener(NewRegistryEvent.class, event -> event.register(MENU_REGISTRY));
+
             modEventBus.addListener(this::dataSetup);
 
             DeferredRegister<?>[] registers = {
                     Menus.MENUS,
-                    Cumulus.DEFERRED_MENUS
             };
 
             for (DeferredRegister<?> register : registers) {
@@ -53,13 +53,7 @@ public class Cumulus {
             }
 
             ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CumulusConfig.CLIENT_SPEC);
-
-            return true;
-        }, () -> () -> {
-            Cumulus.LOGGER.info("Disabling Cumulus as it is on server.");
-
-            return false;
-        });
+        }
     }
 
     public void dataSetup(GatherDataEvent event) {

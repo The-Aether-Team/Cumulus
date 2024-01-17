@@ -5,6 +5,7 @@ import com.aetherteam.cumulus.mixin.mixins.client.accessor.CreateWorldScreenAcce
 import com.aetherteam.cumulus.mixin.mixins.client.accessor.RealmsPlayerScreenAccessor;
 import com.aetherteam.cumulus.mixin.mixins.client.accessor.ScreenAccessor;
 import com.aetherteam.cumulus.mixin.mixins.client.accessor.TabButtonAccessor;
+import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
@@ -95,7 +96,7 @@ public class Menu {
      * @return The {@link ResourceLocation} of the {@link Menu}'s full registry ID.
      */
     public ResourceLocation getId() {
-        return Cumulus.MENU_REGISTRY.get().getKey(this);
+        return Cumulus.MENU_REGISTRY.getKey(this);
     }
 
     /**
@@ -148,13 +149,13 @@ public class Menu {
         private static final ResourceLocation DEFAULT_DARK_BACKGROUND = CreateWorldScreen.LIGHT_DIRT_BACKGROUND;
         private static final ResourceLocation DEFAULT_HEADER_SEPARATOR = CreateWorldScreen.HEADER_SEPERATOR;
         private static final ResourceLocation DEFAULT_FOOTER_SEPARATOR = CreateWorldScreen.FOOTER_SEPERATOR;
-        private static final ResourceLocation DEFAULT_TAB_BUTTON = TabButtonAccessor.cumulus$getTextureLocation();
+        private static final WidgetSprites DEFAULT_TAB_BUTTON = TabButtonAccessor.cumulus$getSprites();
 
         private ResourceLocation regularBackground = DEFAULT_REGULAR_BACKGROUND;
         private ResourceLocation darkBackground = DEFAULT_DARK_BACKGROUND;
         private ResourceLocation headerSeparator = DEFAULT_HEADER_SEPARATOR;
         private ResourceLocation footerSeparator = DEFAULT_FOOTER_SEPARATOR;
-        private ResourceLocation tabButton = DEFAULT_TAB_BUTTON;
+        private WidgetSprites tabButton = DEFAULT_TAB_BUTTON;
 
         public static final Background MINECRAFT = new Background()
                 .regularBackground(DEFAULT_REGULAR_BACKGROUND)
@@ -173,7 +174,7 @@ public class Menu {
             CreateWorldScreenAccessor.cumulus$setLightDirtBackground(background.getDarkBackground());
             CreateWorldScreenAccessor.cumulus$setHeaderSeparator(background.getHeaderSeparator());
             CreateWorldScreenAccessor.cumulus$setFooterSeparator(background.getFooterSeparator());
-            TabButtonAccessor.cumulus$setTextureLocation(background.getTabButton());
+            TabButtonAccessor.cumulus$setSprites(background.getTabButton());
         }
 
         /**
@@ -218,7 +219,7 @@ public class Menu {
         /**
          * @see Background#getTabButton()
          */
-        public Background tabButton(ResourceLocation tabButton) {
+        public Background tabButton(WidgetSprites tabButton) {
             this.tabButton = tabButton;
             return this;
         }
@@ -254,7 +255,7 @@ public class Menu {
         /**
          * @return The {@link ResourceLocation} for the dirt tab button texture to replace.
          */
-        public ResourceLocation getTabButton() {
+        public WidgetSprites getTabButton() {
             return this.tabButton;
         }
     }
