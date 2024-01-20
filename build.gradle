@@ -141,7 +141,3 @@ modrinth {
     gameVersions = ["${project.mc_version}"]
     loaders = ["neoforge"]
 }
-
-mixin {
-    config "${project.mod_id}.mixins.json"
-}

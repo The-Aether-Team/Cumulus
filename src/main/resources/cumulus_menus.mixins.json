@@ -5,13 +5,13 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "cumulus_menus.refmap.json",
   "mixins": [
-    "client.accessor.AbstractSelectionListAccessor"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "client": [
     "client.MusicManagerMixin",
+    "client.accessor.AbstractSelectionListAccessor",
     "client.accessor.CreateWorldScreenAccessor",
     "client.accessor.RealmsPlayerScreenAccessor",
     "client.accessor.ScreenAccessor",

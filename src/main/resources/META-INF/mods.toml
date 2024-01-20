@@ -27,3 +27,6 @@ description='''
     versionRange="[1.20.2,1.20.3)"
     ordering="NONE"
     side="BOTH"
+
+[[mixins]]
+    config="cumulus_menus.mixins.json"
