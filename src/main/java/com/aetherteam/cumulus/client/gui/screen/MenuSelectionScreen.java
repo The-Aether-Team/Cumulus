@@ -52,7 +52,7 @@ public class MenuSelectionScreen extends Screen {
     @Override
     public void init() {
         this.menuList = new MenuSelectionList(this, this.frameWidth - (EXTERIOR_WIDTH_PADDING * 2), this.frameHeight, (this.height / 2) - (this.frameHeight / 2) + EXTERIOR_TOP_PADDING, (this.height / 2) + (this.frameHeight / 2) - EXTERIOR_BOTTOM_PADDING, 24);
-//        this.menuList.setRenderBackground(false); //todo fix
+        this.menuList.setRenderBackground(false);
         this.menuList.setLeftPos((this.width / 2) - (this.frameWidth / 2) + EXTERIOR_WIDTH_PADDING);
         this.addRenderableWidget(this.menuList);
 
@@ -86,6 +86,10 @@ public class MenuSelectionScreen extends Screen {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
     }
 
+    @Override
+    public void renderBackground(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) { }
+
+    @Override
     public void renderDirtBackground(GuiGraphics guiGraphics) {
         RenderSystem.setShaderColor(1.75F, 1.75F, 1.75F, 1.0F);
         guiGraphics.blit(CreateWorldScreen.LIGHT_DIRT_BACKGROUND, 0, 0, 0, 0.0F, 0.0F, this.width, this.height, 32, 32);
