@@ -25,8 +25,6 @@ import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.RegistryBuilder;
 import org.slf4j.Logger;
 
-import java.util.Optional;
-
 @Mod(Cumulus.MODID)
 public class Cumulus {
     public static final String MODID = "cumulus_menus";
@@ -62,7 +60,7 @@ public class Cumulus {
 
         // pack.mcmeta
         PackMetadataGenerator packMeta = new PackMetadataGenerator(packOutput);
-        packMeta.add(PackMetadataSection.TYPE, new PackMetadataSection(Component.translatable("pack.cumulus_menus.mod.description"), SharedConstants.getCurrentVersion().getPackVersion(PackType.CLIENT_RESOURCES), Optional.empty()));
+        packMeta.add(PackMetadataSection.TYPE, new PackMetadataSection(Component.translatable("pack.cumulus_menus.mod.description"), SharedConstants.getCurrentVersion().getPackVersion(PackType.CLIENT_RESOURCES)));
         generator.addProvider(true, packMeta);
     }
 }
