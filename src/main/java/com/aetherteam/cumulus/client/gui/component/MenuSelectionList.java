@@ -17,16 +17,16 @@ public class MenuSelectionList extends ObjectSelectionList<MenuSelectionList.Men
 
     private static final int ENTRY_PADDING = 2;
 
-    public MenuSelectionList(MenuSelectionScreen parent, int width, int height, int top, int bottom, int itemHeight) {
-        super(parent.getMinecraft(), width, height, top, bottom, itemHeight);
+    public MenuSelectionList(MenuSelectionScreen parent, int width, int height, int y, int itemHeight) {
+        super(parent.getMinecraft(), width, height, y, itemHeight);
         this.parent = parent;
         this.refreshList();
     }
 
     @Override
     protected void renderSelection(GuiGraphics guiGraphics, int top, int width, int height, int outerColor, int innerColor) {
-        int i = this.x0 + (this.width - width) / 2;
-        int j = this.x0 + (this.width + width) / 2;
+        int i = this.getX() + (this.width - width) / 2;
+        int j = this.getX() + (this.width + width) / 2;
         guiGraphics.fill(i + 1, top - 3, j - 7, top + height + 1, -1);
     }
 

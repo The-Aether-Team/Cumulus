@@ -39,7 +39,7 @@ runs {
     }
 
     data {
-        programArguments.addAll '--mod', mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/'), '--existing', file('src/generated/resources/').getAbsolutePath()
+        programArguments.addAll '--mod', mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath(), '--existing', file('src/generated/resources/').getAbsolutePath()
     }
 }
 
@@ -49,7 +49,7 @@ sourceSets.main.resources {
 
 subsystems {
     parchment {
-        minecraftVersion = project.mc_version
+        minecraftVersion = '1.20.3' //todo
         mappingsVersion = project.mappings
     }
 }

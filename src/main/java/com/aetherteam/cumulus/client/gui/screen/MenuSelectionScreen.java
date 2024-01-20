@@ -51,9 +51,9 @@ public class MenuSelectionScreen extends Screen {
 
     @Override
     public void init() {
-        this.menuList = new MenuSelectionList(this, this.frameWidth - (EXTERIOR_WIDTH_PADDING * 2), this.frameHeight, (this.height / 2) - (this.frameHeight / 2) + EXTERIOR_TOP_PADDING, (this.height / 2) + (this.frameHeight / 2) - EXTERIOR_BOTTOM_PADDING, 24);
+        this.menuList = new MenuSelectionList(this, this.frameWidth - (EXTERIOR_WIDTH_PADDING * 2), this.frameHeight, (this.height / 2) - (this.frameHeight / 2) + EXTERIOR_TOP_PADDING, 24);
         this.menuList.setRenderBackground(false);
-        this.menuList.setLeftPos((this.width / 2) - (this.frameWidth / 2) + EXTERIOR_WIDTH_PADDING);
+        this.menuList.setX((this.width / 2) - (this.frameWidth / 2) + EXTERIOR_WIDTH_PADDING);
         this.addRenderableWidget(this.menuList);
 
         this.launchButton = Button.builder(Component.translatable("gui.cumulus_menus.button.menu_launch"), press -> {
