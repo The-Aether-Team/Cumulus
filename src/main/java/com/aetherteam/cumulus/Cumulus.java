@@ -19,8 +19,6 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
@@ -37,19 +35,18 @@ public class Cumulus {
     public static final ResourceKey<Registry<Menu>> MENU_REGISTRY_KEY = ResourceKey.createRegistryKey(new ResourceLocation(Cumulus.MODID, "menu"));
     public static final Registry<Menu> MENU_REGISTRY = new RegistryBuilder<>(MENU_REGISTRY_KEY).sync(true).create();
 
-    public Cumulus() {
-        if (FMLEnvironment.dist == Dist.CLIENT) {
-            IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-            modEventBus.addListener(NewRegistryEvent.class, event -> event.register(MENU_REGISTRY));
+    public Cumulus(IEventBus bus, Dist dist) {
+        if (dist == Dist.CLIENT) {
+            bus.addListener(NewRegistryEvent.class, event -> event.register(MENU_REGISTRY));
 
-            modEventBus.addListener(this::dataSetup);
+            bus.addListener(this::dataSetup);
 
             DeferredRegister<?>[] registers = {
                     Menus.MENUS,
             };
 
             for (DeferredRegister<?> register : registers) {
-                register.register(modEventBus);
+                register.register(bus);
             }
 
             ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CumulusConfig.CLIENT_SPEC);
