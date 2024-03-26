@@ -36,8 +36,8 @@ public class Cumulus {
     public static final Registry<Menu> MENU_REGISTRY = new RegistryBuilder<>(MENU_REGISTRY_KEY).sync(true).create();
 
     public Cumulus(IEventBus bus, Dist dist) {
+        bus.addListener(NewRegistryEvent.class, event -> event.register(MENU_REGISTRY));
         if (dist == Dist.CLIENT) {
-            bus.addListener(NewRegistryEvent.class, event -> event.register(MENU_REGISTRY));
 
             bus.addListener(this::dataSetup);
 
