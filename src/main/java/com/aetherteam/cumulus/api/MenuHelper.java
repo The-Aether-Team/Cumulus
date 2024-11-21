@@ -8,9 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.renderer.PanoramaRenderer;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.Music;
-import net.neoforged.neoforge.registries.DeferredHolder;
 
 import javax.annotation.Nullable;
 import java.util.Calendar;
@@ -47,11 +45,9 @@ public class MenuHelper {
      * Prepares a menu for application by marking it active if the condition is true.
      * @param menu The {@link Menu} to set active.
      */
-    public void prepareMenu(DeferredHolder<Menu, Menu> menu) {
-        if (menu.getKey() != null && BuiltInRegistries.REGISTRY.get(menu.getKey().registry()) != null) {
-            if (menu.get().getCondition().getAsBoolean()) {
-                this.setActiveMenu(menu.get());
-            }
+    public void prepareMenu(Menu menu) {
+        if (menu.condition().getAsBoolean()) {
+            this.setActiveMenu(menu);
         }
     }
 
@@ -63,18 +59,18 @@ public class MenuHelper {
     @Nullable
     public TitleScreen applyMenu(Menu menu) {
         if (CumulusConfig.CLIENT.enable_menu_api.get()) {
-            TitleScreen screen = this.checkFallbackScreen(menu, menu.getScreen());
+            TitleScreen screen = this.checkFallbackScreen(menu, menu.screen());
             if (this.shouldFade()) {
                 TitleScreenAccessor defaultMenuAccessor = (TitleScreenAccessor) screen;
                 defaultMenuAccessor.cumulus$setFading(true);
                 defaultMenuAccessor.cumulus$setFadeInStart(0L);
             }
-            ScreenAccessor.cumulus$setCubeMap(menu.getPanorama());
-            ScreenAccessor.cumulus$setPanorama(new PanoramaRenderer(menu.getPanorama()));
+            ScreenAccessor.cumulus$setCubeMap(menu.panorama());
+            ScreenAccessor.cumulus$setPanorama(new PanoramaRenderer(menu.panorama()));
             if (this.getLastSplash() != null) {
                 this.migrateSplash(this.getLastSplash(), screen);
             }
-            menu.getApply().run();
+            menu.apply().run();
             return screen;
         }
         return this.getFallbackTitleScreen();
@@ -87,7 +83,7 @@ public class MenuHelper {
      * @return The fallback {@link TitleScreen}.
      */
     private TitleScreen checkFallbackScreen(Menu menu, TitleScreen screen) {
-        if ((screen.getClass() == TitleScreen.class || menu == Menus.MINECRAFT.get()) && this.getFallbackTitleScreen() != null) {
+        if ((screen.getClass() == TitleScreen.class || menu == Menus.MINECRAFT) && this.getFallbackTitleScreen() != null) {
             screen = this.getFallbackTitleScreen();
         }
         return screen;
@@ -97,7 +93,7 @@ public class MenuHelper {
      * Resets the active menu to the default Minecraft menu.
      */
     public void clearActiveMenu() {
-        this.activeMenu = Menus.MINECRAFT.get();
+        this.activeMenu = Menus.MINECRAFT;
     }
 
     /**
@@ -105,7 +101,7 @@ public class MenuHelper {
      */
     @Nullable
     public TitleScreen getActiveScreen() {
-        return this.getActiveMenu() != null ? this.getActiveMenu().getScreen() : null;
+        return this.getActiveMenu() != null ? this.getActiveMenu().screen() : null;
     }
 
     /**
@@ -113,7 +109,7 @@ public class MenuHelper {
      */
     @Nullable
     public Music getActiveMusic() {
-        return this.getActiveMenu() != null ? this.getActiveMenu().getMusic() : null;
+        return this.getActiveMenu() != null ? this.getActiveMenu().music() : null;
     }
 
     /**

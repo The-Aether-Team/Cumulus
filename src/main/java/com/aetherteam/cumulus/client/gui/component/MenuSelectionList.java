@@ -62,7 +62,7 @@ public class MenuSelectionList extends ObjectSelectionList<MenuSelectionList.Men
 
         @Override
         public Component getNarration() {
-            return this.menu.getName();
+            return this.menu.name();
         }
 
         @Override
@@ -73,12 +73,12 @@ public class MenuSelectionList extends ObjectSelectionList<MenuSelectionList.Men
             poseStack.popPose();
             RenderSystem.setShaderColor(1, 1, 1, 1);
             poseStack.pushPose();
-            guiGraphics.blit(this.menu.getIcon(), left + ENTRY_PADDING + 1, top + 1, 0, 0, 16, 16, 16, 16);
+            guiGraphics.blit(this.menu.icon(), left + ENTRY_PADDING + 1, top + 1, 0, 0, 16, 16, 16, 16);
             poseStack.popPose();
 
             Font font = this.parent.getFontRenderer();
             int fontWidth = MenuSelectionList.this.getRowWidth() - (ENTRY_PADDING * 2) - 24;
-            List<FormattedCharSequence> lines = font.split(this.menu.getName(), fontWidth);
+            List<FormattedCharSequence> lines = font.split(this.menu.name(), fontWidth);
 
 
             int length = 1;
