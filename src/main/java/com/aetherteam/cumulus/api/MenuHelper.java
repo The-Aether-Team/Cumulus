@@ -18,7 +18,7 @@ import java.util.function.Predicate;
 
 public class MenuHelper {
     @Nullable
-    private Menu activeMenu = null;
+    private Menu activeMenu = Menus.MINECRAFT;
     @Nullable
     private TitleScreen fallbackTitleScreen = null;
     @Nullable
@@ -39,16 +39,6 @@ public class MenuHelper {
      */
     public void setActiveMenu(@Nullable Menu activeMenu) {
         this.activeMenu = activeMenu;
-    }
-
-    /**
-     * Prepares a menu for application by marking it active if the condition is true.
-     * @param menu The {@link Menu} to set active.
-     */
-    public void prepareMenu(Menu menu) {
-        if (menu.condition().getAsBoolean()) {
-            this.setActiveMenu(menu);
-        }
     }
 
     /**

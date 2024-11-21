@@ -8,16 +8,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
 
-import java.util.function.BooleanSupplier;
+public record Menu(ResourceLocation icon, Component name, TitleScreen screen, Runnable apply, Music music, CubeMap panorama) {
 
-public record Menu(ResourceLocation icon, Component name, TitleScreen screen, BooleanSupplier condition, Runnable apply, Music music, CubeMap panorama) {
-
-    public Menu(ResourceLocation icon, Component name, TitleScreen screen, BooleanSupplier condition) {
-        this(icon, name, screen, condition, new Properties());
+    public Menu(ResourceLocation icon, Component name, TitleScreen screen) {
+        this(icon, name, screen, new Properties());
     }
 
-    public Menu(ResourceLocation icon, Component name, TitleScreen screen, BooleanSupplier condition, Properties properties) {
-        this(icon, name, screen, condition, properties.apply, properties.music, properties.panorama);
+    public Menu(ResourceLocation icon, Component name, TitleScreen screen, Properties properties) {
+        this(icon, name, screen, properties.apply, properties.music, properties.panorama);
     }
 
     /**

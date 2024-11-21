@@ -32,14 +32,6 @@ public class MenuHooks {
     }
 
     /**
-     * Prepares the custom menu to apply.
-     * @param menuHelper The {@link MenuHelper}.
-     */
-    public static void prepareCustomMenus(MenuHelper menuHelper) {
-        menuHelper.prepareMenu(Menus.MINECRAFT);
-    }
-
-    /**
      * Tracks a fallback screen and background if the current screen doesn't match a one tied to a registered menu.
      * @param screen The {@link Screen}.
      */

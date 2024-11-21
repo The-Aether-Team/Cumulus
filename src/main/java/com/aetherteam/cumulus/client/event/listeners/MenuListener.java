@@ -16,16 +16,6 @@ import net.neoforged.neoforge.client.event.ScreenEvent;
 @EventBusSubscriber(modid = Cumulus.MODID, value = Dist.CLIENT)
 public class MenuListener {
     /**
-     * @see MenuHooks#prepareCustomMenus(MenuHelper)
-     * @see MenuHooks#refreshBackgrounds(Screen, MenuHelper)
-     */
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public static void onGuiOpenHighest(ScreenEvent.Opening event) {
-        Screen newScreen = event.getNewScreen();
-        MenuHooks.prepareCustomMenus(CumulusClient.MENU_HELPER);
-    }
-
-    /**
      * @see MenuHooks#setLastSplash(Screen, MenuHelper)
      * @see MenuHooks#trackFallbacks(Screen)
      */

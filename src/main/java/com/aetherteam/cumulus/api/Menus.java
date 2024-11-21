@@ -19,7 +19,6 @@ public class Menus {
 
     public static final ResourceLocation MINECRAFT_ICON = ResourceLocation.withDefaultNamespace("textures/block/grass_block_side.png");
     public static final Component MINECRAFT_NAME = Component.translatable("cumulus_menus.menu_title.minecraft");
-    public static final BooleanSupplier MINECRAFT_CONDITION = () -> true;
     private static Map<ResourceLocation, Menu> MENUS;
     public static Menu MINECRAFT;
 
@@ -32,9 +31,9 @@ public class Menus {
         MENUS = ImmutableMap.copyOf(menus);
     }
 
-    private static Menu registerVanillaScreen(Map<ResourceLocation, Menu> effects) {
-        var vanilla = new Menu(MINECRAFT_ICON, MINECRAFT_NAME, new TitleScreen(true), MINECRAFT_CONDITION);
-        effects.put(ResourceLocation.withDefaultNamespace("minecraft"), vanilla);
+    private static Menu registerVanillaScreen(Map<ResourceLocation, Menu> menus) {
+        var vanilla = new Menu(MINECRAFT_ICON, MINECRAFT_NAME, new TitleScreen(true));
+        menus.put(ResourceLocation.withDefaultNamespace("minecraft"), vanilla);
         return vanilla;
     }
 
