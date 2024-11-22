@@ -15,6 +15,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -27,13 +28,17 @@ public class Cumulus {
 
     public Cumulus(ModContainer mod, IEventBus bus, Dist dist) {
         if (dist == Dist.CLIENT) {
-            Menus.init();
+            bus.addListener(this::clientSetup);
             bus.addListener(this::dataSetup);
 
             mod.registerConfig(ModConfig.Type.CLIENT, CumulusConfig.CLIENT_SPEC);
 
             mod.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
         }
+    }
+
+    public void clientSetup(FMLClientSetupEvent event) {
+        event.enqueueWork(Menus::init);
     }
 
     public void dataSetup(GatherDataEvent event) {
