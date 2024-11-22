@@ -49,6 +49,7 @@ public class MenuHelper {
     @Nullable
     public TitleScreen applyMenu(Menu menu) {
         if (CumulusConfig.CLIENT.enable_menu_api.get()) {
+            this.setActiveMenu(menu);
             TitleScreen screen = this.checkFallbackScreen(menu, menu.screen());
             if (this.shouldFade()) {
                 TitleScreenAccessor defaultMenuAccessor = (TitleScreenAccessor) screen;

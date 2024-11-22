@@ -12,6 +12,7 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 
 import javax.annotation.Nullable;
 
@@ -56,7 +57,7 @@ public class MenuHooks {
     @Nullable
     public static Screen setupCustomMenu(Screen screen, MenuHelper menuHelper) {
         if (screen instanceof TitleScreen && CumulusConfig.CLIENT.enable_menu_api.get()) {
-            return menuHelper.applyMenu(menuHelper.getActiveMenu());
+            return menuHelper.applyMenu(Menus.get(ResourceLocation.parse(CumulusConfig.CLIENT.active_menu.get())));
         }
         return null;
     }

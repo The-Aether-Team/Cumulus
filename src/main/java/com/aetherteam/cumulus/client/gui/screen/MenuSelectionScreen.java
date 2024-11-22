@@ -58,7 +58,7 @@ public class MenuSelectionScreen extends Screen {
                 CumulusConfig.CLIENT.active_menu.set(this.selected.getMenu().toString());
                 CumulusConfig.CLIENT.active_menu.save();
                 CumulusClient.MENU_HELPER.setShouldFade(true);
-                Minecraft.getInstance().setScreen(CumulusClient.MENU_HELPER.applyMenu(CumulusClient.MENU_HELPER.getActiveMenu()));
+                Minecraft.getInstance().setScreen(CumulusClient.MENU_HELPER.applyMenu(this.selected.getMenu()));
                 Minecraft.getInstance().getMusicManager().stopPlaying();
             }
         }).bounds((this.width / 2) - (this.frameWidth / 2) + 34, (this.height / 2) + (this.frameHeight / 2) - 27, 72, 20).build();
