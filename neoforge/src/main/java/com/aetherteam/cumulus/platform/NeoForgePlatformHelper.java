@@ -1,13 +1,10 @@
 package com.aetherteam.cumulus.platform;
 
+import com.aetherteam.cumulus.api.CumulusEntrypoint;
 import com.aetherteam.cumulus.api.MenuInitializer;
 import com.aetherteam.cumulus.platform.services.IPlatformHelper;
 import com.mojang.logging.LogUtils;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.Screen;
 import net.neoforged.fml.ModList;
-import net.neoforged.neoforge.client.event.ScreenEvent;
-import net.neoforged.neoforge.common.NeoForge;
 import org.objectweb.asm.Type;
 import org.slf4j.Logger;
 
@@ -24,7 +21,7 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
 
         for(var data : ModList.get().getAllScanData()) {
             for (var annotationData : data.getAnnotations()) {
-                if(!annotationData.annotationType().equals(Type.getType(MenuInitializer.Initializer.class))){
+                if(!annotationData.annotationType().equals(Type.getType(CumulusEntrypoint.class))){
                     continue;
                 }
 
