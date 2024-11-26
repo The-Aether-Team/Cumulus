@@ -1,5 +1,6 @@
 package com.aetherteam.cumulus.api;
 
+import com.aetherteam.cumulus.client.gui.component.MenuSelectionList;
 import com.aetherteam.cumulus.mixin.mixins.client.accessor.ScreenAccessor;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.renderer.CubeMap;
@@ -8,6 +9,16 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
 
+/**
+ * Acts as a holder object for various custom paramters that can be adjusted for a custom menu
+ *
+ * @param icon      The Icon used within the {@link MenuSelectionList}
+ * @param name      The name used within the {@link MenuSelectionList}
+ * @param screen    The instance of the custom title screen used to replace minecrafts default
+ * @param apply     The Callback when the given menu is to be applied
+ * @param music     The Custom {@link Music} to be played while the screen is active
+ * @param panorama  The panorama {@link CubeMap} used to replace minecarfts default
+ */
 public record Menu(ResourceLocation icon, Component name, TitleScreen screen, Runnable apply, Music music, CubeMap panorama) {
 
     public Menu(ResourceLocation icon, Component name, TitleScreen screen) {
