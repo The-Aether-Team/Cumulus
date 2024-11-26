@@ -21,5 +21,6 @@ jobs:
       run: |
         if [ "${{ github.event.sender.login }}" = "OscarPayn" ] || [ "${{ github.event.sender.login }}" = "bconlon1" ]; then
           gradle build
-          gradle curseforge
+          gradle :fabric:curseforge
+          gradle :neoforge:curseforge
         fi

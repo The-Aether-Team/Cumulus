@@ -1,0 +1,82 @@
+plugins {
+    id 'multiloader-common'
+    id 'com.matthewprenger.cursegradle'
+    id 'com.modrinth.minotaur'
+}
+
+configurations {
+    commonJava{
+        canBeResolved = true
+    }
+    commonResources{
+        canBeResolved = true
+    }
+}
+
+dependencies {
+    compileOnly(project(':common')) {
+        capabilities {
+            requireCapability "$group:$mod_id"
+        }
+    }
+    commonJava project(path: ':common', configuration: 'commonJava')
+    commonResources project(path: ':common', configuration: 'commonResources')
+}
+
+tasks.named('compileJava', JavaCompile) {
+    dependsOn(configurations.commonJava)
+    source(configurations.commonJava)
+}
+
+processResources {
+    dependsOn(configurations.commonResources)
+    from(configurations.commonResources)
+
+    exclude '.cache/'
+}
+
+tasks.named('javadoc', Javadoc).configure {
+    dependsOn(configurations.commonJava)
+    source(configurations.commonJava)
+}
+
+tasks.named('sourcesJar', Jar) {
+    dependsOn(configurations.commonJava)
+    from(configurations.commonJava)
+    dependsOn(configurations.commonResources)
+    from(configurations.commonResources)
+}
+
+curseforge {
+    project {
+        apiKey = System.getenv("CURSEFORGE_TOKEN")
+        id = "${curseforge_id}"
+        releaseType = "${version_type}"
+        changelog = file("$rootDir/docs/CHANGELOG.md")
+        changelogType = "markdown"
+        addGameVersion("${minecraft_version}")
+        addGameVersion(this.project.name.contains("neoforge") ? "NeoForge" : "Fabric")
+        mainArtifact(tasks.jar) {
+            displayName = "${mod_name} - ${version}"
+        }
+    }
+}
+
+modrinth {
+    token = System.getenv("MODRINTH_TOKEN")
+    projectId = "${modrinth_id}"
+    versionNumber = "${version}"
+    versionType = "${version_type}"
+    versionName = "${mod_name} - ${version}"
+    changelog = new File("$rootDir/docs/CHANGELOG.md").text
+    uploadFile = tasks.jar
+    gameVersions = ["${minecraft_version}"]
+    loaders = [this.project.name.contains("neoforge") ? "neoforge" : "fabric"]
+}
+
+//idea {
+//    module {
+//        downloadSources = true
+//        downloadJavadoc = true
+//    }
+//}
