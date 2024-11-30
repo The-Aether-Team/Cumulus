@@ -92,7 +92,6 @@ public class MenuHooks {
      *
      * @param screen The current {@link Screen}.
      * @return The created {@link Button}.
-     * @see com.aetherteam.cumulus.client.event.listeners.MenuListener#onGuiInitialize(ScreenEvent.Init.Post)
      */
     @Nullable
     public static Button setupToggleWorldButton(Screen screen) {
@@ -113,7 +112,6 @@ public class MenuHooks {
      *
      * @param screen The current {@link Screen}.
      * @return The created {@link Button}.
-     * @see com.aetherteam.cumulus.client.event.listeners.MenuListener#onGuiInitialize(ScreenEvent.Init.Post)
      */
     @Nullable
     public static Button setupQuickLoadButton(Screen screen) {

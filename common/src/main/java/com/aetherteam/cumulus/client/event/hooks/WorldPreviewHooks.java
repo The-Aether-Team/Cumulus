@@ -18,8 +18,6 @@ public class WorldPreviewHooks {
     /**
      * When a {@link TitleScreen} is opened, if the {@link CumulusConfig.Client#enable_world_preview} config is enabled
      * then the world preview is set up, but otherwise it is ensured to be inactive.
-     *
-     * @see com.aetherteam.cumulus.client.event.listeners.WorldPreviewListener#onGuiOpenLowest(ScreenEvent.Opening)
      */
     public static void setupWorldPreview(Screen screen) {
         if (screen instanceof TitleScreen && CumulusConfig.CLIENT.enable_world_preview.get()) {
@@ -39,7 +37,6 @@ public class WorldPreviewHooks {
      *
      * @param screen The currently rendered {@link Screen}.
      * @return Whether to hide the screen, as a {@link Boolean}.
-     * @see com.aetherteam.cumulus.client.event.listeners.WorldPreviewListener#onScreenRender(ScreenEvent.Render.Pre)
      */
     public static boolean hideScreen(Screen screen) {
         return screen instanceof TitleScreen && CumulusConfig.CLIENT.enable_world_preview.get() && Minecraft.getInstance().level == null;
@@ -48,9 +45,6 @@ public class WorldPreviewHooks {
     /**
      * After the level is loaded for the world preview by other events, when it gets rendered then
      * the panorama-style setup with the displayed menu is handled by {@link WorldDisplayHelper#setupLevelForDisplay()}.
-     *
-     * @param stage The {@link net.neoforged.neoforge.client.event.RenderLevelStageEvent.Stage} of rendering.
-     * @see com.aetherteam.cumulus.client.event.listeners.WorldPreviewListener#onRenderLevelLast(RenderLevelStageEvent)
      */
     public static void renderMenuWithWorld() {
         Minecraft minecraft = Minecraft.getInstance();
@@ -64,8 +58,6 @@ public class WorldPreviewHooks {
     /**
      * Handles how the world should be displayed for the world preview. Rendering, sounds, and music are allowed to tick, but nothing else is.
      * This makes the world static and paused but also still animated.
-     *
-     * @see com.aetherteam.cumulus.client.event.listeners.WorldPreviewListener#onClientTick(ClientTickEvent.Post)
      */
     public static void tickMenuWhenPaused() {
         Minecraft minecraft = Minecraft.getInstance();
@@ -83,8 +75,6 @@ public class WorldPreviewHooks {
 
     /**
      * Angles and rotates the camera for the world preview display.
-     *
-     * @see com.aetherteam.cumulus.client.event.listeners.WorldPreviewListener#onCameraView(ViewportEvent.ComputeCameraAngles)
      */
     public static void angleCamera(double partialTick) {
         Minecraft minecraft = Minecraft.getInstance();
@@ -98,7 +88,6 @@ public class WorldPreviewHooks {
     }
 
     /**
-     * [CODE COPY] - {@link net.minecraft.client.renderer.PanoramaRenderer#wrap(float, float)}.<br><br>
      * Modified to have a static max at 360 degrees.
      */
     private static float wrapDegrees(float value) {
@@ -107,7 +96,6 @@ public class WorldPreviewHooks {
 
     /**
      * @return Whether to hide player screen overlays in the world preview, as a {@link Boolean}.
-     * @see com.aetherteam.cumulus.client.event.listeners.WorldPreviewListener#onRenderOverlay(RenderGuiLayerEvent.Pre)
      */
     public static boolean hideOverlays() {
         return WorldDisplayHelper.isActive();
@@ -115,7 +103,6 @@ public class WorldPreviewHooks {
 
     /**
      * @return Whether to hide the player in the world preview, as a {@link Boolean}.
-     * @see com.aetherteam.cumulus.client.event.listeners.WorldPreviewListener#onRenderPlayer(RenderPlayerEvent.Pre)
      */
     public static boolean shouldHidePlayer() {
         return WorldDisplayHelper.isActive();
@@ -126,7 +113,6 @@ public class WorldPreviewHooks {
      *
      * @param entity The {@link Entity}.
      * @return The {@link Boolean} result.
-     * @see com.aetherteam.cumulus.client.event.listeners.WorldPreviewListener#onRenderEntity(RenderLivingEvent.Pre)
      */
     public static boolean shouldHideEntity(Entity entity) {
         return WorldDisplayHelper.isActive() && Minecraft.getInstance().player != null && Minecraft.getInstance().player.getVehicle() != null && Minecraft.getInstance().player.getVehicle().is(entity);
@@ -137,8 +123,6 @@ public class WorldPreviewHooks {
      *
      * @param renderer The {@link EntityRenderer}.
      * @param flag     Whether the entity that the shadow belongs to is hidden.
-     * @see com.aetherteam.cumulus.client.event.listeners.WorldPreviewListener#onRenderPlayer(RenderPlayerEvent.Pre)
-     * @see com.aetherteam.cumulus.client.event.listeners.WorldPreviewListener#onRenderPlayer(RenderPlayerEvent.Pre)
      */
     public static void adjustShadow(EntityRenderer<?> renderer, boolean flag) {
         EntityRendererAccessor entityRendererAccessor = (EntityRendererAccessor) renderer;
