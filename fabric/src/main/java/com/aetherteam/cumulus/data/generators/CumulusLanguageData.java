@@ -13,6 +13,12 @@ public class CumulusLanguageData extends CumulusLanguageProvider {
 
     @Override
     protected void addTranslations() {
+        this.addMenuText("button.world_preview", "W");
+        this.addMenuText("button.quick_load", "Q");
+
+        this.addMenuText("preview", "Toggle World");
+        this.addMenuText("load", "Quick Load");
+
         this.addGuiText("button.menu_list", "Menu List");
         this.addGuiText("button.menu_launch", "Launch Menu");
         this.addGuiText("title.menu_selection", "Choose a Main Menu");

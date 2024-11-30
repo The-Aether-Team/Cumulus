@@ -50,6 +50,16 @@ public class MenuListener {
             if (menuSwitchButton != null) {
                 event.addListener(menuSwitchButton);
             }
+
+            Button toggleWorldButton = MenuHooks.setupToggleWorldButton(screen);
+            if (toggleWorldButton != null) {
+                event.addListener(toggleWorldButton);
+            }
+
+            Button quickLoadButton = MenuHooks.setupQuickLoadButton(screen);
+            if (quickLoadButton != null) {
+                event.addListener(quickLoadButton);
+            }
         }
     }
 }

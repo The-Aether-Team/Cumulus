@@ -39,6 +39,16 @@ public class MenuListener {
             if (menuSwitchButton != null) {
                 Screens.getButtons(screen).add(menuSwitchButton);
             }
+
+            Button toggleWorldButton = MenuHooks.setupToggleWorldButton(screen);
+            if (toggleWorldButton != null) {
+                Screens.getButtons(screen).add(toggleWorldButton);
+            }
+
+            Button quickLoadButton = MenuHooks.setupQuickLoadButton(screen);
+            if (quickLoadButton != null) {
+                Screens.getButtons(screen).add(quickLoadButton);
+            }
         }
     }
 

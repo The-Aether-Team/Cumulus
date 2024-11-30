@@ -44,4 +44,10 @@ loom {
     }
 }
 
+fabricApi {
+    configureDataGeneration {
+        modId = mod_id
+    }
+}
+
 sourceSets.main.resources { srcDir 'src/generated/resources' }

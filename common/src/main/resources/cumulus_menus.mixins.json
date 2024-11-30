@@ -4,9 +4,24 @@
   "package": "com.aetherteam.cumulus.mixin.mixins",
   "refmap": "${mod_id}.refmap.json",
   "compatibilityLevel": "JAVA_18",
-  "mixins": [],
+  "mixins": [
+    "common.DirectoryLockMixin",
+    "common.accessor.MinecraftServerAccessor"
+  ],
   "client": [
+    "client.CameraMixin",
+    "client.ConnectScreenMixin",
+    "client.CreateWorldScreenMixin",
+    "client.FaviconTextureMixin",
     "client.MusicManagerMixin",
+    "client.PanoramaRendererMixin",
+    "client.PauseScreenMixin",
+    "client.TitleScreenMixin",
+    "client.WorldListEntryMixin",
+    "client.WorldOpenFlowsMixin",
+    "client.accessor.ButtonBuilderAccessor",
+    "client.accessor.EntityRendererAccessor",
+    "client.accessor.MinecraftAccessor",
     "client.accessor.ScreenAccessor",
     "client.accessor.SplashRendererAccessor",
     "client.accessor.TitleScreenAccessor"

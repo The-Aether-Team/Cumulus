@@ -4,15 +4,20 @@ import com.aetherteam.cumulus.CumulusConfig;
 import com.aetherteam.cumulus.api.MenuHelper;
 import com.aetherteam.cumulus.api.Menus;
 import com.aetherteam.cumulus.client.CumulusClient;
+import com.aetherteam.cumulus.client.WorldDisplayHelper;
+import com.aetherteam.cumulus.client.gui.screen.DynamicMenuButton;
 import com.aetherteam.cumulus.client.gui.screen.MenuSelectionScreen;
 import com.aetherteam.cumulus.mixin.mixins.client.accessor.SplashRendererAccessor;
 import com.aetherteam.cumulus.mixin.mixins.client.accessor.TitleScreenAccessor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
 import org.jetbrains.annotations.Nullable;
 
 public class MenuHooks {
@@ -80,5 +85,57 @@ public class MenuHooks {
             return Button.builder(Component.translatable("gui.cumulus_menus.button.menu_list"), (pressed) -> Minecraft.getInstance().setScreen(new MenuSelectionScreen(screen))).bounds(screen.width - 62, 4, 58, 20).build();
         }
         return null;
+    }
+
+    /**
+     * Sets up the button for toggling the world preview display.
+     *
+     * @param screen The current {@link Screen}.
+     * @return The created {@link Button}.
+     * @see com.aetherteam.cumulus.client.event.listeners.MenuListener#onGuiInitialize(ScreenEvent.Init.Post)
+     */
+    @Nullable
+    public static Button setupToggleWorldButton(Screen screen) {
+        if (screen instanceof TitleScreen) {
+            DynamicMenuButton dynamicMenuButton = new DynamicMenuButton(new Button.Builder(Component.translatable("gui.cumulus_menus.menu.button.world_preview"), (pressed) -> {
+                CumulusConfig.CLIENT.enable_world_preview.set(!CumulusConfig.CLIENT.enable_world_preview.get());
+                CumulusConfig.CLIENT.enable_world_preview.save();
+                WorldDisplayHelper.toggleWorldPreview();
+            }).bounds(screen.width - 24 - getButtonOffset(), 4, 20, 20).tooltip(Tooltip.create(Component.translatable("gui.cumulus_menus.menu.preview"))));
+            dynamicMenuButton.setDisplayConfigs(CumulusConfig.CLIENT.enable_world_preview_button);
+            return dynamicMenuButton;
+        }
+        return null;
+    }
+
+    /**
+     * Sets up the button for quick-loading into a world when the world preview is active.
+     *
+     * @param screen The current {@link Screen}.
+     * @return The created {@link Button}.
+     * @see com.aetherteam.cumulus.client.event.listeners.MenuListener#onGuiInitialize(ScreenEvent.Init.Post)
+     */
+    @Nullable
+    public static Button setupQuickLoadButton(Screen screen) {
+        if (screen instanceof TitleScreen) {
+            DynamicMenuButton dynamicMenuButton = new DynamicMenuButton(new Button.Builder(Component.translatable("gui.cumulus_menus.menu.button.quick_load"), (pressed) -> {
+                WorldDisplayHelper.enterLoadedLevel();
+                Minecraft.getInstance().getMusicManager().stopPlaying();
+                Minecraft.getInstance().getSoundManager().stop();
+                Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+            }).bounds(screen.width - 24 - getButtonOffset(), 4, 20, 20).tooltip(Tooltip.create(Component.translatable("gui.cumulus_menus.menu.load"))));
+            dynamicMenuButton.setOffsetConfigs(CumulusConfig.CLIENT.enable_world_preview_button);
+            dynamicMenuButton.setDisplayConfigs(CumulusConfig.CLIENT.enable_world_preview, CumulusConfig.CLIENT.enable_quick_load_button);
+            return dynamicMenuButton;
+        }
+        return null;
+    }
+
+    /**
+     * @return An {@link Integer} offset for buttons, dependent on whether Cumulus' menu switcher button is enabled,
+     * as determined by {@link CumulusConfig.Client#enable_menu_api} and {@link CumulusConfig.Client#enable_menu_list_button}.
+     */
+    private static int getButtonOffset() {
+        return CumulusConfig.CLIENT.enable_menu_api.get() && CumulusConfig.CLIENT.enable_menu_list_button.get() ? 62 : 0;
     }
 }

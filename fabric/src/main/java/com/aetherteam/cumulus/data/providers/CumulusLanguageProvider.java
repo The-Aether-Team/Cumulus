@@ -94,6 +94,10 @@ public abstract class CumulusLanguageProvider extends FabricLanguageProvider {
         this.add("gui." + this.id + "." + key, name);
     }
 
+    public void addMenuText(String key, String name) {
+        this.addGuiText("menu." + key, name);
+    }
+
     public void addMenuTitle(String key, String name) {
         this.add(this.id + ".menu_title." + key, name);
     }
