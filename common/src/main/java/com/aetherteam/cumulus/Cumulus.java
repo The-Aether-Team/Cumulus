@@ -9,5 +9,5 @@ public class Cumulus {
     public static final String MODID = "cumulus_menus";
     public static final Logger LOGGER = LogUtils.getLogger();
     @Nullable
-    public static MinecraftServer SERVER_INSTANCE = null; //todo
+    public static MinecraftServer SERVER_INSTANCE = null;
 }
