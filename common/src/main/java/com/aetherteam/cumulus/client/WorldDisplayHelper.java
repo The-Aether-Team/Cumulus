@@ -1,10 +1,13 @@
 package com.aetherteam.cumulus.client;
 
+import com.aetherteam.cumulus.Cumulus;
 import com.aetherteam.cumulus.CumulusConfig;
 import com.aetherteam.cumulus.mixin.mixins.client.accessor.MinecraftAccessor;
 import com.aetherteam.cumulus.mixin.mixins.common.accessor.MinecraftServerAccessor;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.toasts.SystemToast;
+import net.minecraft.client.gui.components.toasts.Toast;
 import net.minecraft.client.gui.screens.GenericMessageScreen;
 import net.minecraft.client.gui.screens.ProgressScreen;
 import net.minecraft.client.gui.screens.Screen;
@@ -47,7 +50,16 @@ public class WorldDisplayHelper {
      */
     public static void enableWorldPreview() {
         Minecraft minecraft = Minecraft.getInstance();
-        if (minecraft.level == null) {
+        if (Cumulus.SERVER_INSTANCE != null && !menuActive) {
+            Minecraft.getInstance().getToasts().addToast(
+                    new SystemToast(
+                            SystemToast.SystemToastId.WORLD_ACCESS_FAILURE,
+                            Component.translatable("aether.world_preview.toast.title"),
+                            Component.literal("aether.world_preview.toast.description")
+                    ));
+
+            FAIL_RUN.run();
+        } else if (minecraft.level == null) {
             loadLevel();
         }
     }
