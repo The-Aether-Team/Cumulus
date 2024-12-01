@@ -12,6 +12,8 @@
   "cumulus_menus.configuration.section.cumulus.menus.client.toml.title": "Cumulus Client Configuration",
   "cumulus_menus.configuration.title": "Cumulus Configuration",
   "cumulus_menus.menu_title.minecraft": "Minecraft",
+  "cumulus_menus.world_preview.toast.description": "Please wait before toggling World preview",
+  "cumulus_menus.world_preview.toast.title": "Server still saving",
   "gui.cumulus_menus.button.menu_launch": "Launch Menu",
   "gui.cumulus_menus.button.menu_list": "Menu List",
   "gui.cumulus_menus.menu.button.quick_load": "Q",
