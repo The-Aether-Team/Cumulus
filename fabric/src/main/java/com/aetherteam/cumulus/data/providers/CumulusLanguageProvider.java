@@ -28,6 +28,8 @@ public abstract class CumulusLanguageProvider extends FabricLanguageProvider {
     @Override
     public void generateTranslations(HolderLookup.Provider registryLookup, TranslationBuilder translationBuilder) {
         this.builderInstance = translationBuilder;
+
+        addTranslations();
     }
 
     protected abstract void addTranslations();
