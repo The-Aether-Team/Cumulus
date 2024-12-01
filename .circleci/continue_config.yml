@@ -26,7 +26,9 @@ commands:
                 command: chmod +x ./gradlew
             - run: ./gradlew build --parallel --console=plain
       - store_artifacts:
-          path: ~/project/build/libs
+          path: ~/project/fabric/build/libs
+      - store_artifacts:
+          path: ~/project/neoforge/build/libs
 
 workflows:
   build:
