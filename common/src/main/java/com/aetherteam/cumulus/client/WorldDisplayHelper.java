@@ -54,8 +54,8 @@ public class WorldDisplayHelper {
             Minecraft.getInstance().getToasts().addToast(
                     new SystemToast(
                             SystemToast.SystemToastId.WORLD_ACCESS_FAILURE,
-                            Component.translatable("aether.world_preview.toast.title"),
-                            Component.literal("aether.world_preview.toast.description")
+                            Component.translatable("cumulus_menus.world_preview.toast.title"),
+                            Component.translatable("cumulus_menus.world_preview.toast.description")
                     ));
 
             FAIL_RUN.run();
