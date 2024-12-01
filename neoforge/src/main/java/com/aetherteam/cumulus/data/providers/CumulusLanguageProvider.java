@@ -1,9 +1,10 @@
 package com.aetherteam.cumulus.data.providers;
 
+import com.aetherteam.cumulus.client.LanguageProviderBase;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 
-public abstract class CumulusLanguageProvider extends LanguageProvider {
+public class CumulusLanguageProvider extends LanguageProvider implements LanguageProviderBase {
     protected final String id;
 
     public CumulusLanguageProvider(PackOutput output, String id) {
@@ -11,28 +12,13 @@ public abstract class CumulusLanguageProvider extends LanguageProvider {
         this.id = id;
     }
 
-    public void addGuiText(String key, String name) {
-        this.add("gui." + this.id + "." + key, name);
+    @Override
+    public void addTranslations() {
+        LanguageProviderBase.super.addTranslations();
     }
 
-    public void addMenuText(String key, String name) {
-        this.addGuiText("menu." + key, name);
-    }
-
-    public void addMenuTitle(String key, String name) {
-        this.add(this.id + ".menu_title." + key, name);
-    }
-
-    public void addConfig(String prefix, String name) {
-        this.add(this.id + ".configuration." + prefix, name);
-    }
-
-    public void addClientConfig(String prefix, String key, String name) {
-        this.add("config." + this.id + ".client." + prefix + "." + key, name);
-        this.add("config." + this.id + ".client." + prefix + "." + key + ".tooltip", name);
-    }
-
-    public void addPackDescription(String packName, String description) {
-        this.add("pack." + this.id + "." + packName + ".description", description);
+    @Override
+    public String id() {
+        return this.id;
     }
 }

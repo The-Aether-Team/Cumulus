@@ -1,6 +1,6 @@
 package com.aetherteam.cumulus.data;
 
-import com.aetherteam.cumulus.data.generators.CumulusLanguageData;
+import com.aetherteam.cumulus.data.providers.CumulusLanguageProvider;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -19,7 +19,7 @@ public class CumulusDataGenerator implements DataGeneratorEntrypoint {
         var pack = fabricDataGenerator.createPack();
 
         // Client Data
-        pack.addProvider(CumulusLanguageData::new);
+        pack.addProvider(CumulusLanguageProvider::new);
 
         // pack.mcmeta
         pack.addProvider((FabricDataOutput output) -> {

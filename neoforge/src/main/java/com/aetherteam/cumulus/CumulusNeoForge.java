@@ -1,7 +1,7 @@
 package com.aetherteam.cumulus;
 
 import com.aetherteam.cumulus.api.Menus;
-import com.aetherteam.cumulus.data.generators.CumulusLanguageData;
+import com.aetherteam.cumulus.data.providers.CumulusLanguageProvider;
 import net.minecraft.SharedConstants;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -40,7 +40,7 @@ public class CumulusNeoForge {
         PackOutput packOutput = generator.getPackOutput();
 
         // Client Data
-        generator.addProvider(event.includeClient(), new CumulusLanguageData(packOutput));
+        generator.addProvider(event.includeClient(), new CumulusLanguageProvider(packOutput, Cumulus.MODID));
 
         // pack.mcmeta
         PackMetadataGenerator packMeta = new PackMetadataGenerator(packOutput);
