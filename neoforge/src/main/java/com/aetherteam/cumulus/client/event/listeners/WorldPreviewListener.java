@@ -6,6 +6,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.world.entity.Entity;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.EventPriority;
@@ -108,8 +109,9 @@ public class WorldPreviewListener {
     @SubscribeEvent
     public static void onRenderEntity(RenderLivingEvent.Pre<?, ?, ?> event) {
         LivingEntityRenderer<?, ?, ?> renderer = event.getRenderer();
-        Entity entity = event.getEntity();
-        boolean hide = WorldPreviewHooks.shouldHideEntity(entity);
+        EntityRenderState renderState = event.getRenderState();
+        float partialTick = event.getPartialTick();
+        boolean hide = WorldPreviewHooks.shouldHideEntity(renderer, renderState, partialTick);
         if (hide) {
             event.setCanceled(true);
         }

@@ -8,6 +8,8 @@ import net.minecraft.client.gui.screens.PauseScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import org.apache.commons.lang3.mutable.MutableBoolean;
@@ -111,11 +113,15 @@ public class WorldPreviewHooks {
     /**
      * Checks whether to hide an entity in the world preview.
      *
-     * @param entity The {@link Entity}.
+     * @param renderer The {@link EntityRenderer}.
+     * @param renderState The entity's {@link EntityRenderState}.
+     * @param partialTick The partial tick, as a {@link Float}..
      * @return The {@link Boolean} result.
      */
-    public static boolean shouldHideEntity(Entity entity) {
-        return WorldDisplayHelper.isActive() && Minecraft.getInstance().player != null && Minecraft.getInstance().player.getVehicle() != null && Minecraft.getInstance().player.getVehicle().is(entity);
+    public static <T extends Entity, S extends EntityRenderState> boolean shouldHideEntity(EntityRenderer<T, S> renderer, EntityRenderState renderState, float partialTick) {
+        return WorldDisplayHelper.isActive() && Minecraft.getInstance().player != null
+                && Minecraft.getInstance().player.getVehicle() != null
+                && renderer.createRenderState((T) Minecraft.getInstance().player.getVehicle(), partialTick).equals(renderState);
     }
 
     /**
