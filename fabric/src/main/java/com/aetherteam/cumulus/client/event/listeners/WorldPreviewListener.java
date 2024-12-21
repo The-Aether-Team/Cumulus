@@ -10,6 +10,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.world.entity.Entity;
 
@@ -67,7 +68,7 @@ public class WorldPreviewListener {
     }
 
     /**
-     * @see WorldPreviewHooks#shouldHideEntity(Entity)
+     * @see WorldPreviewHooks#shouldHideEntity(EntityRenderer, EntityRenderState, float)
      * @see WorldPreviewHooks#adjustShadow(EntityRenderer, boolean)
      */
     public static void onRenderEntity(LivingEntityRenderState renderState, EntityRenderer<?, ?> renderer, float partialTick, CancellableCallback callback) {
