@@ -39,7 +39,7 @@ public class MenuSelectionList extends ObjectSelectionList<MenuSelectionList.Men
     protected void renderListSeparators(GuiGraphics guiGraphics) { }
 
     @Override
-    protected int getScrollbarPosition() {
+    protected int scrollBarX() {
         return (this.parent.width / 2) + (this.parent.frameWidth / 2) - 18;
     }
 

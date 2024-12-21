@@ -36,9 +36,9 @@ If you're interested in sponsoring Cumulus or The Aether Team, please [contact O
 [![Modrinth Version](https://img.shields.io/modrinth/game-versions/cumulus?color=00AF5C&label=latest&logo=modrinth&last=true)](https://modrinth.com/mod/cumulus)
 [![CurseForge Downloads](http://cf.way2muchnoise.eu/cumulus.svg)](https://www.curseforge.com/minecraft/mc-mods/cumulus)
 [![CurseForge Version](http://cf.way2muchnoise.eu/versions/cumulus_latest.svg)](https://www.curseforge.com/minecraft/mc-mods/cumulus)
-[![CircleCI](https://circleci.com/gh/The-Aether-Team/Cumulus/tree/1.21.3-develop.svg?style=shield)](https://app.circleci.com/pipelines/github/The-Aether-Team/Cumulus?branch=1.21.3-develop)
+[![CircleCI](https://circleci.com/gh/The-Aether-Team/Cumulus/tree/1.21.4-develop.svg?style=shield)](https://app.circleci.com/pipelines/github/The-Aether-Team/Cumulus?branch=1.21.4-develop)
 ### Release builds
-Cumulus has stable release builds available for 1.19.2, 1.19.4, 1.20.1, 1.20.2, 1.20.4, 1.21.1, and 1.21.3 on [Modrinth](https://modrinth.com/mod/cumulus) and [CurseForge](https://www.curseforge.com/minecraft/mc-mods/cumulus).
+Cumulus has stable release builds available for 1.19.2, 1.19.4, 1.20.1, 1.20.2, 1.20.4, 1.21.1, 1.21.3, and 1.21.4 on [Modrinth](https://modrinth.com/mod/cumulus) and [CurseForge](https://www.curseforge.com/minecraft/mc-mods/cumulus).
 
 ### Bleeding edge builds
 If you’re feeling a bit more adventurous or wish to help test the in-development versions, we provide **bleeding edge builds** which are produced on [CircleCI](https://app.circleci.com/pipelines/github/The-Aether-Team/Cumulus). These builds are created for every new commit and contain the latest available code. We do not recommend users treat these builds as releases, as they are unfinished and may contain serious issues. If you wish to download these builds, check out [this guide](https://github.com/The-Aether-Team/Cumulus/wiki/CircleCI-Guide).
@@ -100,12 +100,12 @@ dependencies {
 If you're running into bugs or other problems, feel free to open an issue on our [issue tracker](https://github.com/The-Aether-Team/Cumulus/issues). When doing so, make sure to use one of the provided templates and fill out all the requested information. Make sure to keep your issue's description clear and concise. Your issue's title should also be easy to digest, giving our developers and reporters a good idea of what's wrong without including too many details. Failure to follow any of the above may result in your issue being closed.
 
 ## :wrench: Contribute to the project
-Looking to contribute to the project? We ask that you read over our [Contributor's Guide](https://github.com/The-Aether-Team/Cumulus/blob/1.21.3-develop/docs/CONTRIBUTING.md) for more details as well as our [Contributor License Agreement (CLA)](https://github.com/The-Aether-Team/Cumulus/blob/1.21.3-develop/docs/AGREEMENT.md) before getting started.
+Looking to contribute to the project? We ask that you read over our [Contributor's Guide](https://github.com/The-Aether-Team/Cumulus/blob/1.21.4-develop/docs/CONTRIBUTING.md) for more details as well as our [Contributor License Agreement (CLA)](https://github.com/The-Aether-Team/Cumulus/blob/1.21.4-develop/docs/AGREEMENT.md) before getting started.
 
 Not sure what to help with? Take a look at our issue tracker for some ideas! [Here's a quick link](https://github.com/The-Aether-Team/Cumulus/labels/status%2Fhelp-wanted) which shows all the currently open issues that we'd love some help on.
 
 ## :scroll: License information
-[![License (LGPL v3.0)](https://img.shields.io/badge/license-LGPL%20v3.0-green.svg?style=flat-square)](https://github.com/The-Aether-Team/Cumulus/blob/1.21.3-develop/LICENSE.txt)
+[![License (LGPL v3.0)](https://img.shields.io/badge/license-LGPL%20v3.0-green.svg?style=flat-square)](https://github.com/The-Aether-Team/Cumulus/blob/1.21.4-develop/LICENSE.txt)
 
 If you're wanting to create a gameplay video/review, extension or addon, parody, or any other fan work of your own for Cumulus, go for it! We love seeing the content our community creates, and we hope to make it as welcoming as possible for everyone. We ask however that you please don't advertise using our brand (our specific logo assets, team name, official social media posts).
 
@@ -126,4 +126,4 @@ Cumulus is available in these languages thanks to the following contributors:
 If you are interested in contributing translations to Cumulus, check out our [Crowdin](https://translate.cumulus.devaether.com/) and our [Discord](https://discord.gg/aethermod)! If you have contributed translations in the past and your name is missing from the above list, please contact us.
 
 ### :hammer: Contributions
-All of our code contribution credits can be found [here](https://github.com/The-Aether-Team/Cumulus/blob/1.21.3-develop/docs/CREDITS.txt). If you contributed to the project and do not see your name, please contact us.
+All of our code contribution credits can be found [here](https://github.com/The-Aether-Team/Cumulus/blob/1.21.4-develop/docs/CREDITS.txt). If you contributed to the project and do not see your name, please contact us.

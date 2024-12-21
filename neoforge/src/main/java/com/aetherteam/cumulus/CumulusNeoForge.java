@@ -35,7 +35,7 @@ public class CumulusNeoForge {
         event.enqueueWork(Menus::init);
     }
 
-    public void dataSetup(GatherDataEvent event) {
+    public void dataSetup(GatherDataEvent.Client event) {
         DataGenerator generator = event.getGenerator();
         PackOutput packOutput = generator.getPackOutput();
 
