@@ -74,7 +74,7 @@ public class CumulusLanguageProvider extends FabricLanguageProvider implements L
 
     @Override
     public void add(ItemStack key, String name) {
-        builderInstance.add(key.getDescriptionId(), name);
+        builderInstance.add(key.getItem().getDescriptionId(), name);
     }
 
     @Override

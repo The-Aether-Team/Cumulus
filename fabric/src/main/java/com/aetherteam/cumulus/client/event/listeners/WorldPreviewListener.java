@@ -10,6 +10,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.world.entity.Entity;
 
 public class WorldPreviewListener {
@@ -69,8 +70,8 @@ public class WorldPreviewListener {
      * @see WorldPreviewHooks#shouldHideEntity(Entity)
      * @see WorldPreviewHooks#adjustShadow(EntityRenderer, boolean)
      */
-    public static void onRenderEntity(Entity entity, EntityRenderer<?> renderer, CancellableCallback callback) {
-        boolean hide = WorldPreviewHooks.shouldHideEntity(entity);
+    public static void onRenderEntity(LivingEntityRenderState renderState, EntityRenderer<?, ?> renderer, float partialTick, CancellableCallback callback) {
+        boolean hide = WorldPreviewHooks.shouldHideEntity(renderer, renderState, partialTick);
         if (hide) {
             callback.setCanceled(true);
         }
@@ -85,6 +86,6 @@ public class WorldPreviewListener {
         WorldRenderEvents.LAST.register(context -> onRenderLevelLast());
         ClientTickEvents.END_CLIENT_TICK.register(client -> WorldPreviewListener.onClientTick());
         PlayerRenderEvents.BEFORE_RENDER.register((player, renderer, partialTick, poseStack, multiBufferSource, packedLight, callback) -> WorldPreviewListener.onRenderPlayer(renderer, callback));
-        LivingEntityRenderEvents.BEFORE_RENDER.register((livingEntity, renderer, partialTick, poseStack, multiBufferSource, packedLight, callback) -> onRenderEntity(livingEntity, renderer, callback));
+        LivingEntityRenderEvents.BEFORE_RENDER.register((entityRenderState, renderer, partialTick, poseStack, multiBufferSource, packedLight, callback) -> onRenderEntity(entityRenderState, renderer, partialTick, callback));
     }
 }
