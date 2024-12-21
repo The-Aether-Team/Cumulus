@@ -106,9 +106,9 @@ public class WorldPreviewListener {
      * @see WorldPreviewHooks#adjustShadow(EntityRenderer, boolean)
      */
     @SubscribeEvent
-    public static void onRenderEntity(RenderLivingEvent.Pre<?, ?> event) {
+    public static void onRenderEntity(RenderLivingEvent.Pre<?, ?, ?> event) {
+        LivingEntityRenderer<?, ?, ?> renderer = event.getRenderer();
         Entity entity = event.getEntity();
-        LivingEntityRenderer<?, ?> renderer = event.getRenderer();
         boolean hide = WorldPreviewHooks.shouldHideEntity(entity);
         if (hide) {
             event.setCanceled(true);

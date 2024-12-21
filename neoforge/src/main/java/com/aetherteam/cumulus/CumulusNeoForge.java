@@ -40,7 +40,7 @@ public class CumulusNeoForge {
         PackOutput packOutput = generator.getPackOutput();
 
         // Client Data
-        generator.addProvider(event.includeClient(), new CumulusLanguageProvider(packOutput, Cumulus.MODID));
+        generator.addProvider(true, new CumulusLanguageProvider(packOutput, Cumulus.MODID));
 
         // pack.mcmeta
         PackMetadataGenerator packMeta = new PackMetadataGenerator(packOutput);

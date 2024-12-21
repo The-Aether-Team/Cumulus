@@ -51,7 +51,7 @@ public class WorldDisplayHelper {
     public static void enableWorldPreview() {
         Minecraft minecraft = Minecraft.getInstance();
         if (Cumulus.SERVER_INSTANCE != null && !menuActive) {
-            Minecraft.getInstance().getToasts().addToast(
+            Minecraft.getInstance().getToastManager().addToast(
                     new SystemToast(
                             SystemToast.SystemToastId.WORLD_ACCESS_FAILURE,
                             Component.translatable("cumulus_menus.world_preview.toast.title"),

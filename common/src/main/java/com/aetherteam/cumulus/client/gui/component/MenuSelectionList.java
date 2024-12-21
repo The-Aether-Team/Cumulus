@@ -8,6 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ObjectSelectionList;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
 
@@ -37,10 +38,8 @@ public class MenuSelectionList extends ObjectSelectionList<MenuSelectionList.Men
     @Override
     protected void renderListSeparators(GuiGraphics guiGraphics) { }
 
-    scroll
-
     @Override
-    protected int getScrollbarPosition() {
+    protected int scrollBarX() {
         return (this.parent.width / 2) + (this.parent.frameWidth / 2) - 18;
     }
 
@@ -76,7 +75,7 @@ public class MenuSelectionList extends ObjectSelectionList<MenuSelectionList.Men
             poseStack.popPose();
             RenderSystem.setShaderColor(1, 1, 1, 1);
             poseStack.pushPose();
-            guiGraphics.blit(this.menu.icon(), left + ENTRY_PADDING + 1, top + 1, 0, 0, 16, 16, 16, 16);
+            guiGraphics.blit(RenderType::guiTextured, this.menu.icon(), left + ENTRY_PADDING + 1, top + 1, 0, 0, 16, 16, 16, 16);
             poseStack.popPose();
 
             Font font = this.parent.getFontRenderer();
