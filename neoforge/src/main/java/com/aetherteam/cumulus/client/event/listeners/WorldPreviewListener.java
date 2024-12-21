@@ -103,7 +103,7 @@ public class WorldPreviewListener {
     }
 
     /**
-     * @see WorldPreviewHooks#shouldHideEntity(Entity)
+     * @see WorldPreviewHooks#shouldHideEntity(EntityRenderer, EntityRenderState, float)
      * @see WorldPreviewHooks#adjustShadow(EntityRenderer, boolean)
      */
     @SubscribeEvent
