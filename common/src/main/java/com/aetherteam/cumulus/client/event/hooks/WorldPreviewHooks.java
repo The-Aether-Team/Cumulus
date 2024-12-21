@@ -124,7 +124,7 @@ public class WorldPreviewHooks {
      * @param renderer The {@link EntityRenderer}.
      * @param flag     Whether the entity that the shadow belongs to is hidden.
      */
-    public static void adjustShadow(EntityRenderer<?> renderer, boolean flag) {
+    public static void adjustShadow(EntityRenderer<?, ?> renderer, boolean flag) {
         EntityRendererAccessor entityRendererAccessor = (EntityRendererAccessor) renderer;
         if (flag) {
             entityRendererAccessor.cumulus$setShadowRadius(0.0F);

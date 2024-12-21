@@ -4,6 +4,7 @@ import com.aetherteam.cumulus.Cumulus;
 import com.aetherteam.cumulus.client.event.hooks.WorldPreviewHooks;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.world.entity.Entity;
 import net.neoforged.api.distmarker.Dist;
@@ -107,7 +108,7 @@ public class WorldPreviewListener {
     @SubscribeEvent
     public static void onRenderEntity(RenderLivingEvent.Pre<?, ?> event) {
         Entity entity = event.getEntity();
-        EntityRenderer<?> renderer = event.getRenderer();
+        LivingEntityRenderer<?, ?> renderer = event.getRenderer();
         boolean hide = WorldPreviewHooks.shouldHideEntity(entity);
         if (hide) {
             event.setCanceled(true);
