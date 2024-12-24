@@ -1,3 +1,7 @@
+# Cumulus - 1.21.4-2.0.1
+
+- Fix a crash from the timer frame profiler not having ended yet when loading a menu.
+
 # Cumulus - 1.21.4-2.0.0
 
 - Port to 1.21.4
