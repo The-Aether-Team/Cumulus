@@ -1,3 +1,7 @@
+# Cumulus - 1.21.1-2.0.1
+
+- Fix a crash from the timer frame profiler not having ended yet when loading a menu.
+
 # Cumulus - 1.21.1-2.0.0
 
 - Rework menu registration system into a better annotation and interface based initialization system.
