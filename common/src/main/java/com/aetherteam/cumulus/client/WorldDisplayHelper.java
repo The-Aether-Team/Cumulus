@@ -4,6 +4,7 @@ import com.aetherteam.cumulus.Cumulus;
 import com.aetherteam.cumulus.CumulusConfig;
 import com.aetherteam.cumulus.mixin.mixins.client.accessor.MinecraftAccessor;
 import com.aetherteam.cumulus.mixin.mixins.common.accessor.MinecraftServerAccessor;
+import com.mojang.blaze3d.systems.TimerQuery;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.toasts.SystemToast;
@@ -137,9 +138,13 @@ public class WorldDisplayHelper {
      * Sets up a menu through Cumulus and forces it as the current screen.
      */
     public static void setMenu() {
+        MinecraftAccessor minecraftAccessor = (MinecraftAccessor) Minecraft.getInstance();
         CumulusClient.MENU_HELPER.setShouldFade(false);
         Screen screen = CumulusClient.MENU_HELPER.applyMenu(CumulusClient.MENU_HELPER.getActiveMenu());
         if (screen != null) {
+            if (minecraftAccessor.cumulus$getCurrentFrameProfile() != null && !minecraftAccessor.cumulus$getCurrentFrameProfile().isDone()) {
+                TimerQuery.getInstance().ifPresent((timer) -> minecraftAccessor.cumulus$setCurrentFrameProfile(timer.endProfile()));
+            }
             Minecraft.getInstance().forceSetScreen(screen);
         }
     }
