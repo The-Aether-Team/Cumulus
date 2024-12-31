@@ -47,21 +47,6 @@ tasks.named('sourcesJar', Jar) {
     from(configurations.commonResources)
 }
 
-curseforge {
-    project {
-        apiKey = System.getenv("CURSEFORGE_TOKEN")
-        id = "${curseforge_id}"
-        releaseType = "${version_type}"
-        changelog = file("$rootDir/docs/CHANGELOG.md")
-        changelogType = "markdown"
-        addGameVersion("${minecraft_version}")
-        addGameVersion(this.project.name.contains("neoforge") ? "NeoForge" : "Fabric")
-        mainArtifact(tasks.jar) {
-            displayName = "${mod_name} - ${version}"
-        }
-    }
-}
-
 modrinth {
     token = System.getenv("MODRINTH_TOKEN")
     projectId = "${modrinth_id}"
@@ -69,9 +54,26 @@ modrinth {
     versionType = "${version_type}"
     versionName = "${mod_name} - ${version}"
     changelog = new File("$rootDir/docs/CHANGELOG.md").text
-    uploadFile = tasks.jar
+    uploadFile = [this.project.name.contains("neoforge") ? tasks.jar : tasks.<Jar>findByName("remapJar")]
     gameVersions = ["${minecraft_version}"]
     loaders = [this.project.name.contains("neoforge") ? "neoforge" : "fabric"]
+}
+
+afterEvaluate {
+    curseforge {
+        project {
+            apiKey = System.getenv("CURSEFORGE_TOKEN")
+            id = "${curseforge_id}"
+            releaseType = "${version_type}"
+            changelog = file("$rootDir/docs/CHANGELOG.md")
+            changelogType = "markdown"
+            addGameVersion("${minecraft_version}")
+            addGameVersion(this.project.name.contains("neoforge") ? "NeoForge" : "Fabric")
+            mainArtifact(this.project.name.contains("neoforge") ? tasks.jar : tasks.<Jar>findByName("remapJar")) {
+                displayName = "${mod_name} - ${version}"
+            }
+        }
+    }
 }
 
 //idea {
