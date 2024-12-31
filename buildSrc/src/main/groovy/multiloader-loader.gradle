@@ -47,19 +47,19 @@ tasks.named('sourcesJar', Jar) {
     from(configurations.commonResources)
 }
 
-modrinth {
-    token = System.getenv("MODRINTH_TOKEN")
-    projectId = "${modrinth_id}"
-    versionNumber = "${version}"
-    versionType = "${version_type}"
-    versionName = "${mod_name} - ${version}"
-    changelog = new File("$rootDir/docs/CHANGELOG.md").text
-    uploadFile = this.project.name.contains("neoforge") ? tasks.jar : tasks.<Jar>findByName("remapJar")
-    gameVersions = ["${minecraft_version}"]
-    loaders = [this.project.name.contains("neoforge") ? "neoforge" : "fabric"]
-}
-
 afterEvaluate {
+    modrinth {
+        token = System.getenv("MODRINTH_TOKEN")
+        projectId = "${modrinth_id}"
+        versionNumber = "${version}"
+        versionType = "${version_type}"
+        versionName = "${mod_name} - ${version}"
+        changelog = new File("$rootDir/docs/CHANGELOG.md").text
+        uploadFile = this.project.name.contains("neoforge") ? tasks.jar : tasks.<Jar>findByName("remapJar")
+        gameVersions = ["${minecraft_version}"]
+        loaders = [this.project.name.contains("neoforge") ? "neoforge" : "fabric"]
+    }
+
     curseforge {
         project {
             apiKey = System.getenv("CURSEFORGE_TOKEN")
