@@ -55,7 +55,7 @@ afterEvaluate {
         versionType = "${version_type}"
         versionName = "${mod_name} - ${version}"
         changelog = new File("$rootDir/docs/CHANGELOG.md").text
-        uploadFile = [this.project.name.contains("neoforge") ? tasks.jar : tasks.<Jar>findByName("remapJar")]
+        uploadFile = this.project.name.contains("neoforge") ? tasks.jar : tasks.<Jar>findByName("remapJar")
         gameVersions = ["${minecraft_version}"]
         loaders = [this.project.name.contains("neoforge") ? "neoforge" : "fabric"]
     }
