@@ -9,7 +9,6 @@ import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(MusicManager.class)
 public class MusicManagerMixin {
