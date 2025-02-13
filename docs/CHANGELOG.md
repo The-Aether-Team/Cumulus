@@ -1,3 +1,7 @@
+# Cumulus - 1.21.1-2.0.2
+
+- Fix music mixin compatibility.
+
 # Cumulus - 1.21.1-2.0.1
 
 - Fix a crash from the timer frame profiler not having ended yet when loading a menu.
