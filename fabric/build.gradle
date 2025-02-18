@@ -51,3 +51,31 @@ fabricApi {
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+
+modrinth {
+    token = System.getenv("MODRINTH_TOKEN")
+    projectId = "${modrinth_id}"
+    versionNumber = "${version}"
+    versionType = "${version_type}"
+    versionName = "${mod_name} - ${version}"
+    changelog = new File("$rootDir/docs/CHANGELOG.md").text
+    uploadFile = tasks.<Jar>findByName("remapJar")
+    gameVersions = ["${minecraft_version}"]
+    loaders = ["fabric"]
+}
+
+curseforge {
+    project {
+        apiKey = System.getenv("CURSEFORGE_TOKEN")
+        id = "${curseforge_id}"
+        releaseType = "${version_type}"
+        changelog = file("$rootDir/docs/CHANGELOG.md")
+        changelogType = "markdown"
+        addGameVersion("${minecraft_version}")
+        addGameVersion("Fabric")
+        mainArtifact(tasks.<Jar>findByName("remapJar")) {
+            displayName = "${mod_name} - ${version}"
+        }
+    }
+}
