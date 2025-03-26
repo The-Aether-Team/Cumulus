@@ -1,3 +1,7 @@
+# Cumulus - 1.21.1-2.0.4
+
+- Fix an incompatibility crash with a failsafe for loading menu screens too early.
+
 # Cumulus - 1.21.1-2.0.3
 
 # Cumulus - 1.21.1-2.0.2
