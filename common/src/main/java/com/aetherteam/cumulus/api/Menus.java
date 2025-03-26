@@ -24,11 +24,15 @@ public class Menus {
     private static Map<ResourceLocation, Menu> MENUS;
     public static Menu MINECRAFT;
 
+    static {
+        var menus = new HashMap<ResourceLocation, Menu>();
+        MINECRAFT = registerVanillaScreen(menus);
+        MENUS = menus;
+    }
+
     @ApiStatus.Internal
     public static void init() {
-        var menus = new HashMap<ResourceLocation, Menu>();
-
-        MINECRAFT = registerVanillaScreen(menus);
+        var menus = new HashMap<>(MENUS);
 
         for (var menuInitializer : Services.PLATFORM.getMenuInitializers()) {
             menuInitializer.registerMenus((location, menu) -> {
@@ -42,7 +46,7 @@ public class Menus {
             });
         }
 
-        MENUS = ImmutableMap.copyOf(menus);
+        MENUS = menus;
     }
 
     private static Menu registerVanillaScreen(Map<ResourceLocation, Menu> menus) {
