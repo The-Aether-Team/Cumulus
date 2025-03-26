@@ -1,3 +1,7 @@
+# Cumulus - 1.21.4-2.0.2
+
+- Fix an incompatibility crash with a failsafe for loading menu screens too early.
+
 # Cumulus - 1.21.4-2.0.1
 
 - Fix a crash from the timer frame profiler not having ended yet when loading a menu.
