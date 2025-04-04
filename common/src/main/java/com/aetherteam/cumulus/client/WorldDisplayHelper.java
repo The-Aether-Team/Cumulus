@@ -58,7 +58,6 @@ public class WorldDisplayHelper {
                             Component.translatable("cumulus_menus.world_preview.toast.title"),
                             Component.translatable("cumulus_menus.world_preview.toast.description")
                     ));
-
             FAIL_RUN.run();
         } else if (minecraft.level == null) {
             loadLevel();
@@ -78,8 +77,7 @@ public class WorldDisplayHelper {
             minecraft.forceSetScreen(new GenericMessageScreen(Component.translatable("selectWorld.data_read")));
             minecraft.createWorldOpenFlows().openWorld(summary.getLevelId(), FAIL_RUN);
         } else {
-            resetActive();
-            resetConfig();
+            FAIL_RUN.run();
         }
     }
 
