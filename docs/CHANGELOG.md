@@ -1,3 +1,7 @@
+# Cumulus - 1.21.4-2.0.3
+
+- Add a failsafe to disable the world preview after a crash.
+
 # Cumulus - 1.21.4-2.0.2
 
 - Fix an incompatibility crash with a failsafe for loading menu screens too early.
