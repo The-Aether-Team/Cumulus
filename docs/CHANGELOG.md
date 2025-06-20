@@ -1,3 +1,7 @@
+# Cumulus - 1.21.4-2.0.5
+
+- Fix a class cast exception crash when riding a mount in the world preview screen.
+
 # Cumulus - 1.21.4-2.0.4
 
 - Fix client-side code being loaded on servers.
