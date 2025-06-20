@@ -4,12 +4,11 @@
   "package": "com.aetherteam.cumulus.mixin.mixins",
   "refmap": "${mod_id}.refmap.json",
   "compatibilityLevel": "JAVA_18",
-  "mixins": [
+  "mixins": [],
+  "client": [
     "client.MinecraftServerMixin",
     "common.DirectoryLockMixin",
-    "common.accessor.MinecraftServerAccessor"
-  ],
-  "client": [
+    "common.accessor.MinecraftServerAccessor",
     "client.CameraMixin",
     "client.ConnectScreenMixin",
     "client.CreateWorldScreenMixin",
