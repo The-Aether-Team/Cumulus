@@ -1,3 +1,8 @@
+# Cumulus - 1.21.4-2.0.4
+
+- Fix client-side code being loaded on servers.
+- Fix incorrect MusicManagerMixin target.
+
 # Cumulus - 1.21.4-2.0.3
 
 - Add a failsafe to disable the world preview after a crash.
