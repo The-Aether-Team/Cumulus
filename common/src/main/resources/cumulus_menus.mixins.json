@@ -6,13 +6,13 @@
   "compatibilityLevel": "JAVA_18",
   "mixins": [],
   "client": [
-    "client.MinecraftServerMixin",
-    "common.DirectoryLockMixin",
-    "common.accessor.MinecraftServerAccessor",
     "client.CameraMixin",
     "client.ConnectScreenMixin",
     "client.CreateWorldScreenMixin",
+    "client.EntityRendererMixin",
+    "client.EntityRenderStateMixin",
     "client.FaviconTextureMixin",
+    "client.MinecraftServerMixin",
     "client.MusicManagerMixin",
     "client.PanoramaRendererMixin",
     "client.PauseScreenMixin",
@@ -24,7 +24,9 @@
     "client.accessor.MinecraftAccessor",
     "client.accessor.ScreenAccessor",
     "client.accessor.SplashRendererAccessor",
-    "client.accessor.TitleScreenAccessor"
+    "client.accessor.TitleScreenAccessor",
+    "common.DirectoryLockMixin",
+    "common.accessor.MinecraftServerAccessor"
   ],
   "server": [],
   "injectors": {
