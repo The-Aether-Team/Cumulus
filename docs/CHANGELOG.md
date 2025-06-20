@@ -1,3 +1,7 @@
+# Cumulus - 1.21.1-2.0.6
+
+- Fix client-side code being loaded on servers.
+
 # Cumulus - 1.21.1-2.0.5
 
 - Add a failsafe to disable the world preview after a crash.
