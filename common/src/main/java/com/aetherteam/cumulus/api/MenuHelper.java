@@ -95,6 +95,8 @@ public class MenuHelper {
         return this.getActiveMenu() != null ? this.getActiveMenu().screen() : null;
     }
 
+    // TODO - 1.21.5
+    //  Change the menu registry to take a MusicInfo instead of Music.
     /**
      * @return The active menu's {@link Music}.
      */

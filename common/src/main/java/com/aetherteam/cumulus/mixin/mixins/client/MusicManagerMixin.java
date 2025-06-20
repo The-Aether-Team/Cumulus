@@ -4,6 +4,7 @@ import com.aetherteam.cumulus.client.CumulusClient;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.sounds.MusicInfo;
 import net.minecraft.client.sounds.MusicManager;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
@@ -16,11 +17,11 @@ public class MusicManagerMixin {
      * This mixin modifies the return of {@link Minecraft#getSituationalMusic()} as it is given to the music variable in {@link MusicManager}.
      * @return The modified {@link Music} variable.
      */
-    @WrapOperation(method = "tick()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;getSituationalMusic()Lnet/minecraft/sounds/Music;"))
-    public Music injected(Minecraft instance, Operation<Music> original) {
-        Music music = original.call(instance);
-        if (music == Musics.MENU && CumulusClient.MENU_HELPER.getActiveMusic() != null) {
-            return CumulusClient.MENU_HELPER.getActiveMusic();
+    @WrapOperation(method = "tick()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;getSituationalMusic()Lnet/minecraft/client/sounds/MusicInfo;"))
+    public MusicInfo injected(Minecraft instance, Operation<MusicInfo> original) {
+        MusicInfo music = original.call(instance);
+        if (music.music() == Musics.MENU && CumulusClient.MENU_HELPER.getActiveMusic() != null) {
+            return new MusicInfo(CumulusClient.MENU_HELPER.getActiveMusic());
         }
         return music;
     }
