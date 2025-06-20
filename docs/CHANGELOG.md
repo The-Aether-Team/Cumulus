@@ -1,3 +1,10 @@
+# Cumulus - 1.21.3-2.0.2
+
+- Fix client-side code being loaded on servers.
+- Add a failsafe to disable the world preview after a crash.
+- Fix music mixin compatibility.
+- Fix an incompatibility crash with a failsafe for loading menu screens too early.
+
 # Cumulus - 1.21.3-2.0.1
 
 - Fix a crash from the timer frame profiler not having ended yet when loading a menu.
