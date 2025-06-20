@@ -3,12 +3,12 @@ package com.aetherteam.cumulus.client.event.hooks;
 import com.aetherteam.cumulus.CumulusConfig;
 import com.aetherteam.cumulus.client.WorldDisplayHelper;
 import com.aetherteam.cumulus.mixin.mixins.client.accessor.EntityRendererAccessor;
+import com.aetherteam.cumulus.mixin.extensions.EntityRenderStateExtension;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.PauseScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -119,9 +119,10 @@ public class WorldPreviewHooks {
      * @return The {@link Boolean} result.
      */
     public static <T extends Entity, S extends EntityRenderState> boolean shouldHideEntity(EntityRenderer<T, S> renderer, EntityRenderState renderState, float partialTick) {
-        return WorldDisplayHelper.isActive() && Minecraft.getInstance().player != null
-                && Minecraft.getInstance().player.getVehicle() != null
-                && renderer.createRenderState((T) Minecraft.getInstance().player.getVehicle(), partialTick).equals(renderState);
+        if (WorldDisplayHelper.isActive() && Minecraft.getInstance().player != null && Minecraft.getInstance().player.getVehicle() != null) {
+            return Minecraft.getInstance().player.getVehicle().getUUID().equals(((EntityRenderStateExtension) renderState).cumulus$getUUID());
+        }
+        return false;
     }
 
     /**
