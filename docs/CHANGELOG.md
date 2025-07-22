@@ -1,3 +1,7 @@
+# Cumulus - Fabric - 1.20.1-1.0.2
+
+- Fix crash from null SplashRenderer.
+
 # Cumulus - Fabric - 1.20.1-1.0.1
 
 - Fix music mixin compatibility.
