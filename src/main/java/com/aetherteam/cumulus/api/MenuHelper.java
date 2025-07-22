@@ -197,10 +197,12 @@ public class MenuHelper {
     public void setCustomSplash(TitleScreen screen, Predicate<Calendar> condition, String splash) {
         TitleScreenAccessor screenAccessor = (TitleScreenAccessor) screen;
         SplashRendererAccessor splashRendererAccessor = (SplashRendererAccessor) screenAccessor.cumulus$getSplash();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
-        if (condition.test(calendar)) {
-            splashRendererAccessor.cumulus$setSplash(splash);
+        if (splashRendererAccessor != null) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(new Date());
+            if (condition.test(calendar)) {
+                splashRendererAccessor.cumulus$setSplash(splash);
+            }
         }
     }
 
