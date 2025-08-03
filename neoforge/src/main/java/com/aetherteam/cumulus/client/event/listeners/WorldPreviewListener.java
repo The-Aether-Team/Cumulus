@@ -53,11 +53,8 @@ public class WorldPreviewListener {
      * @see WorldPreviewHooks#renderMenuWithWorld()
      */
     @SubscribeEvent
-    public static void onRenderLevelLast(RenderLevelStageEvent event) {
-        RenderLevelStageEvent.Stage stage = event.getStage();
-        if (stage == RenderLevelStageEvent.Stage.AFTER_WEATHER) {
-            WorldPreviewHooks.renderMenuWithWorld();
-        }
+    public static void onRenderLevelLast(RenderLevelStageEvent.AfterWeather event) {
+        WorldPreviewHooks.renderMenuWithWorld();
     }
 
     /**

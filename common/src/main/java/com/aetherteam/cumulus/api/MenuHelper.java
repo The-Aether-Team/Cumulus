@@ -1,13 +1,15 @@
 package com.aetherteam.cumulus.api;
 
 import com.aetherteam.cumulus.CumulusConfig;
-import com.aetherteam.cumulus.mixin.mixins.client.accessor.ScreenAccessor;
+import com.aetherteam.cumulus.mixin.mixins.client.accessor.GameRendererAccessor;
 import com.aetherteam.cumulus.mixin.mixins.client.accessor.SplashRendererAccessor;
 import com.aetherteam.cumulus.mixin.mixins.client.accessor.TitleScreenAccessor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
+import net.minecraft.client.renderer.CubeMap;
 import net.minecraft.client.renderer.PanoramaRenderer;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.Music;
 import org.jetbrains.annotations.Nullable;
 
@@ -56,8 +58,12 @@ public class MenuHelper {
                 defaultMenuAccessor.cumulus$setFading(true);
                 defaultMenuAccessor.cumulus$setFadeInStart(0L);
             }
-            ScreenAccessor.cumulus$setCubeMap(menu.panorama());
-            ScreenAccessor.cumulus$setPanorama(new PanoramaRenderer(menu.panorama()));
+            CubeMap panorama = menu.panorama();
+            if (panorama == null) {
+                panorama = ((GameRendererAccessor) Minecraft.getInstance().gameRenderer).cumulus$getCubeMap();
+            }
+            ((GameRendererAccessor) Minecraft.getInstance().gameRenderer).cumulus$setCubeMap(panorama);
+            ((GameRendererAccessor) Minecraft.getInstance().gameRenderer).cumulus$setPanorama(new PanoramaRenderer(panorama));
             if (this.getLastSplash() != null) {
                 this.migrateSplash(this.getLastSplash(), screen);
             }

@@ -13,6 +13,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -96,7 +97,7 @@ public class MenuSelectionScreen extends Screen {
     }
 
     private void renderListFrame(GuiGraphics guiGraphics) {
-        guiGraphics.blit(RenderType::guiTextured, LIST_FRAME, (this.width / 2) - (this.frameWidth / 2), this.height / 2 - (this.frameHeight / 2), 0.0F, 0.0F, 141, 168, 256, 256);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, LIST_FRAME, (this.width / 2) - (this.frameWidth / 2), this.height / 2 - (this.frameHeight / 2), 0.0F, 0.0F, 141, 168, 256, 256);
         guiGraphics.drawCenteredString(this.getFontRenderer(), Component.translatable("gui.cumulus_menus.title.menu_selection"), this.width / 2, ((this.height / 2) - (this.frameHeight / 2)) + 11, 0xFFFFFF);
     }
 

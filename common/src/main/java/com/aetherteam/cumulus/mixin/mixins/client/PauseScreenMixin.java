@@ -5,6 +5,7 @@ import com.aetherteam.cumulus.client.WorldDisplayHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.PauseScreen;
 import net.minecraft.client.gui.screens.TitleScreen;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -22,8 +23,8 @@ public class PauseScreenMixin {
      * @see WorldDisplayHelper#setActive()
      * @see WorldDisplayHelper#setupLevelForDisplay()
      */
-    @Inject(at = @At(value = "HEAD"), method = "onDisconnect()V", cancellable = true)
-    public void onDisconnectWorldPreview(CallbackInfo ci) {
+    @Inject(at = @At(value = "HEAD"), method = "disconnectFromWorld(Lnet/minecraft/client/Minecraft;Lnet/minecraft/network/chat/Component;)V", cancellable = true)
+    private static void onDisconnectWorldPreview(Minecraft minecraft, Component reason, CallbackInfo ci) {
         if (CumulusConfig.CLIENT.enable_world_preview.get() && Minecraft.getInstance().getSingleplayerServer() != null) {
             WorldDisplayHelper.setActive();
             WorldDisplayHelper.setupLevelForDisplay();

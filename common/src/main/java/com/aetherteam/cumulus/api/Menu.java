@@ -1,9 +1,11 @@
 package com.aetherteam.cumulus.api;
 
 import com.aetherteam.cumulus.client.gui.component.MenuSelectionList;
-import com.aetherteam.cumulus.mixin.mixins.client.accessor.ScreenAccessor;
+import com.aetherteam.cumulus.mixin.mixins.client.accessor.GameRendererAccessor;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.renderer.CubeMap;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.Music;
@@ -47,7 +49,7 @@ public record Menu(ResourceLocation icon, Component name, TitleScreen screen, Ru
     public static class Properties {
         private Runnable apply = () -> {};
         private Music music = Musics.MENU;
-        private CubeMap panorama = ScreenAccessor.cumulus$getCubeMap();
+        private CubeMap panorama = null;
 
         /**
          * @see Menu#apply()

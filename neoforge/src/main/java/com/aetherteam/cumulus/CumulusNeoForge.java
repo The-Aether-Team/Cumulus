@@ -44,7 +44,7 @@ public class CumulusNeoForge {
 
         // pack.mcmeta
         PackMetadataGenerator packMeta = new PackMetadataGenerator(packOutput);
-        packMeta.add(PackMetadataSection.TYPE, new PackMetadataSection(Component.translatable("pack.cumulus_menus.mod.description"), SharedConstants.getCurrentVersion().getPackVersion(PackType.CLIENT_RESOURCES)));
+        packMeta.add(PackMetadataSection.TYPE, new PackMetadataSection(Component.translatable("pack.cumulus_menus.mod.description"), SharedConstants.getCurrentVersion().packVersion(PackType.CLIENT_RESOURCES)));
         generator.addProvider(true, packMeta);
     }
 }

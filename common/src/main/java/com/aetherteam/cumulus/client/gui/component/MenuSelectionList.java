@@ -8,6 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ObjectSelectionList;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
@@ -69,19 +70,12 @@ public class MenuSelectionList extends ObjectSelectionList<MenuSelectionList.Men
 
         @Override
         public void render(GuiGraphics guiGraphics, int index, int top, int left, int width, int height, int mouseX, int mouseY, boolean isMouseOver, float partialTicks) {
-            PoseStack poseStack = guiGraphics.pose();
-            poseStack.pushPose();
             guiGraphics.fillGradient(left, top - ENTRY_PADDING, left + MenuSelectionList.this.getRowWidth() - (ENTRY_PADDING * 2) - 6, top + MenuSelectionList.this.itemHeight - (ENTRY_PADDING * 2), -10066330, -8750470);
-            poseStack.popPose();
-            RenderSystem.setShaderColor(1, 1, 1, 1);
-            poseStack.pushPose();
-            guiGraphics.blit(RenderType::guiTextured, this.menu.icon(), left + ENTRY_PADDING + 1, top + 1, 0, 0, 16, 16, 16, 16);
-            poseStack.popPose();
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.menu.icon(), left + ENTRY_PADDING + 1, top + 1, 0, 0, 16, 16, 16, 16);
 
             Font font = this.parent.getFontRenderer();
             int fontWidth = MenuSelectionList.this.getRowWidth() - (ENTRY_PADDING * 2) - 24;
             List<FormattedCharSequence> lines = font.split(this.menu.name(), fontWidth);
-
 
             int length = 1;
             for (FormattedCharSequence line : lines) {

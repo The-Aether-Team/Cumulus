@@ -24,7 +24,7 @@ public class CumulusDataGenerator implements DataGeneratorEntrypoint {
         // pack.mcmeta
         pack.addProvider((FabricDataOutput output) -> {
             return new PackMetadataGenerator(output)
-                    .add(PackMetadataSection.TYPE, new PackMetadataSection(Component.translatable("pack.cumulus_menus.mod.description"), SharedConstants.getCurrentVersion().getPackVersion(PackType.CLIENT_RESOURCES), Optional.empty()));
+                    .add(PackMetadataSection.TYPE, new PackMetadataSection(Component.translatable("pack.cumulus_menus.mod.description"), SharedConstants.getCurrentVersion().packVersion(PackType.CLIENT_RESOURCES), Optional.empty()));
         });
     }
 }

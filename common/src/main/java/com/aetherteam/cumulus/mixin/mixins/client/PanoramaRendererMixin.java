@@ -23,8 +23,8 @@ public class PanoramaRendererMixin {
      * @param ci        The {@link CallbackInfo} for the void method return.
      * @see WorldDisplayHelper#isActive()
      */
-    @Inject(at = @At(value = "HEAD"), method = "render(Lnet/minecraft/client/gui/GuiGraphics;IIFF)V", cancellable = true)
-    public void render(GuiGraphics guiGraphics, int width, int height, float fade, float partialTick, CallbackInfo ci) {
+    @Inject(at = @At(value = "HEAD"), method = "render(Lnet/minecraft/client/gui/GuiGraphics;IIZ)V", cancellable = true)
+    public void render(GuiGraphics guiGraphics, int width, int height, boolean spin, CallbackInfo ci) {
         if (Minecraft.getInstance().level != null && WorldDisplayHelper.isActive()) {
             ci.cancel();
         }
