@@ -18,8 +18,7 @@ public class PanoramaRendererMixin {
      * @param guiGraphics The rendering {@link GuiGraphics}.
      * @param width The {@link Integer} for the screen width.
      * @param height The {@link Integer} for the screen height.
-     * @param fade The {@link Float} for the panorama fade-in.
-     * @param partialTick The {@link Float} for the partial tick of the game.
+     * @param spin A {@link Boolean} for whether the panorama spins.
      * @param ci        The {@link CallbackInfo} for the void method return.
      * @see WorldDisplayHelper#isActive()
      */
