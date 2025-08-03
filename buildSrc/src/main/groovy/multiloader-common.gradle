@@ -115,7 +115,6 @@ processResources {
             'fabric_loader_version_range'    : fabric_loader_version_range,
             'neo_version'                    : neo_version,
             'neo_version_range'              : neo_version_range,
-            'neo_loader_version_range'       : neo_loader_version_range,
             'java_version'                   : java_version
     ]
 

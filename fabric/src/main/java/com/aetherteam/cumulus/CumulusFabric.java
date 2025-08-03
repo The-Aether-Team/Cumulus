@@ -4,7 +4,7 @@ import com.aetherteam.cumulus.api.Menus;
 import com.aetherteam.cumulus.client.event.listeners.MenuListener;
 import com.aetherteam.cumulus.client.event.listeners.WorldPreviewListener;
 import com.mojang.logging.LogUtils;
-import fuzs.forgeconfigapiport.fabric.api.neoforge.v4.NeoForgeConfigRegistry;
+import fuzs.forgeconfigapiport.fabric.api.v5.ConfigRegistry;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
@@ -28,6 +28,6 @@ public class CumulusFabric implements ClientModInitializer, ModInitializer {
 
     @Override
     public void onInitialize() {
-        NeoForgeConfigRegistry.INSTANCE.register(Cumulus.MODID, ModConfig.Type.CLIENT, CumulusConfig.CLIENT_SPEC);
+        ConfigRegistry.INSTANCE.register(Cumulus.MODID, ModConfig.Type.CLIENT, CumulusConfig.CLIENT_SPEC);
     }
 }
