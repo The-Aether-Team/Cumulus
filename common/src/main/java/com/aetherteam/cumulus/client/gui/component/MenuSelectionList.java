@@ -2,14 +2,11 @@ package com.aetherteam.cumulus.client.gui.component;
 
 import com.aetherteam.cumulus.api.Menu;
 import com.aetherteam.cumulus.client.gui.screen.MenuSelectionScreen;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
 
@@ -80,7 +77,7 @@ public class MenuSelectionList extends ObjectSelectionList<MenuSelectionList.Men
             int length = 1;
             for (FormattedCharSequence line : lines) {
                 int y = top + (length * 10) - ((lines.size() * 10) / 2);
-                guiGraphics.drawString(font, line, left + ENTRY_PADDING + 21, y, 0xFFFFFF);
+                guiGraphics.drawString(font, line, left + ENTRY_PADDING + 21, y, -1);
                 length++;
             }
         }
