@@ -3,6 +3,7 @@ package com.aetherteam.cumulus.client;
 import com.aetherteam.cumulus.Cumulus;
 import com.aetherteam.cumulus.CumulusConfig;
 import com.aetherteam.cumulus.mixin.mixins.client.accessor.MinecraftAccessor;
+import com.aetherteam.cumulus.mixin.mixins.common.accessor.IntegratedServerAccessor;
 import com.aetherteam.cumulus.mixin.mixins.common.accessor.MinecraftServerAccessor;
 import com.mojang.blaze3d.systems.TimerQuery;
 import net.minecraft.client.CameraType;
@@ -14,15 +15,13 @@ import net.minecraft.client.gui.screens.ProgressScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.server.IntegratedServer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.storage.LevelStorageSource;
 import net.minecraft.world.level.storage.LevelSummary;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 public class WorldDisplayHelper {
@@ -259,6 +258,19 @@ public class WorldDisplayHelper {
         Minecraft minecraft = Minecraft.getInstance();
         IntegratedServer server = minecraft.getSingleplayerServer();
         if (server != null) {
+            IntegratedServerAccessor accessor = (IntegratedServerAccessor) server;
+            server.getConnection().stop();
+            if (accessor.cumulus$getLanPinger() != null) {
+                accessor.cumulus$getLanPinger().interrupt();
+                accessor.cumulus$setLanPinger(null);
+            }
+            server.getPlayerList().saveAll();
+            for (Iterator<ServerPlayer> iterator = server.getPlayerList().getPlayers().iterator(); iterator.hasNext(); ) {
+                ServerPlayer serverPlayer = iterator.next();
+                if (!serverPlayer.getUUID().equals(accessor.cumulus$getUUID())) {
+                    server.getPlayerList().remove(serverPlayer);
+                }
+            }
             Minecraft.getInstance().options.hideGui = true;
             Minecraft.getInstance().options.setCameraType(CameraType.THIRD_PERSON_BACK);
             WorldDisplayHelper.setMenu();

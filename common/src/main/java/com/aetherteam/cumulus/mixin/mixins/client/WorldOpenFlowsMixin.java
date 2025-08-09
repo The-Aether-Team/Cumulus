@@ -1,8 +1,10 @@
 package com.aetherteam.cumulus.mixin.mixins.client;
 
+import com.aetherteam.cumulus.Cumulus;
 import com.aetherteam.cumulus.client.WorldDisplayHelper;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.serialization.Dynamic;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.GenericMessageScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.worldselection.WorldOpenFlows;
@@ -19,6 +21,30 @@ import java.io.IOException;
 
 @Mixin(WorldOpenFlows.class)
 public class WorldOpenFlowsMixin {
+    @Inject(method = "openWorld", at = @At("RETURN"))
+    private void aetherFabric$onFailRun(String worldName, Runnable onFail, CallbackInfo ci, @Local LevelStorageSource.LevelStorageAccess levelStorageAccess) {
+        if (levelStorageAccess == null && WorldDisplayHelper.FAIL_RUN.equals(onFail)) {
+            onFail.run();
+        }
+    }
+
+    /**
+     * Used by the world preview system.<br>
+     * Stops the world join behavior when the world preview is active, and instead enters directly into the loaded level.
+     *
+     * @param ci The {@link CallbackInfo} for the void method return.
+     * @see WorldDisplayHelper#isActive()
+     * @see WorldDisplayHelper#sameSummaries(LevelSummary)
+     * @see WorldDisplayHelper#enterLoadedLevel()
+     */
+    @Inject(method = "openWorldCheckVersionCompatibility(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lnet/minecraft/world/level/storage/LevelSummary;Lcom/mojang/serialization/Dynamic;Ljava/lang/Runnable;)V", at = @At(value = "HEAD"), cancellable = true)
+    private void openWorldCheckVersionCompatibility(LevelStorageSource.LevelStorageAccess levelStorage, LevelSummary levelSummary, Dynamic<?> levelData, Runnable onFail, CallbackInfo ci) {
+        if (WorldDisplayHelper.isActive() && Minecraft.getInstance().hasSingleplayerServer() && WorldDisplayHelper.sameSummaries(levelSummary)) { //todo this doesnt work because the level is not loaded yet when clicking world preview button
+            WorldDisplayHelper.enterLoadedLevel();
+            ci.cancel();
+        }
+    }
+
     /**
      * Used by the world preview system.<br>
      * Always makes sure the experimental warnings screen is skipped if the world preview is active,
@@ -49,13 +75,6 @@ public class WorldOpenFlowsMixin {
     private void closeActiveWorld(LevelStorageSource.LevelStorageAccess levelStorage, Dynamic<?> levelData, boolean safeMode, Runnable onFail, CallbackInfo ci) throws IOException {
         if (WorldDisplayHelper.isActive() && !WorldDisplayHelper.sameSummaries(levelStorage.getSummary(levelStorage.getDataTag()))) {
             WorldDisplayHelper.stopLevel(new GenericMessageScreen(Component.literal("")));
-        }
-    }
-
-    @Inject(method = "openWorld", at = @At("RETURN"))
-    private void aetherFabric$onFailRun(String worldName, Runnable onFail, CallbackInfo ci, @Local LevelStorageSource.LevelStorageAccess levelStorageAccess) {
-        if (levelStorageAccess == null && WorldDisplayHelper.FAIL_RUN.equals(onFail)) {
-            onFail.run();
         }
     }
 }
