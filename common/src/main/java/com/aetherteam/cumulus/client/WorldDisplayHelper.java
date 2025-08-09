@@ -265,10 +265,10 @@ public class WorldDisplayHelper {
                 accessor.cumulus$setLanPinger(null);
             }
             server.getPlayerList().saveAll();
-            for (Iterator<ServerPlayer> iterator = server.getPlayerList().getPlayers().iterator(); iterator.hasNext(); ) {
-                ServerPlayer serverPlayer = iterator.next();
+            for (int i = 0; i < server.getPlayerList().getPlayers().size(); ++i) {
+                ServerPlayer serverPlayer = server.getPlayerList().getPlayers().get(i);
                 if (!serverPlayer.getUUID().equals(accessor.cumulus$getUUID())) {
-                    server.getPlayerList().remove(serverPlayer);
+                    serverPlayer.connection.disconnect(Component.translatable("multiplayer.disconnect.server_shutdown"));
                 }
             }
             Minecraft.getInstance().options.hideGui = true;
