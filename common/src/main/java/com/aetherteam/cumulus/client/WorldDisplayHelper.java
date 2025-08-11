@@ -126,8 +126,7 @@ public class WorldDisplayHelper {
             if (server != null) {
                 server.halt(false);
             }
-            minecraft.clearClientLevel(Objects.requireNonNullElseGet(screen, () -> new ProgressScreen(true)));
-            ((MinecraftAccessor) minecraft).cumulus$setIsLocalServer(false);
+            minecraft.disconnect(new GenericMessageScreen(Component.translatable("menu.savingLevel")));
         }
     }
 
