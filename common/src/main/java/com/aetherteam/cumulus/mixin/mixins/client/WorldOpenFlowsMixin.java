@@ -11,16 +11,24 @@ import net.minecraft.client.gui.screens.worldselection.WorldOpenFlows;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.storage.LevelStorageSource;
 import net.minecraft.world.level.storage.LevelSummary;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 @Mixin(WorldOpenFlows.class)
 public class WorldOpenFlowsMixin {
+    @Shadow @Final private LevelStorageSource levelSource;
+
     @Inject(method = "openWorld", at = @At("RETURN"))
     private void aetherFabric$onFailRun(String worldName, Runnable onFail, CallbackInfo ci, @Local LevelStorageSource.LevelStorageAccess levelStorageAccess) {
         if (levelStorageAccess == null && WorldDisplayHelper.FAIL_RUN.equals(onFail)) {
@@ -37,11 +45,17 @@ public class WorldOpenFlowsMixin {
      * @see WorldDisplayHelper#sameSummaries(LevelSummary)
      * @see WorldDisplayHelper#enterLoadedLevel()
      */
-    @Inject(method = "openWorldCheckVersionCompatibility(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lnet/minecraft/world/level/storage/LevelSummary;Lcom/mojang/serialization/Dynamic;Ljava/lang/Runnable;)V", at = @At(value = "HEAD"), cancellable = true)
-    private void openWorldCheckVersionCompatibility(LevelStorageSource.LevelStorageAccess levelStorage, LevelSummary levelSummary, Dynamic<?> levelData, Runnable onFail, CallbackInfo ci) {
-        if (WorldDisplayHelper.isActive() && Minecraft.getInstance().hasSingleplayerServer() && WorldDisplayHelper.sameSummaries(levelSummary)) { //todo this doesnt work because the level is not loaded yet when clicking world preview button
-            WorldDisplayHelper.enterLoadedLevel();
-            ci.cancel();
+    @Inject(method = "openWorld(Ljava/lang/String;Ljava/lang/Runnable;)V", at = @At(value = "HEAD"), cancellable = true)
+    private void openWorld(String worldName, Runnable onFail, CallbackInfo ci) {
+        try {
+            List<LevelSummary> summaryList = new ArrayList<>(this.levelSource.loadLevelSummaries(this.levelSource.findLevelCandidates()).get());
+            Optional<LevelSummary> summary = summaryList.stream().filter((levelSummary) -> levelSummary.getLevelName().equals(worldName)).findFirst();
+            if (WorldDisplayHelper.isActive() && Minecraft.getInstance().hasSingleplayerServer() && summary.isPresent() && WorldDisplayHelper.sameSummaries(summary.get())) {
+                WorldDisplayHelper.enterLoadedLevel();
+                ci.cancel();
+            }
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
