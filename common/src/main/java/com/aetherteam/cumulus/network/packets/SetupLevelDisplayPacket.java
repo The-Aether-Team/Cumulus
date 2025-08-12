@@ -47,10 +47,10 @@ public record SetupLevelDisplayPacket() implements CustomPacketPayload {
                 server.getPlayerList().saveAll();
                 Lists.newArrayList(server.getPlayerList().getPlayers()).stream().filter(serverPlayer -> !serverPlayer.getUUID().equals(accessor.cumulus$getUUID()))
                         .forEach(serverPlayer -> serverPlayer.connection.disconnect(Component.translatable("multiplayer.disconnect.server_shutdown")));
+
                 Minecraft.getInstance().execute(() -> {
                     Minecraft.getInstance().options.hideGui = true;
                     Minecraft.getInstance().options.setCameraType(CameraType.THIRD_PERSON_BACK);
-
                     WorldDisplayHelper.setMenu();
                 });
             }
