@@ -255,25 +255,8 @@ public class WorldDisplayHelper {
      */
     public static void setupLevelForDisplay() {
         Minecraft minecraft = Minecraft.getInstance();
-        IntegratedServer server = minecraft.getSingleplayerServer();
-        if (server != null) {
-            IntegratedServerAccessor accessor = (IntegratedServerAccessor) server;
-            server.getConnection().stop();
-            if (accessor.cumulus$getLanPinger() != null) {
-                accessor.cumulus$getLanPinger().interrupt();
-                accessor.cumulus$setLanPinger(null);
-            }
-            accessor.cumulus$setPublishedPort(-1);
-            server.getPlayerList().saveAll();
-            for (int i = 0; i < server.getPlayerList().getPlayers().size(); ++i) { //todo whats the proper way i should loop this
-                ServerPlayer serverPlayer = server.getPlayerList().getPlayers().get(i);
-                if (!serverPlayer.getUUID().equals(accessor.cumulus$getUUID())) {
-                    serverPlayer.connection.disconnect(Component.translatable("multiplayer.disconnect.server_shutdown"));
-                }
-            }
-            Minecraft.getInstance().options.hideGui = true;
-            Minecraft.getInstance().options.setCameraType(CameraType.THIRD_PERSON_BACK);
-            WorldDisplayHelper.setMenu();
+        if (minecraft.hasSingleplayerServer()) {
+//            PacketDistributor.sendToServer(new SetupLevelDisplayPacket()); //TODO
         }
     }
 }
