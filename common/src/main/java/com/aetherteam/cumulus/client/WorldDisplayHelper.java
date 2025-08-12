@@ -5,6 +5,9 @@ import com.aetherteam.cumulus.CumulusConfig;
 import com.aetherteam.cumulus.mixin.mixins.client.accessor.MinecraftAccessor;
 import com.aetherteam.cumulus.mixin.mixins.common.accessor.IntegratedServerAccessor;
 import com.aetherteam.cumulus.mixin.mixins.common.accessor.MinecraftServerAccessor;
+import com.aetherteam.cumulus.network.packets.SetupLevelDisplayPacket;
+import com.aetherteam.cumulus.platform.Services;
+import com.aetherteam.cumulus.platform.services.IPlatformHelper;
 import com.mojang.blaze3d.systems.TimerQuery;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
@@ -256,7 +259,7 @@ public class WorldDisplayHelper {
     public static void setupLevelForDisplay() {
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.hasSingleplayerServer()) {
-//            PacketDistributor.sendToServer(new SetupLevelDisplayPacket()); //TODO
+            Services.PLATFORM.sendToServer(new SetupLevelDisplayPacket());
         }
     }
 }

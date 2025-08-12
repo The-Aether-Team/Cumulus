@@ -2,7 +2,9 @@ package com.aetherteam.cumulus;
 
 import com.aetherteam.cumulus.api.Menus;
 import com.aetherteam.cumulus.data.providers.CumulusLanguageProvider;
-import com.aetherteam.cumulus.network.serverbound.SetupLevelDisplayPacket;
+import com.aetherteam.cumulus.network.NeoforgePayloadRegistration;
+import com.aetherteam.cumulus.network.packets.CumulusPackets;
+import com.aetherteam.cumulus.network.packets.SetupLevelDisplayPacket;
 import net.minecraft.SharedConstants;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -52,9 +54,6 @@ public class CumulusNeoForge {
     }
 
     public void registerPackets(RegisterPayloadHandlersEvent event) {
-        var registrar = event.registrar(Cumulus.MODID).versioned("1.0.0").optional();
-
-        // SERVERBOUND
-        registrar.playToServer(SetupLevelDisplayPacket.TYPE, SetupLevelDisplayPacket.STREAM_CODEC, SetupLevelDisplayPacket::execute);
+        CumulusPackets.registerPackets(new NeoforgePayloadRegistration(event.registrar("1.0.0").optional()));
     }
 }

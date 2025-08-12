@@ -1,4 +1,4 @@
-package com.aetherteam.cumulus.network.serverbound;
+package com.aetherteam.cumulus.network.packets;
 
 import com.aetherteam.cumulus.Cumulus;
 import com.aetherteam.cumulus.client.WorldDisplayHelper;
@@ -14,7 +14,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record SetupLevelDisplayPacket() implements CustomPacketPayload {
     public static final Type<SetupLevelDisplayPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(Cumulus.MODID, "setup_level_display"));
@@ -34,8 +33,7 @@ public record SetupLevelDisplayPacket() implements CustomPacketPayload {
         return TYPE;
     }
 
-    public static void execute(SetupLevelDisplayPacket payload, IPayloadContext context) {
-        Player player = context.player();
+    public static void execute(SetupLevelDisplayPacket payload, Player player) {
         if (player.getServer() != null) {
             MinecraftServer server = player.getServer();
             if (server instanceof IntegratedServer integratedServer) {
