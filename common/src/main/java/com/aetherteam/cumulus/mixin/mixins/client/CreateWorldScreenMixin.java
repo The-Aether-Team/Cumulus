@@ -26,6 +26,7 @@ public class CreateWorldScreenMixin {
             Minecraft minecraft = Minecraft.getInstance();
             WorldDisplayHelper.stopLevel(null);
             minecraft.managedBlock(() -> Cumulus.SERVER_INSTANCE == null);
+            WorldDisplayHelper.resetSummary();
         }
     }
 }

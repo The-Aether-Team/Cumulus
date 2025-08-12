@@ -30,6 +30,7 @@ public class WorldListEntryMixin {
     public void doDeleteWorld(CallbackInfo ci) {
         if (WorldDisplayHelper.isActive() && WorldDisplayHelper.sameSummaries(this.summary)) {
             WorldDisplayHelper.stopLevel(null);
+            WorldDisplayHelper.resetSummary();
         }
     }
 }

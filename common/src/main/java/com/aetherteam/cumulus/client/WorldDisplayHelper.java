@@ -207,6 +207,13 @@ public class WorldDisplayHelper {
     }
 
     /**
+     * Resets the last stored world summary for the preview system.
+     */
+    public static void resetSummary() {
+        loadedSummary = null;
+    }
+
+    /**
      * @see WorldDisplayHelper#resetPlayerState()
      * @see WorldDisplayHelper#resetConfig()
      */

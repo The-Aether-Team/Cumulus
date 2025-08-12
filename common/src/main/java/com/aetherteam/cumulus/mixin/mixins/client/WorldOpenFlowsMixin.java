@@ -77,6 +77,7 @@ public class WorldOpenFlowsMixin {
     private void closeActiveWorld(LevelStorageSource.LevelStorageAccess levelStorage, Dynamic<?> levelData, boolean safeMode, Runnable onFail, CallbackInfo ci) throws IOException {
         if (WorldDisplayHelper.isActive() && !WorldDisplayHelper.sameSummaries(levelStorage.getSummary(levelStorage.getDataTag()))) {
             WorldDisplayHelper.stopLevel(new GenericMessageScreen(Component.literal("")));
+            WorldDisplayHelper.resetSummary();
         }
     }
 }
