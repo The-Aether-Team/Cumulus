@@ -9,6 +9,9 @@ import java.util.UUID;
 
 @Mixin(IntegratedServer.class)
 public interface IntegratedServerAccessor {
+    @Accessor("publishedPort")
+    void cumulus$setPublishedPort(int publishedPort);
+
     @Accessor("lanPinger")
     LanServerPinger cumulus$getLanPinger();
 

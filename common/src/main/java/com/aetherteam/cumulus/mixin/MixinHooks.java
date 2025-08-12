@@ -15,7 +15,7 @@ public class MixinHooks {
      * @see com.aetherteam.cumulus.mixin.mixins.client.LevelStorageSourceMixin
      */
     public static boolean canUnlockLevel(Path basePath) {
-        if (Minecraft.getInstance().screen != null && Minecraft.getInstance().screen instanceof SelectWorldScreen && Minecraft.getInstance().getSingleplayerServer() != null) {
+        if (Minecraft.getInstance().getSingleplayerServer() != null) {
             return basePath.getFileName().toString().equals(((MinecraftServerAccessor) Minecraft.getInstance().getSingleplayerServer()).cumulus$getStorageSource().getLevelId());
         }
         return false;

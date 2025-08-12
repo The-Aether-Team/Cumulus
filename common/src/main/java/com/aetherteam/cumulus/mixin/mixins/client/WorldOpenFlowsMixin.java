@@ -1,7 +1,7 @@
 package com.aetherteam.cumulus.mixin.mixins.client;
 
-import com.aetherteam.cumulus.Cumulus;
 import com.aetherteam.cumulus.client.WorldDisplayHelper;
+import com.aetherteam.cumulus.mixin.mixins.common.accessor.MinecraftServerAccessor;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.client.Minecraft;
@@ -20,15 +20,9 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.ExecutionException;
 
 @Mixin(WorldOpenFlows.class)
 public class WorldOpenFlowsMixin {
-    @Shadow @Final private LevelStorageSource levelSource;
-
     @Inject(method = "openWorld", at = @At("RETURN"))
     private void aetherFabric$onFailRun(String worldName, Runnable onFail, CallbackInfo ci, @Local LevelStorageSource.LevelStorageAccess levelStorageAccess) {
         if (levelStorageAccess == null && WorldDisplayHelper.FAIL_RUN.equals(onFail)) {
@@ -47,15 +41,9 @@ public class WorldOpenFlowsMixin {
      */
     @Inject(method = "openWorld(Ljava/lang/String;Ljava/lang/Runnable;)V", at = @At(value = "HEAD"), cancellable = true)
     private void openWorld(String worldName, Runnable onFail, CallbackInfo ci) {
-        try {
-            List<LevelSummary> summaryList = new ArrayList<>(this.levelSource.loadLevelSummaries(this.levelSource.findLevelCandidates()).get());
-            Optional<LevelSummary> summary = summaryList.stream().filter((levelSummary) -> levelSummary.getLevelName().equals(worldName)).findFirst();
-            if (WorldDisplayHelper.isActive() && Minecraft.getInstance().hasSingleplayerServer() && summary.isPresent() && WorldDisplayHelper.sameSummaries(summary.get())) {
-                WorldDisplayHelper.enterLoadedLevel();
-                ci.cancel();
-            }
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
+        if (WorldDisplayHelper.isActive() && Minecraft.getInstance().hasSingleplayerServer() && ((MinecraftServerAccessor) Minecraft.getInstance().getSingleplayerServer()).cumulus$getStorageSource().getLevelId().equals(worldName)) {
+            WorldDisplayHelper.enterLoadedLevel();
+            ci.cancel();
         }
     }
 

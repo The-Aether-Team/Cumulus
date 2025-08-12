@@ -263,8 +263,9 @@ public class WorldDisplayHelper {
                 accessor.cumulus$getLanPinger().interrupt();
                 accessor.cumulus$setLanPinger(null);
             }
+            accessor.cumulus$setPublishedPort(-1);
             server.getPlayerList().saveAll();
-            for (int i = 0; i < server.getPlayerList().getPlayers().size(); ++i) {
+            for (int i = 0; i < server.getPlayerList().getPlayers().size(); ++i) { //todo whats the proper way i should loop this
                 ServerPlayer serverPlayer = server.getPlayerList().getPlayers().get(i);
                 if (!serverPlayer.getUUID().equals(accessor.cumulus$getUUID())) {
                     serverPlayer.connection.disconnect(Component.translatable("multiplayer.disconnect.server_shutdown"));

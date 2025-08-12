@@ -13,8 +13,8 @@ import java.nio.file.Path;
 
 @Mixin(LevelStorageSource.class)
 public class LevelStorageSourceMixin {
-    @WrapOperation(method = "lambda$loadLevelSummaries$3(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelDirectory;)Lnet/minecraft/world/level/storage/LevelSummary;", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/DirectoryLock;isLocked(Ljava/nio/file/Path;)Z"))
-    private boolean readLevelSummary(Path flag, Operation<Boolean> original, @Local(argsOnly = true) LevelStorageSource.LevelDirectory levelDirectory) {
+    @WrapOperation(method = { "lambda$loadLevelSummaries$3(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelDirectory;)Lnet/minecraft/world/level/storage/LevelSummary;", "method_43418(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelDirectory;)Lnet/minecraft/world/level/storage/LevelSummary;" }, at = @At(value = "INVOKE", target = "Lnet/minecraft/util/DirectoryLock;isLocked(Ljava/nio/file/Path;)Z"), require = 1, allow = 1)
+    private boolean loadLevelSummaries(Path flag, Operation<Boolean> original, @Local(argsOnly = true) LevelStorageSource.LevelDirectory levelDirectory) {
         if (WorldDisplayHelper.isActive() && MixinHooks.canUnlockLevel(levelDirectory.path())) {
             return false;
         }
