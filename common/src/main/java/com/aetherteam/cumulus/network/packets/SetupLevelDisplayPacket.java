@@ -3,6 +3,7 @@ package com.aetherteam.cumulus.network.packets;
 import com.aetherteam.cumulus.Cumulus;
 import com.aetherteam.cumulus.client.WorldDisplayHelper;
 import com.aetherteam.cumulus.mixin.mixins.common.accessor.IntegratedServerAccessor;
+import com.google.common.collect.Lists;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.server.IntegratedServer;
@@ -12,7 +13,6 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
 public record SetupLevelDisplayPacket() implements CustomPacketPayload {
@@ -45,13 +45,8 @@ public record SetupLevelDisplayPacket() implements CustomPacketPayload {
                 }
                 accessor.cumulus$setPublishedPort(-1);
                 server.getPlayerList().saveAll();
-                for (int i = 0; i < server.getPlayerList().getPlayers().size(); ++i) { //todo whats the proper way i should loop this
-                    ServerPlayer serverPlayer = server.getPlayerList().getPlayers().get(i);
-                    if (!serverPlayer.getUUID().equals(accessor.cumulus$getUUID())) {
-                        serverPlayer.connection.disconnect(Component.translatable("multiplayer.disconnect.server_shutdown"));
-                    }
-                }
-                
+                Lists.newArrayList(server.getPlayerList().getPlayers()).stream().filter(serverPlayer -> !serverPlayer.getUUID().equals(accessor.cumulus$getUUID()))
+                        .forEach(serverPlayer -> serverPlayer.connection.disconnect(Component.translatable("multiplayer.disconnect.server_shutdown")));
                 Minecraft.getInstance().execute(() -> {
                     Minecraft.getInstance().options.hideGui = true;
                     Minecraft.getInstance().options.setCameraType(CameraType.THIRD_PERSON_BACK);
