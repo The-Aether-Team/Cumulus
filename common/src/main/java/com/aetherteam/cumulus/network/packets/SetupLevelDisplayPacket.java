@@ -51,9 +51,13 @@ public record SetupLevelDisplayPacket() implements CustomPacketPayload {
                         serverPlayer.connection.disconnect(Component.translatable("multiplayer.disconnect.server_shutdown"));
                     }
                 }
-                Minecraft.getInstance().options.hideGui = true;
-                Minecraft.getInstance().options.setCameraType(CameraType.THIRD_PERSON_BACK);
-                WorldDisplayHelper.setMenu();
+                
+                Minecraft.getInstance().execute(() -> {
+                    Minecraft.getInstance().options.hideGui = true;
+                    Minecraft.getInstance().options.setCameraType(CameraType.THIRD_PERSON_BACK);
+
+                    WorldDisplayHelper.setMenu();
+                });
             }
         }
     }
