@@ -111,7 +111,7 @@ public class WorldDisplayHelper {
     public static void disableWorldPreview() {
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.level != null) {
-            stopLevel(new GenericMessageScreen(Component.literal("")));
+            stopLevel(new GenericMessageScreen(Component.translatable("menu.savingLevel")));
             setMenu();
         }
     }
@@ -121,7 +121,7 @@ public class WorldDisplayHelper {
      *
      * @param screen The current {@link Screen}.
      */
-    public static void stopLevel(@Nullable Screen screen) {
+    public static void stopLevel(Screen screen) {
         resetStates();
         Minecraft minecraft = Minecraft.getInstance();
         IntegratedServer server = minecraft.getSingleplayerServer();
@@ -129,7 +129,7 @@ public class WorldDisplayHelper {
             if (server != null) {
                 server.halt(false);
             }
-            minecraft.disconnect(new GenericMessageScreen(Component.translatable("menu.savingLevel")));
+            minecraft.disconnect(Objects.requireNonNullElse(screen, new GenericMessageScreen(Component.translatable("menu.savingLevel"))));
         }
     }
 
@@ -154,6 +154,15 @@ public class WorldDisplayHelper {
     @Nullable
     public static LevelSummary getLevelSummary() {
         if (loadedSummary == null) {
+            if (Minecraft.getInstance().getSingleplayerServer() != null) {
+                try {
+                    LevelStorageSource.LevelStorageAccess source = ((MinecraftServerAccessor) Minecraft.getInstance().getSingleplayerServer()).cumulus$getStorageSource();
+                    loadedSummary = source.getSummary(source.getDataTag());
+                    return loadedSummary;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             findLevelSummary(); // This sets loadedSummary if it is null.
         }
         return loadedSummary;
@@ -199,13 +208,12 @@ public class WorldDisplayHelper {
      * @return Whether they match, as a {@link Boolean}.
      */
     public static boolean sameSummaries(LevelSummary summary) {
-        String id;
-        if (Minecraft.getInstance().getSingleplayerServer() != null) {
-            id = ((MinecraftServerAccessor) Minecraft.getInstance().getSingleplayerServer()).cumulus$getStorageSource().getLevelId();
+        LevelSummary currentSummary = getLevelSummary();
+        if (currentSummary != null) {
+            return currentSummary.getLevelId().equals(summary.getLevelId());
         } else {
-            id = getLevelSummary().getLevelId();
+            return false;
         }
-        return id.equals(summary.getLevelId());
     }
 
     /**
