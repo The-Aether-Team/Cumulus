@@ -199,9 +199,11 @@ public class WorldDisplayHelper {
      * @return Whether they match, as a {@link Boolean}.
      */
     public static boolean sameSummaries(LevelSummary summary) {
-        String id = getLevelSummary().getLevelId();
+        String id;
         if (Minecraft.getInstance().getSingleplayerServer() != null) {
             id = ((MinecraftServerAccessor) Minecraft.getInstance().getSingleplayerServer()).cumulus$getStorageSource().getLevelId();
+        } else {
+            id = getLevelSummary().getLevelId();
         }
         return id.equals(summary.getLevelId());
     }
