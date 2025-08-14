@@ -1,0 +1,59 @@
+package com.aetherteam.cumulus.network.packets;
+
+import com.aetherteam.cumulus.Cumulus;
+import com.aetherteam.cumulus.client.WorldDisplayHelper;
+import com.aetherteam.cumulus.mixin.mixins.common.accessor.IntegratedServerAccessor;
+import com.google.common.collect.Lists;
+import net.minecraft.client.CameraType;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.server.IntegratedServer;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.entity.player.Player;
+
+public record SetupLevelDisplayPacket() implements CustomPacketPayload {
+    public static final Type<SetupLevelDisplayPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(Cumulus.MODID, "setup_level_display"));
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, SetupLevelDisplayPacket> STREAM_CODEC = CustomPacketPayload.codec(
+            SetupLevelDisplayPacket::write,
+            SetupLevelDisplayPacket::decode);
+
+    public void write(RegistryFriendlyByteBuf buf) { }
+
+    public static SetupLevelDisplayPacket decode(RegistryFriendlyByteBuf buf) {
+        return new SetupLevelDisplayPacket();
+    }
+
+    @Override
+    public Type<SetupLevelDisplayPacket> type() {
+        return TYPE;
+    }
+
+    public static void execute(SetupLevelDisplayPacket payload, Player player) {
+        if (player.getServer() != null) {
+            MinecraftServer server = player.getServer();
+            if (server instanceof IntegratedServer integratedServer) {
+                IntegratedServerAccessor accessor = (IntegratedServerAccessor) integratedServer;
+                server.getConnection().stop();
+                if (accessor.cumulus$getLanPinger() != null) {
+                    accessor.cumulus$getLanPinger().interrupt();
+                    accessor.cumulus$setLanPinger(null);
+                }
+                accessor.cumulus$setPublishedPort(-1);
+                server.getPlayerList().saveAll();
+                Lists.newArrayList(server.getPlayerList().getPlayers()).stream().filter(serverPlayer -> !serverPlayer.getUUID().equals(accessor.cumulus$getUUID()))
+                        .forEach(serverPlayer -> serverPlayer.connection.disconnect(Component.translatable("multiplayer.disconnect.server_shutdown")));
+
+                Minecraft.getInstance().execute(() -> {
+                    Minecraft.getInstance().options.hideGui = true;
+                    Minecraft.getInstance().options.setCameraType(CameraType.THIRD_PERSON_BACK);
+                    WorldDisplayHelper.setMenu();
+                });
+            }
+        }
+    }
+}

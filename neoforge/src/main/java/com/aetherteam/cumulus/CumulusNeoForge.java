@@ -2,6 +2,9 @@ package com.aetherteam.cumulus;
 
 import com.aetherteam.cumulus.api.Menus;
 import com.aetherteam.cumulus.data.providers.CumulusLanguageProvider;
+import com.aetherteam.cumulus.network.NeoforgePayloadRegistration;
+import com.aetherteam.cumulus.network.packets.CumulusPackets;
+import com.aetherteam.cumulus.network.packets.SetupLevelDisplayPacket;
 import net.minecraft.SharedConstants;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -18,6 +21,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 
 @Mod(value = Cumulus.MODID, dist = Dist.CLIENT)
 public class CumulusNeoForge {
@@ -25,6 +29,7 @@ public class CumulusNeoForge {
     public CumulusNeoForge(ModContainer mod, IEventBus bus) {
         bus.addListener(this::clientSetup);
         bus.addListener(this::dataSetup);
+        bus.addListener(this::registerPackets);
 
         mod.registerConfig(ModConfig.Type.CLIENT, CumulusConfig.CLIENT_SPEC);
 
@@ -46,5 +51,9 @@ public class CumulusNeoForge {
         PackMetadataGenerator packMeta = new PackMetadataGenerator(packOutput);
         packMeta.add(PackMetadataSection.TYPE, new PackMetadataSection(Component.translatable("pack.cumulus_menus.mod.description"), SharedConstants.getCurrentVersion().getPackVersion(PackType.CLIENT_RESOURCES)));
         generator.addProvider(true, packMeta);
+    }
+
+    public void registerPackets(RegisterPayloadHandlersEvent event) {
+        CumulusPackets.registerPackets(new NeoforgePayloadRegistration(event.registrar("1.0.0").optional()));
     }
 }

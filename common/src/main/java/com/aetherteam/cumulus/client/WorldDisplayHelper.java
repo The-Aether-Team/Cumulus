@@ -3,7 +3,11 @@ package com.aetherteam.cumulus.client;
 import com.aetherteam.cumulus.Cumulus;
 import com.aetherteam.cumulus.CumulusConfig;
 import com.aetherteam.cumulus.mixin.mixins.client.accessor.MinecraftAccessor;
+import com.aetherteam.cumulus.mixin.mixins.common.accessor.IntegratedServerAccessor;
 import com.aetherteam.cumulus.mixin.mixins.common.accessor.MinecraftServerAccessor;
+import com.aetherteam.cumulus.network.packets.SetupLevelDisplayPacket;
+import com.aetherteam.cumulus.platform.Services;
+import com.aetherteam.cumulus.platform.services.IPlatformHelper;
 import com.mojang.blaze3d.systems.TimerQuery;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
@@ -14,15 +18,13 @@ import net.minecraft.client.gui.screens.ProgressScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.server.IntegratedServer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.storage.LevelStorageSource;
 import net.minecraft.world.level.storage.LevelSummary;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 public class WorldDisplayHelper {
@@ -109,7 +111,7 @@ public class WorldDisplayHelper {
     public static void disableWorldPreview() {
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.level != null) {
-            stopLevel(new GenericMessageScreen(Component.literal("")));
+            stopLevel(new GenericMessageScreen(Component.translatable("menu.savingLevel")));
             setMenu();
         }
     }
@@ -119,7 +121,7 @@ public class WorldDisplayHelper {
      *
      * @param screen The current {@link Screen}.
      */
-    public static void stopLevel(@Nullable Screen screen) {
+    public static void stopLevel(Screen screen) {
         resetStates();
         Minecraft minecraft = Minecraft.getInstance();
         IntegratedServer server = minecraft.getSingleplayerServer();
@@ -127,8 +129,7 @@ public class WorldDisplayHelper {
             if (server != null) {
                 server.halt(false);
             }
-            minecraft.clearClientLevel(Objects.requireNonNullElseGet(screen, () -> new ProgressScreen(true)));
-            ((MinecraftAccessor) minecraft).cumulus$setIsLocalServer(false);
+            minecraft.disconnect(Objects.requireNonNullElse(screen, new GenericMessageScreen(Component.translatable("menu.savingLevel"))));
         }
     }
 
@@ -153,6 +154,15 @@ public class WorldDisplayHelper {
     @Nullable
     public static LevelSummary getLevelSummary() {
         if (loadedSummary == null) {
+            if (Minecraft.getInstance().getSingleplayerServer() != null) {
+                try {
+                    LevelStorageSource.LevelStorageAccess source = ((MinecraftServerAccessor) Minecraft.getInstance().getSingleplayerServer()).cumulus$getStorageSource();
+                    loadedSummary = source.getSummary(source.getDataTag());
+                    return loadedSummary;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             findLevelSummary(); // This sets loadedSummary if it is null.
         }
         return loadedSummary;
@@ -198,11 +208,19 @@ public class WorldDisplayHelper {
      * @return Whether they match, as a {@link Boolean}.
      */
     public static boolean sameSummaries(LevelSummary summary) {
-        String id = getLevelSummary().getLevelId();
-        if (Minecraft.getInstance().getSingleplayerServer() != null) {
-            id = ((MinecraftServerAccessor) Minecraft.getInstance().getSingleplayerServer()).cumulus$getStorageSource().getLevelId();
+        LevelSummary currentSummary = getLevelSummary();
+        if (currentSummary != null) {
+            return currentSummary.getLevelId().equals(summary.getLevelId());
+        } else {
+            return false;
         }
-        return id.equals(summary.getLevelId());
+    }
+
+    /**
+     * Resets the last stored world summary for the preview system.
+     */
+    public static void resetSummary() {
+        loadedSummary = null;
     }
 
     /**
@@ -257,11 +275,8 @@ public class WorldDisplayHelper {
      */
     public static void setupLevelForDisplay() {
         Minecraft minecraft = Minecraft.getInstance();
-        IntegratedServer server = minecraft.getSingleplayerServer();
-        if (server != null) {
-            Minecraft.getInstance().options.hideGui = true;
-            Minecraft.getInstance().options.setCameraType(CameraType.THIRD_PERSON_BACK);
-            WorldDisplayHelper.setMenu();
+        if (minecraft.hasSingleplayerServer()) {
+            Services.PLATFORM.sendToServer(new SetupLevelDisplayPacket());
         }
     }
 }

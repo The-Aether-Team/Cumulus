@@ -1,7 +1,9 @@
 package com.aetherteam.cumulus.mixin.mixins.client;
 
 import com.aetherteam.cumulus.client.WorldDisplayHelper;
+import net.minecraft.client.gui.screens.ProgressScreen;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.worldselection.SelectWorldScreen;
 import net.minecraft.client.gui.screens.worldselection.WorldSelectionList;
 import net.minecraft.world.level.storage.LevelSummary;
 import org.spongepowered.asm.mixin.Final;
@@ -29,24 +31,8 @@ public class WorldListEntryMixin {
     @Inject(at = @At(value = "HEAD"), method = "doDeleteWorld()V")
     public void doDeleteWorld(CallbackInfo ci) {
         if (WorldDisplayHelper.isActive() && WorldDisplayHelper.sameSummaries(this.summary)) {
-            WorldDisplayHelper.stopLevel(null);
-        }
-    }
-
-    /**
-     * Used by the world preview system.<br>
-     * Stops the world join behavior when the world preview is active, and instead enters directly into the loaded level.
-     *
-     * @param ci The {@link CallbackInfo} for the void method return.
-     * @see WorldDisplayHelper#isActive()
-     * @see WorldDisplayHelper#sameSummaries(LevelSummary)
-     * @see WorldDisplayHelper#enterLoadedLevel()
-     */
-    @Inject(at = @At(value = "HEAD"), method = "joinWorld()V", cancellable = true)
-    public void joinWorld(CallbackInfo ci) {
-        if (WorldDisplayHelper.isActive() && WorldDisplayHelper.sameSummaries(this.summary)) {
-            WorldDisplayHelper.enterLoadedLevel();
-            ci.cancel();
+            WorldDisplayHelper.stopLevel(new ProgressScreen(true));
+            WorldDisplayHelper.resetSummary();
         }
     }
 }
