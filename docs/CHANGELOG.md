@@ -1,3 +1,7 @@
+# Cumulus - 1.21.1-2.0.7
+
+- Fix compatibility issues between Essential and Cumulus' world preview system
+
 # Cumulus - 1.21.1-2.0.6
 
 - Fix client-side code being loaded on servers.
