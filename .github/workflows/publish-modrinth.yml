@@ -20,7 +20,7 @@ jobs:
         MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
       run: |
         if [ "${{ github.event.sender.login }}" = "OscarPayn" ] || [ "${{ github.event.sender.login }}" = "bconlon1" ]; then
-          gradle build
-          gradle :fabric:modrinth
-          gradle :neoforge:modrinth
+          chmod +x ./gradlew
+          ./gradlew fabric:modrinth
+          ./gradlew neoforge:modrinth
         fi
