@@ -1,10 +1,11 @@
 package com.aetherteam.cumulus.mixin.mixins.client;
 
 import com.aetherteam.cumulus.client.WorldDisplayHelper;
+import net.minecraft.client.gui.screens.GenericMessageScreen;
 import net.minecraft.client.gui.screens.ProgressScreen;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.worldselection.SelectWorldScreen;
 import net.minecraft.client.gui.screens.worldselection.WorldSelectionList;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.storage.LevelSummary;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -33,6 +34,22 @@ public class WorldListEntryMixin {
         if (WorldDisplayHelper.isActive() && WorldDisplayHelper.sameSummaries(this.summary)) {
             WorldDisplayHelper.stopLevel(new ProgressScreen(true));
             WorldDisplayHelper.resetSummary();
+        }
+    }
+
+    /**
+     * Used by the world preview system.<br>
+     * Unloads the currently loaded world preview level if the level is being edited.
+     *
+     * @param ci The {@link CallbackInfo} for the void method return.
+     * @see WorldDisplayHelper#isActive()
+     * @see WorldDisplayHelper#sameSummaries(LevelSummary)
+     * @see WorldDisplayHelper#stopLevel(Screen)
+     */
+    @Inject(at = @At(value = "HEAD"), method = "editWorld()V")
+    public void editWorld(CallbackInfo ci) {
+        if (WorldDisplayHelper.isActive() && WorldDisplayHelper.sameSummaries(this.summary)) {
+            WorldDisplayHelper.stopLevel(new GenericMessageScreen(Component.translatable("menu.savingLevel")));
         }
     }
 }
