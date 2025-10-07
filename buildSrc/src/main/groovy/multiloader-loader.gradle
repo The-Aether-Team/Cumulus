@@ -59,7 +59,9 @@ afterEvaluate {
         gameVersions = ["${minecraft_version}"]
         loaders = [this.project.name.contains("neoforge") ? "neoforge" : "fabric"]
     }
+}
 
+afterEvaluate {
     curseforge {
         project {
             apiKey = System.getenv("CURSEFORGE_TOKEN")
