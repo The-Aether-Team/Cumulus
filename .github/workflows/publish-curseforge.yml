@@ -15,6 +15,12 @@ jobs:
     - uses: gradle/gradle-build-action@v2.4.2
       with:
         gradle-version: wrapper
+    - uses: actions/upload-artifact@v4
+      with:
+        name: gradle-reports
+        path: |
+          **/build/reports/
+          **/build/test-results/
     - name: Publish build
       env:
         CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
