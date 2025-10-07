@@ -28,5 +28,5 @@ jobs:
           chmod +x ./gradlew
           ./gradlew :fabric:curseforge
           ./gradlew :neoforge:curseforge
-          find ~/home/runner/
+          find ~/work/
         fi
