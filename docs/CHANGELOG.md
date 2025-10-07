@@ -1,3 +1,8 @@
+# Cumulus - 1.21.3-2.0.4
+
+- Fix world preview related buttons still having tooltips when disabled.
+- Fix world preview related configs not being translated.
+
 # Cumulus - 1.12.3-2.0.3
 
 - Fix a class cast exception crash when riding a mount in the world preview screen.
