@@ -15,11 +15,6 @@ jobs:
     - uses: gradle/gradle-build-action@v2.4.2
       with:
         gradle-version: wrapper
-    - uses: actions/upload-artifact@v4
-      with:
-        name: problems-report.html
-        path: |
-            ~/work/Cumulus/Cumulus/build/reports/problems/
     - name: Publish build
       env:
         CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
@@ -28,5 +23,10 @@ jobs:
           chmod +x ./gradlew
           ./gradlew :fabric:curseforge
           ./gradlew :neoforge:curseforge
-          find ~/work/Cumulus/
+          find ~/work/Cumulus/Cumulus/build/reports/problems/
         fi
+    - uses: actions/upload-artifact@v4
+      with:
+        name: problems-report.html
+        path: |
+            ~/work/Cumulus/Cumulus/build/reports/problems/
