@@ -17,9 +17,9 @@ jobs:
         gradle-version: wrapper
     - uses: actions/upload-artifact@v4
       with:
-        name: gradle-reports
+        name: problems-report.html
         path: |
-            file:///home/runner/work/Cumulus/Cumulus/build/reports/problems/
+            ~/runner/work/Cumulus/Cumulus/build/reports/problems/
     - name: Publish build
       env:
         CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
