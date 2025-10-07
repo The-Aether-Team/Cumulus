@@ -19,7 +19,7 @@ jobs:
       with:
         name: problems-report.html
         path: |
-            ~/runner/work/Cumulus/Cumulus/build/reports/problems/
+            ~/work/Cumulus/Cumulus/build/reports/problems/
     - name: Publish build
       env:
         CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
@@ -28,5 +28,5 @@ jobs:
           chmod +x ./gradlew
           ./gradlew :fabric:curseforge
           ./gradlew :neoforge:curseforge
-          find ~/work/
+          find ~/work/Cumulus/
         fi
