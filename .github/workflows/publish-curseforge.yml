@@ -20,7 +20,7 @@ jobs:
         CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
       run: |
         if [ "${{ github.event.sender.login }}" = "OscarPayn" ] || [ "${{ github.event.sender.login }}" = "bconlon1" ]; then
-          gradle build
-          gradle :fabric:curseforge
-          gradle :neoforge:curseforge
+          chmod +x ./gradlew
+          ./gradlew :fabric:curseforge
+          ./gradlew :neoforge:curseforge
         fi
