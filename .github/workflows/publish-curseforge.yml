@@ -19,8 +19,7 @@ jobs:
       with:
         name: gradle-reports
         path: |
-          **/build/reports/
-          **/build/test-results/
+            file:///home/runner/work/Cumulus/Cumulus/build/reports/problems/problems-report.html
     - name: Publish build
       env:
         CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
