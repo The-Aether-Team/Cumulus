@@ -1,3 +1,8 @@
+# Cumulus - 1.21.1-2.0.8
+
+- Fix world preview related buttons still having tooltips when disabled.
+- Fix world preview related configs not being translated.
+
 # Cumulus - 1.21.1-2.0.7
 
 - Fix incompatibilities between Essential and Cumulus' world preview system.
