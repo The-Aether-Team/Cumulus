@@ -62,7 +62,7 @@ afterEvaluate {
 }
 
 def curseforgeArtifact = provider {
-    Jar task = this.project.name.contains("neoforge") ? tasks.jar : tasks.<Jar>findByName("remapJar")
+    AbstractArchiveTask task = this.project.name.contains("neoforge") ? tasks.jar : tasks.<Jar>findByName("remapJar")
     task.archiveFile.get().asFile
 }
 
