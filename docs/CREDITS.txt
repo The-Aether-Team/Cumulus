@@ -9,3 +9,4 @@ GizmoTheMoonPig
 
 Jonathing
 - Make Cumulus client-only.
+- Fix CurseForge publishing.
