@@ -47,7 +47,7 @@ public class MenuSelectionScreen extends Screen {
 
     @Override
     public void init() {
-        this.menuList = new MenuSelectionList(this, this.frameWidth - (EXTERIOR_WIDTH_PADDING * 2), this.frameHeight, (this.height / 2) - (this.frameHeight / 2) + EXTERIOR_TOP_PADDING, 24);
+        this.menuList = new MenuSelectionList(this, this.frameWidth - (EXTERIOR_WIDTH_PADDING * 2), this.frameHeight - EXTERIOR_TOP_PADDING - EXTERIOR_BOTTOM_PADDING, (this.height / 2) - (this.frameHeight / 2) + EXTERIOR_TOP_PADDING, 24);
         this.menuList.setX((this.width / 2) - (this.frameWidth / 2) + EXTERIOR_WIDTH_PADDING);
         this.addRenderableWidget(this.menuList);
 
