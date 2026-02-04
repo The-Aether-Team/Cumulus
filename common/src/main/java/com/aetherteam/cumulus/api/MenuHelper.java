@@ -9,7 +9,6 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.renderer.CubeMap;
 import net.minecraft.client.renderer.PanoramaRenderer;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.Music;
 import org.jetbrains.annotations.Nullable;
 
@@ -51,23 +50,25 @@ public class MenuHelper {
     @Nullable
     public TitleScreen applyMenu(Menu menu) {
         if (CumulusConfig.CLIENT.enable_menu_api.get()) {
-            this.setActiveMenu(menu);
             TitleScreen screen = this.checkFallbackScreen(menu, menu.screen());
-            if (this.shouldFade()) {
-                TitleScreenAccessor defaultMenuAccessor = (TitleScreenAccessor) screen;
-                defaultMenuAccessor.cumulus$setFading(true);
-                defaultMenuAccessor.cumulus$setFadeInStart(0L);
+            if (this.activeMenu == null || !this.activeMenu.getId().equals(menu.getId())) {
+                this.setActiveMenu(menu);
+                if (this.shouldFade()) {
+                    TitleScreenAccessor defaultMenuAccessor = (TitleScreenAccessor) screen;
+                    defaultMenuAccessor.cumulus$setFading(true);
+                    defaultMenuAccessor.cumulus$setFadeInStart(0L);
+                }
+                CubeMap panorama = menu.panorama();
+                if (panorama == null) {
+                    panorama = ((GameRendererAccessor) Minecraft.getInstance().gameRenderer).cumulus$getCubeMap();
+                }
+                ((GameRendererAccessor) Minecraft.getInstance().gameRenderer).cumulus$setCubeMap(panorama);
+                ((GameRendererAccessor) Minecraft.getInstance().gameRenderer).cumulus$setPanorama(new PanoramaRenderer(panorama));
+                if (this.getLastSplash() != null) {
+                    this.migrateSplash(this.getLastSplash(), screen);
+                }
+                menu.apply().run();
             }
-            CubeMap panorama = menu.panorama();
-            if (panorama == null) {
-                panorama = ((GameRendererAccessor) Minecraft.getInstance().gameRenderer).cumulus$getCubeMap();
-            }
-            ((GameRendererAccessor) Minecraft.getInstance().gameRenderer).cumulus$setCubeMap(panorama);
-            ((GameRendererAccessor) Minecraft.getInstance().gameRenderer).cumulus$setPanorama(new PanoramaRenderer(panorama));
-            if (this.getLastSplash() != null) {
-                this.migrateSplash(this.getLastSplash(), screen);
-            }
-            menu.apply().run();
             return screen;
         }
         return this.getFallbackTitleScreen();

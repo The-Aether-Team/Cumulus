@@ -6,7 +6,6 @@ import com.aetherteam.cumulus.api.Menu;
 import com.aetherteam.cumulus.api.Menus;
 import com.aetherteam.cumulus.client.CumulusClient;
 import com.aetherteam.cumulus.client.gui.component.MenuSelectionList;
-import com.aetherteam.cumulus.platform.Services;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -14,7 +13,6 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
@@ -75,30 +73,16 @@ public class MenuSelectionScreen extends Screen {
         }
     }
 
-    private boolean hasRendererBackground = false;
-
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        this.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
         this.renderListFrame(guiGraphics);
         this.menuList.render(guiGraphics, mouseX, mouseY, partialTick);
-
-        hasRendererBackground = true;
-
         super.render(guiGraphics, mouseX, mouseY, partialTick);
-
-        hasRendererBackground = false;
-    }
-
-    @Override
-    public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        if (hasRendererBackground) return;
-        super.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
     }
 
     private void renderListFrame(GuiGraphics guiGraphics) {
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, LIST_FRAME, (this.width / 2) - (this.frameWidth / 2), this.height / 2 - (this.frameHeight / 2), 0.0F, 0.0F, 141, 168, 256, 256);
-        guiGraphics.drawCenteredString(this.getFontRenderer(), Component.translatable("gui.cumulus_menus.title.menu_selection"), this.width / 2, ((this.height / 2) - (this.frameHeight / 2)) + 11, 0xFFFFFF);
+        guiGraphics.drawCenteredString(this.getFontRenderer(), Component.translatable("gui.cumulus_menus.title.menu_selection"), this.width / 2, ((this.height / 2) - (this.frameHeight / 2)) + 11, 0xFFFFFFFF);
     }
 
     public <T extends ObjectSelectionList.Entry<T>> void buildMenuList(Consumer<T> menuListViewConsumer, Function<Menu, T> newEntry) {

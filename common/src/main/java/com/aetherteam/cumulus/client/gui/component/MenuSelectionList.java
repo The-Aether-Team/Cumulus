@@ -80,7 +80,7 @@ public class MenuSelectionList extends ObjectSelectionList<MenuSelectionList.Men
             int length = 1;
             for (FormattedCharSequence line : lines) {
                 int y = top + (length * 10) - ((lines.size() * 10) / 2);
-                guiGraphics.drawString(font, line, left + ENTRY_PADDING + 21, y, 0xFFFFFF);
+                guiGraphics.drawString(font, line, left + ENTRY_PADDING + 21, y, 0xFFFFFFFF);
                 length++;
             }
         }
