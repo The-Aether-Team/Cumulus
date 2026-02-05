@@ -49,7 +49,7 @@ public record Menu(ResourceLocation icon, Component name, TitleScreen screen, Ru
     public static class Properties {
         private Runnable apply = () -> {};
         private Music music = Musics.MENU;
-        private CubeMap panorama = null;
+        private CubeMap panorama = new CubeMap(ResourceLocation.withDefaultNamespace("textures/gui/title/background/panorama"));
 
         /**
          * @see Menu#apply()
