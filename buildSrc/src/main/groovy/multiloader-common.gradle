@@ -3,13 +3,6 @@ plugins {
     id 'maven-publish'
 }
 
-version = "${minecraft_version}-${mod_version}-${project.name}"
-group = mod_group
-
-base {
-    archivesName = mod_id
-}
-
 java {
     toolchain.languageVersion = JavaLanguageVersion.of(project.java_version)
     withSourcesJar()
