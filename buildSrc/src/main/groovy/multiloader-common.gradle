@@ -127,7 +127,7 @@ processResources {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifactId project.base.archivesName
+            artifactId project.base.archivesName.get()
             if (project.name == "fabric") {
                 from components.java
             } else {
