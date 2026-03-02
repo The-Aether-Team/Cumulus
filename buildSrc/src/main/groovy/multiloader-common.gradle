@@ -3,6 +3,13 @@ plugins {
     id 'maven-publish'
 }
 
+version = "${minecraft_version}-${mod_version}-${project.name}"
+group = mod_group
+
+base {
+    archivesName = mod_id
+}
+
 java {
     toolchain.languageVersion = JavaLanguageVersion.of(project.java_version)
     withSourcesJar()
@@ -120,7 +127,7 @@ processResources {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifactId project.archivesBaseName
+            artifactId project.base.archivesName
             if (project.name == "fabric") {
                 from components.java
             } else {

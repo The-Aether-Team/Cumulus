@@ -3,13 +3,6 @@ plugins {
     id 'net.neoforged.moddev'
 }
 
-version = "${minecraft_version}-${mod_version}-${project.name}"
-group = mod_group
-
-base {
-    archivesName = mod_id
-}
-
 neoForge {
     neoFormVersion = neo_form_version
     // Automatically enable AccessTransformers if the file exists
