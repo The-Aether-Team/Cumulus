@@ -9,7 +9,7 @@
   "client": [
     "client.GameRendererMixin",
     "client.LivingEntityRendererMixin",
-    "client.MinecraftMixin"
+    "client.FabricMinecraftMixin"
   ],
   "server": [],
   "injectors": {

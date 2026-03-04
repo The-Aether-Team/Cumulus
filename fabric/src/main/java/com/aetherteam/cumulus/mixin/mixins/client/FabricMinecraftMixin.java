@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Debug(export = true)
 @Mixin(value = Minecraft.class, priority = 1100)
-public abstract class MinecraftMixin {
+public abstract class FabricMinecraftMixin {
 
     @Shadow
     @Nullable

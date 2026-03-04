@@ -27,7 +27,6 @@ public class DynamicMenuButton extends BuilderMadeButton {
         if (this.shouldRender()) {
             this.enabled = true;
             this.setX(this.getOriginX() + gatherOffsets(this.offsetConfigs));
-            super.renderWidget(guiGraphics, mouseX, mouseY, partialTicks);
         } else {
             this.enabled = false;
         }

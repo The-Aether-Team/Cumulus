@@ -8,10 +8,12 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.world.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
 
@@ -21,14 +23,14 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, S extend
         super(context);
     }
 
-    @WrapMethod(method = "render(Lnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V")
-    private void render(S entityRenderState, PoseStack poseStack, MultiBufferSource buffer, int packedLight, Operation<Void> original) {
+    @WrapMethod(method = "submit(Lnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/CameraRenderState;)V")
+    private void render(S livingEntityRenderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState, Operation<Void> original) {
         var callback = new CancellableCallbackImpl();
 
-        LivingEntityRenderEvents.BEFORE_RENDER.invoker().beforeRendering(entityRenderState, (LivingEntityRenderer<LivingEntity, LivingEntityRenderState, ?>) (Object) this, Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(true), poseStack, buffer, packedLight, callback);
+        LivingEntityRenderEvents.BEFORE_RENDER.invoker().beforeRendering(livingEntityRenderState, (LivingEntityRenderer<LivingEntity, LivingEntityRenderState, ?>) (Object) this, Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(true), poseStack, callback);
 
         if (callback.isCanceled()) return;
 
-        original.call(entityRenderState, poseStack, buffer, packedLight);
+        original.call(livingEntityRenderState, poseStack, submitNodeCollector, cameraRenderState);
     }
 }

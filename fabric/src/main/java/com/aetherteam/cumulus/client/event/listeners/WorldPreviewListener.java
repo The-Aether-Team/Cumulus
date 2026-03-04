@@ -6,13 +6,12 @@ import com.aetherteam.cumulus.client.events.LivingEntityRenderEvents;
 import com.aetherteam.cumulus.client.events.PlayerRenderEvents;
 import com.aetherteam.cumulus.events.CancellableCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
+import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderEvents;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.client.renderer.entity.player.AvatarRenderer;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
-import net.minecraft.world.entity.Entity;
 
 public class WorldPreviewListener {
     /**
@@ -59,7 +58,7 @@ public class WorldPreviewListener {
      * @see WorldPreviewHooks#shouldHidePlayer()
      * @see WorldPreviewHooks#adjustShadow(EntityRenderer, boolean)
      */
-    public static void onRenderPlayer(PlayerRenderer renderer, CancellableCallback callback) {
+    public static void onRenderPlayer(AvatarRenderer renderer, CancellableCallback callback) {
         boolean hide = WorldPreviewHooks.shouldHidePlayer();
         if (hide) {
             callback.setCanceled(true);
@@ -84,9 +83,9 @@ public class WorldPreviewListener {
             onGuiOpenLowest(newScreen);
             return null;
         });
-        WorldRenderEvents.LAST.register(context -> onRenderLevelLast());
+        WorldRenderEvents.END_MAIN.register(context -> onRenderLevelLast());
         ClientTickEvents.END_CLIENT_TICK.register(client -> WorldPreviewListener.onClientTick());
         PlayerRenderEvents.BEFORE_RENDER.register((player, renderer, partialTick, poseStack, multiBufferSource, packedLight, callback) -> WorldPreviewListener.onRenderPlayer(renderer, callback));
-        LivingEntityRenderEvents.BEFORE_RENDER.register((entityRenderState, renderer, partialTick, poseStack, multiBufferSource, packedLight, callback) -> onRenderEntity(entityRenderState, renderer, partialTick, callback));
+        LivingEntityRenderEvents.BEFORE_RENDER.register((entityRenderState, renderer, partialTick, poseStack, callback) -> onRenderEntity(entityRenderState, renderer, partialTick, callback));
     }
 }

@@ -9,6 +9,7 @@ import net.minecraft.data.metadata.PackMetadataGenerator;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
+import net.minecraft.util.InclusiveRange;
 
 import java.util.Optional;
 
@@ -24,7 +25,7 @@ public class CumulusDataGenerator implements DataGeneratorEntrypoint {
         // pack.mcmeta
         pack.addProvider((FabricDataOutput output) -> {
             return new PackMetadataGenerator(output)
-                    .add(PackMetadataSection.TYPE, new PackMetadataSection(Component.translatable("pack.cumulus_menus.mod.description"), SharedConstants.getCurrentVersion().packVersion(PackType.CLIENT_RESOURCES), Optional.empty()));
+                    .add(PackMetadataSection.CLIENT_TYPE, new PackMetadataSection(Component.translatable("pack.cumulus_menus.mod.description"), new InclusiveRange<>(SharedConstants.getCurrentVersion().packVersion(PackType.CLIENT_RESOURCES))));
         });
     }
 }

@@ -7,6 +7,7 @@ import com.mojang.logging.LogUtils;
 import fuzs.forgeconfigapiport.fabric.api.v5.ConfigRegistry;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.neoforged.fml.config.ModConfig;
 import org.slf4j.Logger;
@@ -17,10 +18,10 @@ public class CumulusFabric implements ClientModInitializer, ModInitializer {
 
     @Override
     public void onInitializeClient() {
-        Menus.init();
-
         MenuListener.initEvents();
         WorldPreviewListener.initEvents();
+
+        ClientLifecycleEvents.CLIENT_STARTED.register(client -> Menus.init());
 
         ServerLifecycleEvents.SERVER_STARTED.register(server -> Cumulus.SERVER_INSTANCE = server);
         ServerLifecycleEvents.SERVER_STOPPED.register(server -> Cumulus.SERVER_INSTANCE = null);
