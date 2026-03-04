@@ -16,7 +16,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import org.jetbrains.annotations.Nullable;
 
@@ -61,7 +61,7 @@ public class MenuHooks {
     @Nullable
     public static Screen setupCustomMenu(Screen screen, MenuHelper menuHelper) {
         if (screen instanceof TitleScreen && CumulusConfig.CLIENT.enable_menu_api.get()) {
-            return menuHelper.applyMenu(Menus.get(ResourceLocation.parse(CumulusConfig.CLIENT.active_menu.get())));
+            return menuHelper.applyMenu(Menus.get(Identifier.parse(CumulusConfig.CLIENT.active_menu.get())));
         }
         return null;
     }

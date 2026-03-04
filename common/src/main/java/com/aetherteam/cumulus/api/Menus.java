@@ -6,7 +6,7 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -19,13 +19,13 @@ import java.util.stream.Collectors;
 public class Menus {
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    public static final ResourceLocation MINECRAFT_ICON = ResourceLocation.withDefaultNamespace("textures/block/grass_block_side.png");
+    public static final Identifier MINECRAFT_ICON = Identifier.withDefaultNamespace("textures/block/grass_block_side.png");
     public static final Component MINECRAFT_NAME = Component.translatable("cumulus_menus.menu_title.minecraft");
-    private static Map<ResourceLocation, Menu> MENUS;
+    private static Map<Identifier, Menu> MENUS;
     public static Menu MINECRAFT;
 
     static {
-        var menus = new HashMap<ResourceLocation, Menu>();
+        var menus = new HashMap<Identifier, Menu>();
         MINECRAFT = registerVanillaScreen(menus);
         MENUS = menus;
     }
@@ -49,21 +49,21 @@ public class Menus {
         MENUS = menus;
     }
 
-    private static Menu registerVanillaScreen(Map<ResourceLocation, Menu> menus) {
+    private static Menu registerVanillaScreen(Map<Identifier, Menu> menus) {
         var vanilla = new Menu(MINECRAFT_ICON, MINECRAFT_NAME, new TitleScreen(true));
-        menus.put(ResourceLocation.withDefaultNamespace("minecraft"), vanilla);
+        menus.put(Identifier.withDefaultNamespace("minecraft"), vanilla);
         return vanilla;
     }
 
     @Nullable
-    public static ResourceLocation getKey(Menu menu) {
+    public static Identifier getKey(Menu menu) {
         for (var entry : MENUS.entrySet()) {
             if (entry.getValue().equals(menu)) return entry.getKey();
         }
         return null;
     }
 
-    public static Menu get(ResourceLocation type) {
+    public static Menu get(Identifier type) {
         return MENUS.getOrDefault(type, MINECRAFT);
     }
 

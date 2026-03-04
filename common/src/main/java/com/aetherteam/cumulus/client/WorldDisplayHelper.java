@@ -74,7 +74,7 @@ public class WorldDisplayHelper {
         LevelSummary summary = getLevelSummary();
         if (summary != null && minecraft.getLevelSource().levelExists(summary.getLevelId())) {
             setActive();
-            minecraft.forceSetScreen(new GenericMessageScreen(Component.translatable("selectWorld.data_read")));
+            minecraft.setScreenAndShow(new GenericMessageScreen(Component.translatable("selectWorld.data_read")));
             minecraft.createWorldOpenFlows().openWorld(summary.getLevelId(), FAIL_RUN);
         } else {
             FAIL_RUN.run();
@@ -96,7 +96,7 @@ public class WorldDisplayHelper {
         LevelSummary summary = getLevelSummary();
         if (summary != null && minecraft.getLevelSource().levelExists(summary.getLevelId()) && minecraft.getSingleplayerServer() != null) {
             resetStates();
-            minecraft.forceSetScreen(null);
+            minecraft.setScreenAndShow(null);
         }
     }
 
@@ -140,10 +140,10 @@ public class WorldDisplayHelper {
         CumulusClient.MENU_HELPER.setShouldFade(false);
         Screen screen = CumulusClient.MENU_HELPER.applyMenu(CumulusClient.MENU_HELPER.getActiveMenu());
         if (screen != null) {
-            if (minecraftAccessor.cumulus$getCurrentFrameProfile() != null && !minecraftAccessor.cumulus$getCurrentFrameProfile().isDone()) {
-                TimerQuery.getInstance().ifPresent((timer) -> minecraftAccessor.cumulus$setCurrentFrameProfile(timer.endProfile()));
+            if ((minecraftAccessor.cumulus$getCurrentFrameProfile() != null && ((!minecraftAccessor.cumulus$getCurrentFrameProfile().isDone()) || TimerQuery.getInstance().isRecording()))) {
+                TimerQuery.getInstance().endProfile();
             }
-            Minecraft.getInstance().forceSetScreen(screen);
+            Minecraft.getInstance().setScreenAndShow(screen);
         }
     }
 

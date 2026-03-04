@@ -1,6 +1,6 @@
 package com.aetherteam.cumulus.api;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 /**
  * Interface for registering custom menu implementations within a mods implemented {@link MenuInitializer}
@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 @FunctionalInterface
 public interface MenuRegisterCallback {
     /**
-     * Register the given {@link Menu} under the given {@link ResourceLocation}
+     * Register the given {@link Menu} under the given {@link Identifier}
      */
-    void registerMenu(ResourceLocation location, Menu menu);
+    void registerMenu(Identifier location, Menu menu);
 }

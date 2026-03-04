@@ -66,7 +66,7 @@ public class WorldPreviewHooks {
         if (minecraft.level != null && minecraft.player != null) {
             if (WorldDisplayHelper.isActive() && minecraft.isPaused()) {
                 minecraft.gameRenderer.tick();
-                minecraft.levelRenderer.tick();
+                minecraft.levelRenderer.tick(minecraft.gameRenderer.getMainCamera());
                 minecraft.getMusicManager().tick();
                 minecraft.getSoundManager().tick(false);
                 minecraft.level.animateTick(minecraft.player.getBlockX(), minecraft.player.getBlockY(), minecraft.player.getBlockZ());

@@ -14,7 +14,7 @@ import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class MenuSelectionScreen extends Screen {
-    public static final ResourceLocation LIST_FRAME = ResourceLocation.fromNamespaceAndPath(Cumulus.MODID, "textures/gui/menu_api/list.png");
+    public static final Identifier LIST_FRAME = Identifier.fromNamespaceAndPath(Cumulus.MODID, "textures/gui/menu_api/list.png");
     private static final int EXTERIOR_WIDTH_PADDING = 13;
     private static final int EXTERIOR_TOP_PADDING = 28;
     private static final int EXTERIOR_BOTTOM_PADDING = 33;
