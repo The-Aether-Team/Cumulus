@@ -9,6 +9,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.renderer.CubeMap;
 import net.minecraft.client.renderer.PanoramaRenderer;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.Music;
 import org.jetbrains.annotations.Nullable;
 
@@ -23,7 +24,7 @@ public class MenuHelper {
     @Nullable
     private TitleScreen fallbackTitleScreen = null;
     @Nullable
-    private String lastSplash = null;
+    private Component lastSplash = null;
     private boolean shouldFade = true;
 
     /**
@@ -132,7 +133,7 @@ public class MenuHelper {
      * @return The {@link String} for the last displayed splash.
      */
     @Nullable
-    public String getLastSplash() {
+    public Component getLastSplash() {
         return this.lastSplash;
     }
 
@@ -140,7 +141,7 @@ public class MenuHelper {
      * Sets the last displayed splash.
      * @param lastSplash The splash {@link String}.
      */
-    public void setLastSplash(@Nullable String lastSplash) {
+    public void setLastSplash(@Nullable Component lastSplash) {
         this.lastSplash = lastSplash;
     }
 
@@ -149,7 +150,7 @@ public class MenuHelper {
      * @param originalSplash The original splash {@link String} to transfer to a new screen.
      * @param newScreen The new {@link TitleScreen} to get the splash.
      */
-    public void migrateSplash(String originalSplash, TitleScreen newScreen) {
+    public void migrateSplash(Component originalSplash, TitleScreen newScreen) {
         TitleScreenAccessor newScreenAccessor = (TitleScreenAccessor) newScreen;
         if (newScreenAccessor.cumulus$getSplash() == null) {
             newScreenAccessor.setSplash(Minecraft.getInstance().getSplashManager().getSplash());
@@ -164,7 +165,7 @@ public class MenuHelper {
      * @param condition The {@link Calendar} {@link Predicate} for when to display the splash.
      * @param splash The {@link String} for the splash to display.
      */
-    public void setCustomSplash(TitleScreen screen, Predicate<Calendar> condition, String splash) {
+    public void setCustomSplash(TitleScreen screen, Predicate<Calendar> condition, Component splash) {
         TitleScreenAccessor screenAccessor = (TitleScreenAccessor) screen;
         SplashRendererAccessor splashRendererAccessor = (SplashRendererAccessor) screenAccessor.cumulus$getSplash();
         if (splashRendererAccessor != null) {
