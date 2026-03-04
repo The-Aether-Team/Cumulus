@@ -26,9 +26,10 @@ public class MenuSelectionList extends ObjectSelectionList<MenuSelectionList.Men
 
     @Override
     protected void renderSelection(GuiGraphics guiGraphics, MenuEntry entry, int backgroundColor) {
-        int i = this.getX() + (this.width - width) / 2;
-        int j = this.getX() + (this.width + width) / 2;
-        guiGraphics.fill(i + 1, entry.getY() - 3, j - 7, entry.getY() + this.height + 1, -1);
+        int top = entry.getY() + ENTRY_PADDING;
+        int i = this.getX() + (this.width - this.getRowWidth()) / 2;
+        int j = this.getX() + (this.width + this.getRowWidth()) / 2;
+        guiGraphics.fill(i + 1, top - 3, j - 7, top + entry.getHeight() + 1 - (ENTRY_PADDING * 2), -1);
     }
 
     @Override
@@ -68,8 +69,11 @@ public class MenuSelectionList extends ObjectSelectionList<MenuSelectionList.Men
 
         @Override
         public void renderContent(GuiGraphics guiGraphics, int mouseX, int mouseY, boolean hovered, float tickDelta) {
-            guiGraphics.fillGradient(this.getX(), this.getY() - ENTRY_PADDING, this.getX() + MenuSelectionList.this.getRowWidth() - (ENTRY_PADDING * 2) - 6, this.getY() + MenuSelectionList.this.contentHeight() - (ENTRY_PADDING * 2), -10066330, -8750470);
-            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.menu.icon(), this.getX() + ENTRY_PADDING + 1, this.getY() + 1, 0, 0, 16, 16, 16, 16);
+            int top = MenuSelectionList.this.getRowTop(MenuSelectionList.this.children().indexOf(this)) + ENTRY_PADDING;
+            int left = MenuSelectionList.this.getRowLeft() + ENTRY_PADDING;
+
+            guiGraphics.fillGradient(left, top - ENTRY_PADDING, left + MenuSelectionList.this.getRowWidth() - (ENTRY_PADDING * 2) - 6, top + this.getHeight() - (ENTRY_PADDING * 2), -10066330, -8750470);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.menu.icon(), left + ENTRY_PADDING + 1, top + 1, 0, 0, 16, 16, 16, 16);
 
             Font font = this.parent.getFontRenderer();
             int fontWidth = MenuSelectionList.this.getRowWidth() - (ENTRY_PADDING * 2) - 24;
@@ -77,8 +81,8 @@ public class MenuSelectionList extends ObjectSelectionList<MenuSelectionList.Men
 
             int length = 1;
             for (FormattedCharSequence line : lines) {
-                int y = this.getY() + (length * 10) - ((lines.size() * 10) / 2);
-                guiGraphics.drawString(font, line, this.getX() + ENTRY_PADDING + 21, y, 0xFFFFFFFF);
+                int y = top + (length * 10) - ((lines.size() * 10) / 2);
+                guiGraphics.drawString(font, line, left + ENTRY_PADDING + 21, y, 0xFFFFFFFF);
                 length++;
             }
         }
