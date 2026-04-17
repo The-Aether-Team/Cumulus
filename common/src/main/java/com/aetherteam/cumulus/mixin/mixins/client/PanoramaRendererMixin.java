@@ -15,7 +15,7 @@ public class PanoramaRendererMixin {
      * Used by the world preview system.<br>
      * Prevents the {@link net.minecraft.client.gui.screens.TitleScreen} panorama from rendering when a world preview is active.
      *
-     * @param guiGraphics The rendering {@link GuiGraphics}.
+     * @param guiGraphics The rendering {@link GuiGraphicsExtractor}.
      * @param width The {@link Integer} for the screen width.
      * @param height The {@link Integer} for the screen height.
      * @param spin A {@link Boolean} for whether the panorama spins.
