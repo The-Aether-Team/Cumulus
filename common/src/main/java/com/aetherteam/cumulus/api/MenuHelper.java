@@ -2,13 +2,14 @@ package com.aetherteam.cumulus.api;
 
 import com.aetherteam.cumulus.CumulusConfig;
 import com.aetherteam.cumulus.mixin.mixins.client.accessor.GameRendererAccessor;
+import com.aetherteam.cumulus.mixin.mixins.client.accessor.GuiRendererAccessor;
 import com.aetherteam.cumulus.mixin.mixins.client.accessor.SplashRendererAccessor;
 import com.aetherteam.cumulus.mixin.mixins.client.accessor.TitleScreenAccessor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.renderer.CubeMap;
-import net.minecraft.client.renderer.PanoramaRenderer;
+import net.minecraft.client.renderer.Panorama;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.Music;
 import org.jetbrains.annotations.Nullable;
@@ -61,10 +62,10 @@ public class MenuHelper {
                 }
                 CubeMap panorama = menu.panorama();
                 if (panorama == null) {
-                    panorama = ((GameRendererAccessor) Minecraft.getInstance().gameRenderer).cumulus$getCubeMap();
+                    panorama = ((GuiRendererAccessor) ((GameRendererAccessor) Minecraft.getInstance().gameRenderer).cumulus$getGuiRenderer()).cumulus$getCubeMap();
                 }
-                ((GameRendererAccessor) Minecraft.getInstance().gameRenderer).cumulus$setCubeMap(panorama);
-                ((GameRendererAccessor) Minecraft.getInstance().gameRenderer).cumulus$setPanorama(new PanoramaRenderer(panorama));
+                ((GuiRendererAccessor) ((GameRendererAccessor) Minecraft.getInstance().gameRenderer).cumulus$getGuiRenderer()).cumulus$setCubeMap(panorama);
+                ((GameRendererAccessor) Minecraft.getInstance().gameRenderer).cumulus$setPanorama(new Panorama());
                 if (this.getLastSplash() != null) {
                     this.migrateSplash(this.getLastSplash(), screen);
                 }

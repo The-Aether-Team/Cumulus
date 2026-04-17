@@ -4,7 +4,7 @@ import com.aetherteam.cumulus.api.Menu;
 import com.aetherteam.cumulus.client.gui.screen.MenuSelectionScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -25,7 +25,7 @@ public class MenuSelectionList extends ObjectSelectionList<MenuSelectionList.Men
     }
 
     @Override
-    protected void renderSelection(GuiGraphics guiGraphics, MenuEntry entry, int backgroundColor) {
+    protected void extractSelection(GuiGraphicsExtractor guiGraphics, MenuEntry entry, int backgroundColor) {
         int top = entry.getY() + ENTRY_PADDING;
         int i = this.getX() + (this.width - this.getRowWidth()) / 2;
         int j = this.getX() + (this.width + this.getRowWidth()) / 2;
@@ -33,10 +33,10 @@ public class MenuSelectionList extends ObjectSelectionList<MenuSelectionList.Men
     }
 
     @Override
-    protected void renderListBackground(GuiGraphics guiGraphics) { }
+    protected void extractListBackground(GuiGraphicsExtractor graphics) { }
 
     @Override
-    protected void renderListSeparators(GuiGraphics guiGraphics) { }
+    protected void extractListSeparators(GuiGraphicsExtractor graphics) { }
 
     @Override
     protected int scrollBarX() {
@@ -68,7 +68,7 @@ public class MenuSelectionList extends ObjectSelectionList<MenuSelectionList.Men
         }
 
         @Override
-        public void renderContent(GuiGraphics guiGraphics, int mouseX, int mouseY, boolean hovered, float tickDelta) {
+        public void extractContent(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, boolean hovered, float tickDelta) {
             int top = MenuSelectionList.this.getRowTop(MenuSelectionList.this.children().indexOf(this)) + ENTRY_PADDING;
             int left = MenuSelectionList.this.getRowLeft() + ENTRY_PADDING;
 
@@ -82,7 +82,7 @@ public class MenuSelectionList extends ObjectSelectionList<MenuSelectionList.Men
             int length = 1;
             for (FormattedCharSequence line : lines) {
                 int y = top + (length * 10) - ((lines.size() * 10) / 2);
-                guiGraphics.drawString(font, line, left + ENTRY_PADDING + 21, y, 0xFFFFFFFF);
+                guiGraphics.text(font, line, left + ENTRY_PADDING + 21, y, 0xFFFFFFFF);
                 length++;
             }
         }

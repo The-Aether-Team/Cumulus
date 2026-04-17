@@ -1,22 +1,18 @@
 package com.aetherteam.cumulus.mixin.mixins.client.accessor;
 
-import net.minecraft.client.renderer.CubeMap;
+import net.minecraft.client.gui.render.GuiRenderer;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.client.renderer.PanoramaRenderer;
+import net.minecraft.client.renderer.Panorama;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(GameRenderer.class)
 public interface GameRendererAccessor {
-    @Accessor("cubeMap")
-    CubeMap cumulus$getCubeMap();
-
-    @Mutable
-    @Accessor("cubeMap")
-    void cumulus$setCubeMap(CubeMap cubeMap);
+    @Accessor("guiRenderer")
+    GuiRenderer cumulus$getGuiRenderer();
 
     @Mutable
     @Accessor("panorama")
-    void cumulus$setPanorama(PanoramaRenderer panorama);
+    void cumulus$setPanorama(Panorama panorama);
 }

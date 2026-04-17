@@ -1,7 +1,7 @@
 package com.aetherteam.cumulus.data.providers;
 
 import com.aetherteam.cumulus.client.LanguageProviderBase;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.TagKey;
@@ -18,7 +18,7 @@ import java.util.function.Supplier;
 public class CumulusLanguageProvider extends FabricLanguageProvider implements LanguageProviderBase {
     protected final String id;
 
-    public CumulusLanguageProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
+    public CumulusLanguageProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(output, registryLookup);
         this.id = output.getModId();
     }

@@ -12,8 +12,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Camera.class)
 public abstract class CameraMixin {
-    @Inject(method = "setup", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Camera;setRotation(FF)V", ordinal = 0))
-    private void setup(Level level, Entity entity, boolean detached, boolean mirror, float partialTickTime, CallbackInfo ci) {
-        WorldPreviewHooks.angleCamera(partialTickTime);
+    @Inject(method = "alignWithEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Camera;setRotation(FF)V", ordinal = 0))
+    private void alignWithEntity(float partialTicks, CallbackInfo ci) {
+        WorldPreviewHooks.angleCamera(partialTicks);
     }
 }

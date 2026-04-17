@@ -2,14 +2,14 @@ package com.aetherteam.cumulus.mixin.mixins.client;
 
 import com.aetherteam.cumulus.client.WorldDisplayHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.PanoramaRenderer;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.renderer.Panorama;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(PanoramaRenderer.class)
+@Mixin(Panorama.class)
 public class PanoramaRendererMixin {
     /**
      * Used by the world preview system.<br>
@@ -22,8 +22,8 @@ public class PanoramaRendererMixin {
      * @param ci        The {@link CallbackInfo} for the void method return.
      * @see WorldDisplayHelper#isActive()
      */
-    @Inject(at = @At(value = "HEAD"), method = "render(Lnet/minecraft/client/gui/GuiGraphics;IIZ)V", cancellable = true)
-    public void render(GuiGraphics guiGraphics, int width, int height, boolean spin, CallbackInfo ci) {
+    @Inject(at = @At(value = "HEAD"), method = "extractRenderState(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIZ)V", cancellable = true)
+    public void render(GuiGraphicsExtractor guiGraphics, int width, int height, boolean spin, CallbackInfo ci) {
         if (Minecraft.getInstance().level != null && WorldDisplayHelper.isActive()) {
             ci.cancel();
         }

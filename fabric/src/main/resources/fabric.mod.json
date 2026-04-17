@@ -35,7 +35,7 @@
     "depends": {
         "fabricloader": "${fabric_loader_version_range}",
         "minecraft": "${fabric_minecraft_version_range}",
-        "java": ">=21",
+        "java": ">=${java_version}",
         "fabric-api": "${fabric_version_range}"
     }
 }

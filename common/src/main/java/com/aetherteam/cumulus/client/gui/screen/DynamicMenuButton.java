@@ -1,6 +1,6 @@
 package com.aetherteam.cumulus.client.gui.screen;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.input.InputWithModifiers;
 import net.neoforged.neoforge.common.ModConfigSpec;
@@ -23,7 +23,7 @@ public class DynamicMenuButton extends BuilderMadeButton {
     }
 
     @Override
-    public void renderContents(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+    public void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
         if (this.shouldRender()) {
             this.enabled = true;
             this.setX(this.getOriginX() + gatherOffsets(this.offsetConfigs));

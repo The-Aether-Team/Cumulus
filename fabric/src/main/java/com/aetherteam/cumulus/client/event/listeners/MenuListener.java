@@ -37,24 +37,24 @@ public class MenuListener {
         if (screen instanceof TitleScreen) {
             Button menuSwitchButton = MenuHooks.setupMenuScreenButton(screen);
             if (menuSwitchButton != null) {
-                Screens.getButtons(screen).add(menuSwitchButton);
+                Screens.getWidgets(screen).add(menuSwitchButton);
             }
 
             Button toggleWorldButton = MenuHooks.setupToggleWorldButton(screen);
             if (toggleWorldButton != null) {
-                Screens.getButtons(screen).add(toggleWorldButton);
+                Screens.getWidgets(screen).add(toggleWorldButton);
             }
 
             Button quickLoadButton = MenuHooks.setupQuickLoadButton(screen);
             if (quickLoadButton != null) {
-                Screens.getButtons(screen).add(quickLoadButton);
+                Screens.getWidgets(screen).add(quickLoadButton);
             }
         }
     }
 
     public static void initEvents() {
         ScreenEvents.BEFORE_INIT.register((client, screen, scaledWidth, scaledHeight) -> {
-            ScreenEvents.afterRender(screen).register((screen1, drawContext, mouseX, mouseY, tickDelta) -> onGuiDraw());
+            ScreenEvents.afterExtract(screen).register((screen1, drawContext, mouseX, mouseY, tickDelta) -> onGuiDraw());
         });
         ScreenEvents.AFTER_INIT.register((client, screen, scaledWidth, scaledHeight) -> onGuiInitialize(screen));
         OpeningScreenEvents.POST.register((oldScreen, newScreen) -> onGuiOpenLow(newScreen));
