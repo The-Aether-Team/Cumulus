@@ -60,7 +60,7 @@ public class MenuHelper {
                     defaultMenuAccessor.cumulus$setFading(true);
                     defaultMenuAccessor.cumulus$setFadeInStart(0L);
                 }
-                CubeMap panorama = menu.panorama();
+                CubeMap panorama = menu.panorama().get();
                 if (panorama == null) {
                     panorama = ((GuiRendererAccessor) ((GameRendererAccessor) Minecraft.getInstance().gameRenderer).cumulus$getGuiRenderer()).cumulus$getCubeMap();
                 }

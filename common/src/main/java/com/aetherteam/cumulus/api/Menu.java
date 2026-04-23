@@ -1,15 +1,14 @@
 package com.aetherteam.cumulus.api;
 
 import com.aetherteam.cumulus.client.gui.component.MenuSelectionList;
-import com.aetherteam.cumulus.mixin.mixins.client.accessor.GameRendererAccessor;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.renderer.CubeMap;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
+
+import java.util.function.Supplier;
 
 /**
  * Acts as a holder object for various custom paramters that can be adjusted for a custom menu
@@ -21,7 +20,7 @@ import net.minecraft.sounds.Musics;
  * @param music     The Custom {@link Music} to be played while the screen is active
  * @param panorama  The panorama {@link CubeMap} used to replace minecarfts default
  */
-public record Menu(Identifier icon, Component name, TitleScreen screen, Runnable apply, Music music, CubeMap panorama) {
+public record Menu(Identifier icon, Component name, TitleScreen screen, Runnable apply, Music music, Supplier<CubeMap> panorama) {
 
     public Menu(Identifier icon, Component name, TitleScreen screen) {
         this(icon, name, screen, new Properties());
@@ -49,7 +48,7 @@ public record Menu(Identifier icon, Component name, TitleScreen screen, Runnable
     public static class Properties {
         private Runnable apply = () -> {};
         private Music music = Musics.MENU;
-        private CubeMap panorama = new CubeMap(Identifier.withDefaultNamespace("textures/gui/title/background/panorama"));
+        private Supplier<CubeMap> panorama = () -> new CubeMap(Identifier.withDefaultNamespace("textures/gui/title/background/panorama"));
 
         /**
          * @see Menu#apply()
@@ -70,7 +69,7 @@ public record Menu(Identifier icon, Component name, TitleScreen screen, Runnable
         /**
          * @see Menu#panorama()
          */
-        public Properties panorama(CubeMap panorama) {
+        public Properties panorama(Supplier<CubeMap> panorama) {
             this.panorama = panorama;
             return this;
         }
