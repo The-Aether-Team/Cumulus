@@ -51,17 +51,19 @@ public class MenuSelectionScreen extends Screen {
         this.menuList.setX((this.width / 2) - (this.frameWidth / 2) + EXTERIOR_WIDTH_PADDING);
         this.addRenderableWidget(this.menuList);
 
-        this.launchButton = Button.builder(Component.translatable("gui.cumulus_menus.button.menu_launch"), press -> {
-            if (this.selected != null) {
-                CumulusConfig.CLIENT.active_menu.set(this.selected.getMenu().toString());
-                CumulusConfig.CLIENT.active_menu.save();
-                CumulusClient.MENU_HELPER.setShouldFade(true);
-                Minecraft.getInstance().setScreen(CumulusClient.MENU_HELPER.applyMenu(this.selected.getMenu()));
-                Minecraft.getInstance().getMusicManager().stopPlaying();
-            }
-        }).bounds((this.width / 2) - (this.frameWidth / 2) + 34, (this.height / 2) + (this.frameHeight / 2) - 27, 72, 20).build();
+        this.launchButton = Button.builder(Component.translatable("gui.cumulus_menus.button.menu_launch"), press -> this.switchMenu(this.selected)).bounds((this.width / 2) - (this.frameWidth / 2) + 34, (this.height / 2) + (this.frameHeight / 2) - 27, 72, 20).build();
         this.addRenderableWidget(this.launchButton);
         this.launchButton.active = false;
+    }
+
+    public void switchMenu(MenuSelectionList.MenuEntry entry) {
+        if (entry != null) {
+            CumulusConfig.CLIENT.active_menu.set(entry.getMenu().toString());
+            CumulusConfig.CLIENT.active_menu.save();
+            CumulusClient.MENU_HELPER.setShouldFade(true);
+            Minecraft.getInstance().setScreen(CumulusClient.MENU_HELPER.applyMenu(entry.getMenu()));
+            Minecraft.getInstance().getMusicManager().stopPlaying();
+        }
     }
 
     @Override

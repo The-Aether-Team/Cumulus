@@ -91,7 +91,10 @@ public class MenuSelectionList extends ObjectSelectionList<MenuSelectionList.Men
         public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
             this.parent.setSelected(this);
             MenuSelectionList.this.setSelected(this);
-            return false;
+            if (doubleClick) {
+                this.parent.switchMenu(this);
+            }
+            return super.mouseClicked(event, doubleClick);
         }
 
         public Menu getMenu() {
