@@ -2,7 +2,6 @@ package com.aetherteam.cumulus.client.gui.screen;
 
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.input.InputWithModifiers;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,7 +14,6 @@ public class DynamicMenuButton extends BuilderMadeButton {
     private final int originX;
     private List<ModConfigSpec.ConfigValue<Boolean>> displayConfigs;
     private List<ModConfigSpec.ConfigValue<Boolean>> offsetConfigs;
-    public boolean enabled = true;
 
     public DynamicMenuButton(Button.Builder builder) {
         super(builder.createNarration(DEFAULT_NARRATION));
@@ -25,10 +23,13 @@ public class DynamicMenuButton extends BuilderMadeButton {
     @Override
     public void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
         if (this.shouldRender()) {
-            this.enabled = true;
+            this.active = true;
+            this.visible = true;
             this.setX(this.getOriginX() + gatherOffsets(this.offsetConfigs));
+            super.extractContents(guiGraphics, mouseX, mouseY, partialTicks);
         } else {
-            this.enabled = false;
+            this.active = false;
+            this.visible = false;
         }
     }
 
@@ -51,13 +52,6 @@ public class DynamicMenuButton extends BuilderMadeButton {
             }
         }
         return offset;
-    }
-
-    @Override
-    public void onPress(InputWithModifiers input) {
-        if (this.enabled) {
-            super.onPress(input);
-        }
     }
 
     @SafeVarargs

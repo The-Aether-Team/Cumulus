@@ -3,7 +3,7 @@ package com.aetherteam.cumulus.client.gui.screen;
 import com.aetherteam.cumulus.mixin.mixins.client.accessor.ButtonBuilderAccessor;
 import net.minecraft.client.gui.components.Button;
 
-public abstract class BuilderMadeButton extends Button {
+public abstract class BuilderMadeButton extends Button.Plain {
     protected BuilderMadeButton(Builder builder) {
         super(
             ((ButtonBuilderAccessor) builder).cumulus$x(),
