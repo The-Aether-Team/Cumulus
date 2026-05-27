@@ -22,6 +22,10 @@ public interface LanguageProviderBase {
         this.addGuiText("button.menu_launch", "Launch Menu");
         this.addGuiText("title.menu_selection", "Choose a Main Menu");
 
+        this.addGuiText("selectWorld.previewActive.edit", "This world cannot be edited while it is being previewed.");
+        this.addGuiText("selectWorld.previewActive.delete", "This world cannot be deleted while it is being previewed.");
+        this.addGuiText("selectWorld.previewActive.recreate", "This world cannot be recreated while it is being previewed.");
+
         this.addMenuTitle("minecraft", "Minecraft");
 
 

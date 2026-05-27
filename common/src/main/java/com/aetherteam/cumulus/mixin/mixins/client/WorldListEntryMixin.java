@@ -1,7 +1,6 @@
 package com.aetherteam.cumulus.mixin.mixins.client;
 
 import com.aetherteam.cumulus.client.WorldDisplayHelper;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.worldselection.WorldSelectionList;
 import net.minecraft.world.level.storage.LevelSummary;
 import org.spongepowered.asm.mixin.Final;
@@ -16,22 +15,6 @@ public class WorldListEntryMixin {
     @Final
     @Shadow
     LevelSummary summary;
-
-    /**
-     * Used by the world preview system.<br>
-     * Unloads the currently loaded world preview level if the level is being deleted.
-     *
-     * @param ci The {@link CallbackInfo} for the void method return.
-     * @see WorldDisplayHelper#isActive()
-     * @see WorldDisplayHelper#sameSummaries(LevelSummary)
-     * @see WorldDisplayHelper#stopLevel(Screen)
-     */
-    @Inject(at = @At(value = "HEAD"), method = "doDeleteWorld()V")
-    public void doDeleteWorld(CallbackInfo ci) {
-        if (WorldDisplayHelper.isActive() && WorldDisplayHelper.sameSummaries(this.summary)) {
-            WorldDisplayHelper.stopLevel(null);
-        }
-    }
 
     /**
      * Used by the world preview system.<br>

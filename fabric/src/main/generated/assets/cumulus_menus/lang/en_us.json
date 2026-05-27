@@ -29,6 +29,9 @@
   "gui.cumulus_menus.menu.button.world_preview": "W",
   "gui.cumulus_menus.menu.load": "Quick Load",
   "gui.cumulus_menus.menu.preview": "Toggle World",
+  "gui.cumulus_menus.selectWorld.previewActive.delete": "This world cannot be deleted while it is being previewed.",
+  "gui.cumulus_menus.selectWorld.previewActive.edit": "This world cannot be edited while it is being previewed.",
+  "gui.cumulus_menus.selectWorld.previewActive.recreate": "This world cannot be recreated while it is being previewed.",
   "gui.cumulus_menus.title.menu_selection": "Choose a Main Menu",
   "pack.cumulus_menus.mod.description": "Cumulus Resources"
 }
