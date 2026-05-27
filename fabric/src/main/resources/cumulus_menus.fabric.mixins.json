@@ -2,6 +2,9 @@
   "required": true,
   "package": "com.aetherteam.cumulus.mixin.mixins",
   "compatibilityLevel": "JAVA_25",
+  "mixinextras": {
+    "minVersion": "0.5.3"
+  },
   "mixins": [],
   "client": [
     "client.GameRendererMixin",

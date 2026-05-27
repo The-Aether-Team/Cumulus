@@ -33,9 +33,23 @@ public interface LanguageProviderBase {
         this.addConfig("Menu.tooltip", "Config options for menu settings");
         this.addConfig("Menu.button", "Options");
 
-        this.addClientConfig("menu", "enable_menu_api", "Determines whether the Menu API is enabled or not");
-        this.addClientConfig("menu", "active_menu", "Sets the current active menu title screen");
-        this.addClientConfig("menu", "enable_menu_list_button", "Adds a button to the top right of the main menu screen to open a menu selection screen");
+        this.addConfig("World Preview", "World Preview");
+        this.addConfig("World Preview.tooltip", "Config options for world preview settings");
+        this.addConfig("World Preview.button", "Options");
+
+        this.addClientConfig("menu", "enable_menu_api", "Enable Menu API");
+        this.addClientConfig("menu", "enable_menu_api.tooltip", "Determines whether the Menu API is enabled or not");
+        this.addClientConfig("menu", "active_menu", "Active Menu");
+        this.addClientConfig("menu", "active_menu.tooltip", "Sets the current active menu title screen");
+        this.addClientConfig("menu", "enable_menu_list_button", "Enables menu selection button");
+        this.addClientConfig("menu", "enable_menu_list_button.tooltip", "Adds a button to the top right of the main menu screen to open a menu selection screen");
+
+        this.addClientConfig("world_preview", "enable_world_preview", "Enables world preview");
+        this.addClientConfig("world_preview", "enable_world_preview.tooltip", "Changes the background panorama into a preview of the latest played world");
+        this.addClientConfig("world_preview", "enable_world_preview_button", "Enables toggle world button");
+        this.addClientConfig("world_preview", "enable_world_preview_button.tooltip", "Adds a button to the top right of the main menu screen to toggle between the panorama and world preview");
+        this.addClientConfig("world_preview", "enable_quick_load_button", "Enables quick load button");
+        this.addClientConfig("world_preview", "enable_quick_load_button.tooltip", "Adds a button to the top right of the main menu screen to allow quick loading into a world if the world preview is enabled");
 
         this.addPackDescription("mod", "Cumulus Resources");
 
@@ -97,7 +111,6 @@ public interface LanguageProviderBase {
 
     default void addClientConfig(String prefix, String key, String name) {
         this.add("config." + this.id() + ".client." + prefix + "." + key, name);
-        this.add("config." + this.id() + ".client." + prefix + "." + key + ".tooltip", name);
     }
 
     default void addPackDescription(String packName, String description) {

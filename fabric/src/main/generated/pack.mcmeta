@@ -3,6 +3,10 @@
     "description": {
       "translate": "pack.cumulus_menus.mod.description"
     },
-    "pack_format": 46
+    "max_format": [
+      84,
+      0
+    ],
+    "min_format": 84
   }
 }
